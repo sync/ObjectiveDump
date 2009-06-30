@@ -1,0 +1,1 @@
+Bunch of useful classes for developing iPhone and Mac OS X applications
