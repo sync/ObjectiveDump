@@ -15,6 +15,23 @@
 		28860BE50F44EE6400985440 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28860BE40F44EE6400985440 /* CoreData.framework */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
+		3AEA033B0FFA4022002E7D26 /* BaseFetchedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA03340FFA4022002E7D26 /* BaseFetchedTableViewController.m */; };
+		3AEA033C0FFA4022002E7D26 /* BaseFetchedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA03360FFA4022002E7D26 /* BaseFetchedViewController.m */; };
+		3AEA033D0FFA4022002E7D26 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA03380FFA4022002E7D26 /* BaseTableViewController.m */; };
+		3AEA033E0FFA4022002E7D26 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA033A0FFA4022002E7D26 /* BaseViewController.m */; };
+		3AEA03420FFA4034002E7D26 /* CoreDataUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA03410FFA4034002E7D26 /* CoreDataUtils.m */; };
+		3AEA03510FFA4041002E7D26 /* MyLocationGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA03450FFA4041002E7D26 /* MyLocationGetter.m */; };
+		3AEA03520FFA4041002E7D26 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA03480FFA4041002E7D26 /* Base64.m */; };
+		3AEA03530FFA4041002E7D26 /* NSHTTPCookieAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA034A0FFA4041002E7D26 /* NSHTTPCookieAdditions.m */; };
+		3AEA03540FFA4041002E7D26 /* mk.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA034D0FFA4041002E7D26 /* mk.m */; };
+		3AEA03550FFA4041002E7D26 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA03500FFA4041002E7D26 /* Reachability.m */; };
+		3AEA03570FFA4083002E7D26 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEA03560FFA4083002E7D26 /* CFNetwork.framework */; };
+		3AEA03590FFA4083002E7D26 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEA03580FFA4083002E7D26 /* CoreFoundation.framework */; };
+		3AEA035B0FFA4083002E7D26 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEA035A0FFA4083002E7D26 /* CoreLocation.framework */; };
+		3AEA035D0FFA4083002E7D26 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEA035C0FFA4083002E7D26 /* MapKit.framework */; };
+		3AEA035F0FFA4083002E7D26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEA035E0FFA4083002E7D26 /* QuartzCore.framework */; };
+		3AEA03610FFA4083002E7D26 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEA03600FFA4083002E7D26 /* SystemConfiguration.framework */; };
+		3AEA03A90FFA4A9F002E7D26 /* GloballyUniquePathStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA03A80FFA4A9F002E7D26 /* GloballyUniquePathStringAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +46,35 @@
 		28A0AAE50D9B0CCF005BE974 /* ObjectiveDump_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveDump_Prefix.pch; sourceTree = "<group>"; };
 		28AD735F0D9D9599002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3AEA03330FFA4022002E7D26 /* BaseFetchedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFetchedTableViewController.h; sourceTree = "<group>"; };
+		3AEA03340FFA4022002E7D26 /* BaseFetchedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseFetchedTableViewController.m; sourceTree = "<group>"; };
+		3AEA03350FFA4022002E7D26 /* BaseFetchedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseFetchedViewController.h; sourceTree = "<group>"; };
+		3AEA03360FFA4022002E7D26 /* BaseFetchedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseFetchedViewController.m; sourceTree = "<group>"; };
+		3AEA03370FFA4022002E7D26 /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
+		3AEA03380FFA4022002E7D26 /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
+		3AEA03390FFA4022002E7D26 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		3AEA033A0FFA4022002E7D26 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		3AEA03400FFA4034002E7D26 /* CoreDataUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataUtils.h; sourceTree = "<group>"; };
+		3AEA03410FFA4034002E7D26 /* CoreDataUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataUtils.m; sourceTree = "<group>"; };
+		3AEA03440FFA4041002E7D26 /* MyLocationGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLocationGetter.h; sourceTree = "<group>"; };
+		3AEA03450FFA4041002E7D26 /* MyLocationGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLocationGetter.m; sourceTree = "<group>"; };
+		3AEA03470FFA4041002E7D26 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
+		3AEA03480FFA4041002E7D26 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
+		3AEA03490FFA4041002E7D26 /* NSHTTPCookieAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHTTPCookieAdditions.h; sourceTree = "<group>"; };
+		3AEA034A0FFA4041002E7D26 /* NSHTTPCookieAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSHTTPCookieAdditions.m; sourceTree = "<group>"; };
+		3AEA034C0FFA4041002E7D26 /* mk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mk.h; sourceTree = "<group>"; };
+		3AEA034D0FFA4041002E7D26 /* mk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mk.m; sourceTree = "<group>"; };
+		3AEA034F0FFA4041002E7D26 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		3AEA03500FFA4041002E7D26 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		3AEA03560FFA4083002E7D26 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		3AEA03580FFA4083002E7D26 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		3AEA035A0FFA4083002E7D26 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3AEA035C0FFA4083002E7D26 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3AEA035E0FFA4083002E7D26 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3AEA03600FFA4083002E7D26 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3AEA037C0FFA41C0002E7D26 /* Define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
+		3AEA03A70FFA4A9F002E7D26 /* GloballyUniquePathStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GloballyUniquePathStringAdditions.h; sourceTree = "<group>"; };
+		3AEA03A80FFA4A9F002E7D26 /* GloballyUniquePathStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GloballyUniquePathStringAdditions.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ObjectiveDump-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ObjectiveDump-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,6 +87,12 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				28860BE50F44EE6400985440 /* CoreData.framework in Frameworks */,
+				3AEA03570FFA4083002E7D26 /* CFNetwork.framework in Frameworks */,
+				3AEA03590FFA4083002E7D26 /* CoreFoundation.framework in Frameworks */,
+				3AEA035B0FFA4083002E7D26 /* CoreLocation.framework in Frameworks */,
+				3AEA035D0FFA4083002E7D26 /* MapKit.framework in Frameworks */,
+				3AEA035F0FFA4083002E7D26 /* QuartzCore.framework in Frameworks */,
+				3AEA03610FFA4083002E7D26 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,11 +119,19 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				3AEA037C0FFA41C0002E7D26 /* Define.h */,
 				080E96DDFE201D6D7F000001 /* Classes */,
+				3AEA03290FFA3F80002E7D26 /* Source */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				3AEA03560FFA4083002E7D26 /* CFNetwork.framework */,
+				3AEA03580FFA4083002E7D26 /* CoreFoundation.framework */,
+				3AEA035A0FFA4083002E7D26 /* CoreLocation.framework */,
+				3AEA035C0FFA4083002E7D26 /* MapKit.framework */,
+				3AEA035E0FFA4083002E7D26 /* QuartzCore.framework */,
+				3AEA03600FFA4083002E7D26 /* SystemConfiguration.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -104,6 +164,115 @@
 				28860BE40F44EE6400985440 /* CoreData.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3AEA03290FFA3F80002E7D26 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				3AEA032A0FFA3F80002E7D26 /* iPhone */,
+				3AEA032B0FFA3F80002E7D26 /* MacOSX */,
+				3AEA032C0FFA3F80002E7D26 /* ObjectiveC */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		3AEA032A0FFA3F80002E7D26 /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				3AEA03430FFA4041002E7D26 /* GeoLocation */,
+				3AEA03460FFA4041002E7D26 /* Network */,
+				3AEA034B0FFA4041002E7D26 /* Other */,
+				3AEA034E0FFA4041002E7D26 /* Reachability */,
+				3AEA032D0FFA3FA3002E7D26 /* TableView */,
+			);
+			path = iPhone;
+			sourceTree = "<group>";
+		};
+		3AEA032B0FFA3F80002E7D26 /* MacOSX */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MacOSX;
+			sourceTree = "<group>";
+		};
+		3AEA032C0FFA3F80002E7D26 /* ObjectiveC */ = {
+			isa = PBXGroup;
+			children = (
+				3AEA033F0FFA4034002E7D26 /* CoreData */,
+			);
+			path = ObjectiveC;
+			sourceTree = "<group>";
+		};
+		3AEA032D0FFA3FA3002E7D26 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				3AEA03320FFA4022002E7D26 /* BaseControllers */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		3AEA03320FFA4022002E7D26 /* BaseControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3AEA03390FFA4022002E7D26 /* BaseViewController.h */,
+				3AEA033A0FFA4022002E7D26 /* BaseViewController.m */,
+				3AEA03350FFA4022002E7D26 /* BaseFetchedViewController.h */,
+				3AEA03360FFA4022002E7D26 /* BaseFetchedViewController.m */,
+				3AEA03370FFA4022002E7D26 /* BaseTableViewController.h */,
+				3AEA03380FFA4022002E7D26 /* BaseTableViewController.m */,
+				3AEA03330FFA4022002E7D26 /* BaseFetchedTableViewController.h */,
+				3AEA03340FFA4022002E7D26 /* BaseFetchedTableViewController.m */,
+			);
+			path = BaseControllers;
+			sourceTree = "<group>";
+		};
+		3AEA033F0FFA4034002E7D26 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				3AEA03400FFA4034002E7D26 /* CoreDataUtils.h */,
+				3AEA03410FFA4034002E7D26 /* CoreDataUtils.m */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		3AEA03430FFA4041002E7D26 /* GeoLocation */ = {
+			isa = PBXGroup;
+			children = (
+				3AEA03440FFA4041002E7D26 /* MyLocationGetter.h */,
+				3AEA03450FFA4041002E7D26 /* MyLocationGetter.m */,
+			);
+			path = GeoLocation;
+			sourceTree = "<group>";
+		};
+		3AEA03460FFA4041002E7D26 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				3AEA03470FFA4041002E7D26 /* Base64.h */,
+				3AEA03480FFA4041002E7D26 /* Base64.m */,
+				3AEA03490FFA4041002E7D26 /* NSHTTPCookieAdditions.h */,
+				3AEA034A0FFA4041002E7D26 /* NSHTTPCookieAdditions.m */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		3AEA034B0FFA4041002E7D26 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				3AEA034C0FFA4041002E7D26 /* mk.h */,
+				3AEA034D0FFA4041002E7D26 /* mk.m */,
+				3AEA03A70FFA4A9F002E7D26 /* GloballyUniquePathStringAdditions.h */,
+				3AEA03A80FFA4A9F002E7D26 /* GloballyUniquePathStringAdditions.m */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		3AEA034E0FFA4041002E7D26 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				3AEA034F0FFA4041002E7D26 /* Reachability.h */,
+				3AEA03500FFA4041002E7D26 /* Reachability.m */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +338,17 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* ObjectiveDumpAppDelegate.m in Sources */,
 				28860B770F44E54D00985440 /* ObjectiveDump.xcdatamodel in Sources */,
+				3AEA033B0FFA4022002E7D26 /* BaseFetchedTableViewController.m in Sources */,
+				3AEA033C0FFA4022002E7D26 /* BaseFetchedViewController.m in Sources */,
+				3AEA033D0FFA4022002E7D26 /* BaseTableViewController.m in Sources */,
+				3AEA033E0FFA4022002E7D26 /* BaseViewController.m in Sources */,
+				3AEA03420FFA4034002E7D26 /* CoreDataUtils.m in Sources */,
+				3AEA03510FFA4041002E7D26 /* MyLocationGetter.m in Sources */,
+				3AEA03520FFA4041002E7D26 /* Base64.m in Sources */,
+				3AEA03530FFA4041002E7D26 /* NSHTTPCookieAdditions.m in Sources */,
+				3AEA03540FFA4041002E7D26 /* mk.m in Sources */,
+				3AEA03550FFA4041002E7D26 /* Reachability.m in Sources */,
+				3AEA03A90FFA4A9F002E7D26 /* GloballyUniquePathStringAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
