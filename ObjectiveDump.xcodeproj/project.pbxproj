@@ -32,6 +32,8 @@
 		3AEA035F0FFA4083002E7D26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEA035E0FFA4083002E7D26 /* QuartzCore.framework */; };
 		3AEA03610FFA4083002E7D26 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AEA03600FFA4083002E7D26 /* SystemConfiguration.framework */; };
 		3AEA03A90FFA4A9F002E7D26 /* GloballyUniquePathStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA03A80FFA4A9F002E7D26 /* GloballyUniquePathStringAdditions.m */; };
+		3AEA04C30FFB903F002E7D26 /* BaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA04BF0FFB903F002E7D26 /* BaseDataSource.m */; };
+		3AEA04C40FFB903F002E7D26 /* DefaultOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AEA04C20FFB903F002E7D26 /* DefaultOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +77,10 @@
 		3AEA037C0FFA41C0002E7D26 /* Define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
 		3AEA03A70FFA4A9F002E7D26 /* GloballyUniquePathStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GloballyUniquePathStringAdditions.h; sourceTree = "<group>"; };
 		3AEA03A80FFA4A9F002E7D26 /* GloballyUniquePathStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GloballyUniquePathStringAdditions.m; sourceTree = "<group>"; };
+		3AEA04BE0FFB903F002E7D26 /* BaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseDataSource.h; sourceTree = "<group>"; };
+		3AEA04BF0FFB903F002E7D26 /* BaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseDataSource.m; sourceTree = "<group>"; };
+		3AEA04C10FFB903F002E7D26 /* DefaultOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultOperation.h; sourceTree = "<group>"; };
+		3AEA04C20FFB903F002E7D26 /* DefaultOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultOperation.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ObjectiveDump-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ObjectiveDump-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -247,6 +253,8 @@
 		3AEA03460FFA4041002E7D26 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				3AEA04BD0FFB903F002E7D26 /* DataSource */,
+				3AEA04C00FFB903F002E7D26 /* NSOperations */,
 				3AEA03470FFA4041002E7D26 /* Base64.h */,
 				3AEA03480FFA4041002E7D26 /* Base64.m */,
 				3AEA03490FFA4041002E7D26 /* NSHTTPCookieAdditions.h */,
@@ -273,6 +281,24 @@
 				3AEA03500FFA4041002E7D26 /* Reachability.m */,
 			);
 			path = Reachability;
+			sourceTree = "<group>";
+		};
+		3AEA04BD0FFB903F002E7D26 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				3AEA04BE0FFB903F002E7D26 /* BaseDataSource.h */,
+				3AEA04BF0FFB903F002E7D26 /* BaseDataSource.m */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		3AEA04C00FFB903F002E7D26 /* NSOperations */ = {
+			isa = PBXGroup;
+			children = (
+				3AEA04C10FFB903F002E7D26 /* DefaultOperation.h */,
+				3AEA04C20FFB903F002E7D26 /* DefaultOperation.m */,
+			);
+			path = NSOperations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,6 +375,8 @@
 				3AEA03540FFA4041002E7D26 /* mk.m in Sources */,
 				3AEA03550FFA4041002E7D26 /* Reachability.m in Sources */,
 				3AEA03A90FFA4A9F002E7D26 /* GloballyUniquePathStringAdditions.m in Sources */,
+				3AEA04C30FFB903F002E7D26 /* BaseDataSource.m in Sources */,
+				3AEA04C40FFB903F002E7D26 /* DefaultOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

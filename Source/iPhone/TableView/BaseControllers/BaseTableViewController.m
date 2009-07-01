@@ -90,7 +90,7 @@
 - (NSDictionary *)cellKeysForAttributes
 {
 	if (!_cellKeysForAttributes) {
-		_cellKeysForAttributes = [[NSArray alloc]init];
+		_cellKeysForAttributes = [[NSDictionary alloc]init];
 	}
 	return _cellKeysForAttributes;
 }
@@ -99,11 +99,11 @@
 {
 	if (!_content) {
 		if ([[NSFileManager defaultManager]fileExistsAtPath:self.dumpedFilePath]) {
-			_content = [NSArray arrayWithContentsOfFile:self.dumpedFilePath];
+			_content = [NSMutableArray arrayWithContentsOfFile:self.dumpedFilePath];
 			[[NSFileManager defaultManager]removeItemAtPath:self.dumpedFilePath error:nil];
 			self.dumpedFilePath = nil;
 		} else {
-			_content = [[NSArray alloc]init];
+			_content = [[NSMutableArray alloc]init];
 		}
 	}
 	return _content;

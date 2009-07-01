@@ -168,6 +168,15 @@
  */
 
 
+- (ObjectiveDumpAppDelegate *)appDelegate
+{
+	if (!_appDelegate) {
+		_appDelegate = (ObjectiveDumpAppDelegate *)[[UIApplication sharedApplication]delegate];
+	}
+	return _appDelegate;
+}
+
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     

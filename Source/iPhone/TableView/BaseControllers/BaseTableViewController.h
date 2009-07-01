@@ -15,7 +15,7 @@
 	NSArray *_cellAttributes;
 	NSDictionary *_cellKeysForAttributes;
 	
-	NSArray *_content;
+	NSMutableArray *_content;
 	
 	NSString *_dumpedFilePath;
 }
@@ -25,7 +25,7 @@
 @property (nonatomic, readonly) UITableViewCellStyle cellStyle;
 @property (nonatomic, readonly) NSArray *cellAttributes;
 @property (nonatomic, readonly) NSDictionary *cellKeysForAttributes;
-@property (nonatomic, readonly) NSArray *content;
+@property (nonatomic, readonly) NSMutableArray *content;
 @property (nonatomic, copy) NSString *dumpedFilePath;
 
 // Setting up 
