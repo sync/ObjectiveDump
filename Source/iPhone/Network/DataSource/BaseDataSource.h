@@ -46,6 +46,8 @@
 @property (nonatomic, retain) NSOperationQueue *operationQueue;
 @property (nonatomic, readonly) NSURL *nextURL;
 @property (nonatomic, readonly) BOOL canGoNext;
+@property (nonatomic, readonly) NSString *lastLoadedDefaultskey;
+@property (nonatomic, readonly) BOOL dataSourceHasExpired;
 
 // Using this method you can
 // Easily fill a tableView
@@ -65,9 +67,15 @@
 // Could include core data object id, or else if non core data related
 // Inside infoDictionary
 - (void)dataSource:(BaseDataSource *)dataSource didFinishLoadingWithInfoDictionary:(NSDictionary *)infoDictionary;
-// Inform the delegate fetch events
+// Inform the delegate for fetch events
 - (void)dataSourceDidStartLoading:(BaseDataSource *)dataSource;
 - (void)dataSourceDidCancelLoading:(BaseDataSource *)dataSource;
 - (void)dataSource:(BaseDataSource *)dataSource didFailLoadingWithErrorString:(NSString *)errorString;
+// Save the last time the data source successfully load remote data
+- (NSString *)dataSourceLastLoadedDefaultskey:(BaseDataSource *)dataSource;
+// Set an expiry date for last data loaded
+// If does not set anything data source will
+// Always try to reload
+- (NSTimeInterval)dataSourceExpirtyTimeInterval:(BaseDataSource *)dataSource;
 
 @end

@@ -24,7 +24,11 @@
 	self = [super init];
 	if (self != nil) {
 		self.isLoading = FALSE;
-		self.lastLoadedTime = nil;
+		// Get last loaded time from user defaults
+		if (self.lastLoadedDefaultskey) {
+			NSDate *lastLoadedTime = [NSDate dateWithTimeIntervalSince1970:[[[NSUserDefaults standardUserDefaults]valueForKey:self.lastLoadedDefaultskey]doubleValue]];
+			self.lastLoadedTime = lastLoadedTime;
+		}
 		self.hasFailedLoading = FALSE;
 		self.itemsCount = 0;
 		self.lastDisplayedItemIndex = 0;
@@ -35,10 +39,18 @@
 
 - (void)startLoading
 {
-	if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceDidStartLoading:)]) {
-		[self.delegate dataSourceDidStartLoading:self];
+	// Check expiry date for last loaded data
+	// If still valid does not start
+	if (self.dataSourceHasExpired) {
+		if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceDidStartLoading:)]) {
+			[self.delegate dataSourceDidStartLoading:self];
+		}
+	} else {
+		// Data is still valid
+		[self cancelLoading];
 	}
 }
+
 
 - (void)cancelLoading
 {
@@ -110,6 +122,10 @@
 	// Set the last time data source succeed to download a file
 	self.lastLoadedTime = [NSDate date];
 	
+	// Save to the user defaults, useful for
+	// remote data expiry date
+	[[NSUserDefaults standardUserDefaults]setDouble:[self.lastLoadedTime timeIntervalSince1970] forKey:self.lastLoadedDefaultskey];
+	
 	// Set that the last loading try has succeed
 	self.hasFailedLoading = FALSE;
 	
@@ -121,8 +137,29 @@
 	}
 }
 
+- (NSString *)lastLoadedDefaultskey
+{
+	if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceLastLoadedDefaultskey:)]) {
+		return [self.delegate dataSourceLastLoadedDefaultskey:self];
+	}
+	return nil;
+}
 
+- (NSTimeInterval)expirtyTimeInterval
+{
+	if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceExpirtyTimeInterval:)]) {
+		return [self.delegate dataSourceExpirtyTimeInterval:self];
+	}
+	return 0.0;
+}
 
+- (BOOL)dataSourceHasExpired
+{
+	NSDate *now = [NSDate date];
+	NSDate *expiredDate = [[NSDate date]addTimeInterval:self.expirtyTimeInterval];
+	NSTimeInterval difference = [now timeIntervalSinceDate:expiredDate];
+	return (difference >= 0);
+}
 
 - (void)dealloc
 {
