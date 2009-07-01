@@ -155,6 +155,9 @@
 
 - (BOOL)dataSourceHasExpired
 {
+	if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceHasExpired:)]) {
+		return [self.delegate dataSourceHasExpired:self];
+	}
 	NSDate *now = [NSDate date];
 	NSDate *expiredDate = [[NSDate date]addTimeInterval:self.expirtyTimeInterval];
 	NSTimeInterval difference = [now timeIntervalSinceDate:expiredDate];

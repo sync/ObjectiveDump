@@ -76,6 +76,9 @@
 // Set an expiry date for last data loaded
 // If does not set anything data source will
 // Always try to reload
+// If data source has expired is implement in delegate this method is ignored
 - (NSTimeInterval)dataSourceExpirtyTimeInterval:(BaseDataSource *)dataSource;
+// Possiblity to tell the data source when data source is expired
+- (BOOL)dataSourceHasExpired:(BaseDataSource *)dataSource;
 
 @end
