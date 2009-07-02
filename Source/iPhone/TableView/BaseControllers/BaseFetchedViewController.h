@@ -32,5 +32,8 @@
 // Retrieve object linked to row
 - (id)objectForIndexPath:(NSIndexPath *)indexPath;
 
+// Merge any saved changes with the context on other thread
+- (void)contextDidSave:(NSNotification *)notification;
+
 
 @end

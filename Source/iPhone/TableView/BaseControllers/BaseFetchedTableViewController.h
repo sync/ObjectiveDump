@@ -18,4 +18,7 @@
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, readonly) NSString *entityName;
 
+// Merge any saved changes with the context on other thread
+- (void)contextDidSave:(NSNotification *)notification;
+
 @end

@@ -21,6 +21,18 @@
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		// Handle the error...
 	}
+
+	// Merge any saved changes with the context on other thread
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(contextDidSave:) 
+												 name:NSManagedObjectContextDidSaveNotification
+											   object:nil];
+}
+
+- (void)contextDidSave:(NSNotification *)notification
+{
+	[self.appDelegate.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+	[self.tableView reloadData];
 }
 
 
@@ -218,6 +230,8 @@
 
 
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter]removeObserver:self];
+	
 	[_tableView release];
 	[fetchedResultsController release];
 	
