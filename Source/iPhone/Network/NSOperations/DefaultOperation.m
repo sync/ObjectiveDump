@@ -221,15 +221,15 @@
 		if (CFHTTPMessageIsHeaderComplete(headers)) {
 			CFDictionaryRef responseHeaders = CFHTTPMessageCopyAllHeaderFields(headers);
 			self.responseStatusCode = CFHTTPMessageGetResponseStatusCode(headers);
-			CFRelease(responseHeaders);
-			responseHeaders = NULL;
-			NSLog(@"response status code: %d for url: %@", responseStatusCode, self.url);
-
+			
 			// Handle cookies
 			NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:(NSDictionary *)responseHeaders forURL:url];
 			//[self setResponseCookies:cookies];
+			
 			CFRelease(responseHeaders);
-
+			responseHeaders = NULL;
+			NSLog(@"response status code: %d for url: %@", responseStatusCode, self.url);
+			
 			// Store cookies in global persistent store
 			[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:cookies forURL:url mainDocumentURL:nil];
 		}

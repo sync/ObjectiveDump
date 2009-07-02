@@ -156,14 +156,14 @@
 	// Create the fetch request for the entity.
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 	// Edit the entity name as appropriate.
-	NSEntityDescription *entity = [NSEntityDescription entityForName:self.entityName inManagedObjectContext:self.appDelegate.managedObjectContext];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPProduct" inManagedObjectContext:self.appDelegate.managedObjectContext];
 	[fetchRequest setEntity:entity];
 	
-//	// Edit the sort key as appropriate.
-//	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"first_name" ascending:YES];
-//	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-//	
-//	[fetchRequest setSortDescriptors:sortDescriptors];
+	// Edit the sort key as appropriate.
+	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"Event" ascending:YES];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+	
+	[fetchRequest setSortDescriptors:sortDescriptors];
 	
 	// Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
@@ -173,11 +173,11 @@
 	
 	[aFetchedResultsController release];
 	[fetchRequest release];
-//	[sortDescriptor release];
-//	[sortDescriptors release];
+	[sortDescriptor release];
+	[sortDescriptors release];
 	
 	return fetchedResultsController;
-} 
+}
 
 //help executing a method when a notification fire
 - (void)observeValueForKeyPath:(NSString *)keyPath
