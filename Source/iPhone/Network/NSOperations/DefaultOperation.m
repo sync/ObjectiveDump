@@ -76,6 +76,7 @@
 		return;  // user cancelled this operation
 	}
 	
+	[self startOperation];
 	
 	NSData *responseData = [self downloadUrl];
 	
