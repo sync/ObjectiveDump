@@ -26,13 +26,7 @@
 
 - (void)viewDidUnload 
 {	
-	// Empty cell attributes array
-	[_cellAttributes release];
-	_cellAttributes = nil;
 	
-	// Empty cell key for attributes
-	[_cellKeysForAttributes release];
-	_cellKeysForAttributes = nil;
 }
 
 - (Class)cellClass
@@ -43,22 +37,6 @@
 - (UITableViewCellStyle)cellStyle
 {
 	return UITableViewCellStyleDefault;
-}
-
-- (NSArray *)cellAttributes
-{
-	if (!_cellAttributes) {
-		_cellAttributes = [[NSArray alloc]init];
-	}
-	return _cellAttributes;
-}
-
-- (NSDictionary *)cellKeysForAttributes
-{
-	if (!_cellKeysForAttributes) {
-		_cellKeysForAttributes = [[NSArray alloc]init];
-	}
-	return _cellKeysForAttributes;
 }
 
 - (NSString *)entityName
@@ -132,17 +110,19 @@
 	id object = [self objectForIndexPath:indexPath];
     
 	// Configure the cell.
-	for (NSString *attribute in self.cellAttributes) {
-		NSString *key = [self keyForAttribute:attribute];
-		[cell setValue:[object valueForKey:key] forKey:attribute];
+	NSDictionary *cellAttributes = [self attributesForCell:cell withObject:object];
+	
+	for (NSString *keypath in cellAttributes) {
+		[cell setValue:[cellAttributes valueForKey:keypath] forKeyPath:keypath];
 	}
 	
     return cell;
 }
 
-- (NSString *)keyForAttribute:(NSString *)attribute
+- (NSDictionary *)attributesForCell:(UITableViewCell *)cell withObject:(id)object
 {
-	return [self.cellKeysForAttributes valueForKey:attribute];
+	// Empty dict
+	return [NSDictionary dictionary];
 }
 
 
@@ -166,15 +146,6 @@
  return YES;
  }
  */
-
-
-- (ObjectiveDumpAppDelegate *)appDelegate
-{
-	if (!_appDelegate) {
-		_appDelegate = (ObjectiveDumpAppDelegate *)[[UIApplication sharedApplication]delegate];
-	}
-	return _appDelegate;
-}
 
 
 // Override to support editing the table view.
@@ -247,8 +218,6 @@
 
 
 - (void)dealloc {
-	[_cellKeysForAttributes release];
-	[_cellAttributes release];
 	[_tableView release];
 	[fetchedResultsController release];
 	

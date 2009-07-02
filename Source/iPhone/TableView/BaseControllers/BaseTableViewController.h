@@ -12,9 +12,6 @@
 @interface BaseTableViewController : UITableViewController <UIAlertViewDelegate>{
 	ObjectiveDumpAppDelegate *_appDelegate;
 	
-	NSArray *_cellAttributes;
-	NSDictionary *_cellKeysForAttributes;
-	
 	NSMutableArray *_content;
 	
 	NSString *_dumpedFilePath;
@@ -23,8 +20,6 @@
 @property (nonatomic, readonly) ObjectiveDumpAppDelegate *appDelegate;
 @property (nonatomic, readonly) Class cellClass;
 @property (nonatomic, readonly) UITableViewCellStyle cellStyle;
-@property (nonatomic, readonly) NSArray *cellAttributes;
-@property (nonatomic, readonly) NSDictionary *cellKeysForAttributes;
 @property (nonatomic, readonly) NSMutableArray *content;
 @property (nonatomic, copy) NSString *dumpedFilePath;
 
@@ -35,11 +30,7 @@
 
 // Cell properties
 - (Class)cellClass;
-- (NSArray *)cellAttributes;
-- (NSDictionary *)cellKeysForAttributes;
-
-// Cell property helper
-- (NSString *)keyForAttribute:(NSString *)attribute;
+- (NSDictionary *)attributesForCell:(UITableViewCell *)cell withObject:(id)object;
 
 // Retrieve object linked to row
 - (id)objectForIndexPath:(NSIndexPath *)indexPath;

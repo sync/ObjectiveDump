@@ -32,14 +32,6 @@
 
 - (void)viewDidUnload 
 {	
-	// Empty cell attributes array
-	[_cellAttributes release];
-	_cellAttributes = nil;
-	
-	// Empty cell key for attributes
-	[_cellKeysForAttributes release];
-	_cellKeysForAttributes = nil;
-	
 	// Dump array content to temporary file
 	// Only if non nil and non empty
 	if (self.content && [self.content count]>0) {
@@ -77,22 +69,6 @@
 - (UITableViewCellStyle)cellStyle
 {
 	return UITableViewCellStyleDefault;
-}
-
-- (NSArray *)cellAttributes
-{
-	if (!_cellAttributes) {
-		_cellAttributes = [[NSArray alloc]init];
-	}
-	return _cellAttributes;
-}
-
-- (NSDictionary *)cellKeysForAttributes
-{
-	if (!_cellKeysForAttributes) {
-		_cellKeysForAttributes = [[NSDictionary alloc]init];
-	}
-	return _cellKeysForAttributes;
 }
 
 - (NSArray *)content
@@ -169,17 +145,19 @@
 	id object = [self objectForIndexPath:indexPath];
     
 	// Configure the cell.
-	for (NSString *attribute in self.cellAttributes) {
-		NSString *key = [self keyForAttribute:attribute];
-		[cell setValue:[object valueForKey:key] forKey:attribute];
+	NSDictionary *cellAttributes = [self attributesForCell:cell withObject:object];
+	
+	for (NSString *keypath in cellAttributes) {
+		[cell setValue:[cellAttributes valueForKey:keypath] forKeyPath:keypath];
 	}
 	
     return cell;
 }
-		 
-- (NSString *)keyForAttribute:(NSString *)attribute
+
+- (NSDictionary *)attributesForCell:(UITableViewCell *)cell withObject:(id)object
 {
-	return [self.cellKeysForAttributes valueForKey:attribute];
+	// Empty dict
+	return [NSDictionary dictionary];
 }
 
 
@@ -261,8 +239,6 @@
 - (void)dealloc {
 	[_dumpedFilePath release];
 	[_content release];
-	[_cellKeysForAttributes release];
-	[_cellAttributes release];
 	
 	[_appDelegate release];
 	
