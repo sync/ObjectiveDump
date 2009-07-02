@@ -94,6 +94,27 @@
 	[super viewWillDisappear:animated];
 }
 
+#pragma mark Show Error
+
+- (void)showUserErrorWithTitle:(NSString *)title message:(NSString *)message
+{
+	// Inform the user regarding problem
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title 
+													message:message
+												   delegate:nil cancelButtonTitle:nil 
+										  otherButtonTitles:@"OK", nil];
+	alert.delegate = self;
+	[alert show];	
+	[alert release];
+}
+
+#pragma mark Show Loading View
+
+- (void)showLoadingView:(BOOL)show withText:(NSString *)text
+{
+	// Nothing, up to the subclassing controller to implement this
+}
+
 /*
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

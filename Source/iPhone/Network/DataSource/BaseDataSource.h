@@ -55,6 +55,11 @@
 - (void)cancelLoading;
 - (void)goNext;
 
+// Here you can for example
+// Setup a default operation
+// Add it to the operation queue
+- (void)setupAndStartOperation;
+
 @end
 
 @protocol BaseDataSourceDelegate <NSObject>

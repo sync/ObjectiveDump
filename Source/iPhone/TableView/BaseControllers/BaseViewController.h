@@ -23,4 +23,13 @@
 // Restore levels
 - (void)restoreLevelWithSelectionArray:(NSArray *)selectionArray;
 
+// Show error to user
+// Cannot cancel, just ok button
+- (void)showUserErrorWithTitle:(NSString *)title message:(NSString *)message;
+
+// Show loading view
+// Possiblity to add a message
+// Like loading...
+- (void)showLoadingView:(BOOL)show withText:(NSString *)text;
+
 @end

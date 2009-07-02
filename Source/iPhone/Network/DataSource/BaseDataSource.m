@@ -43,12 +43,18 @@
 	// If still valid does not start
 	if (self.dataSourceHasExpired) {
 		if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceDidStartLoading:)]) {
+			[self setupAndStartOperation];
 			[self.delegate dataSourceDidStartLoading:self];
 		}
 	} else {
 		// Data is still valid
 		[self cancelLoading];
 	}
+}
+
+- (void)setupAndStartOperation
+{
+	// Nothing
 }
 
 
@@ -63,6 +69,7 @@
 {
 	if (self.delegate && [self.delegate respondsToSelector:@selector(dataSource:nextURLWithLastDisplayedItemIndex:)]) {
 		if (self.nextURL) {
+			[self startLoading];
 			[self.delegate dataSourceDidStartLoading:self];
 		}
 	}
