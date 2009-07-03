@@ -48,6 +48,9 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 #import <UIKit/UIKit.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
+// Networking
+#define kNetworkReachabilityChangedNotification @"kNetworkReachabilityChangedNotification"
+
 @class Reachability;
 
 @interface Reachability : NSObject {

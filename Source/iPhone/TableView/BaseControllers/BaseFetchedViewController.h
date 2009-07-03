@@ -15,8 +15,11 @@
 	UITableView *_tableView;
 	
 	NSString *_entityName;
+	
+	NSManagedObjectContext *_managedObjectContext;
 }
 
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 

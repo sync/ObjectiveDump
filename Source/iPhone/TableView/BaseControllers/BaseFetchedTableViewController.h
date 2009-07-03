@@ -13,8 +13,11 @@
 	NSFetchedResultsController *fetchedResultsController;
 	
 	NSString *_entityName;
+	
+	NSManagedObjectContext *_managedObjectContext;
 }
 
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, readonly) NSString *entityName;
 

@@ -13,6 +13,7 @@
 
 @synthesize fetchedResultsController;
 @synthesize tableView=_tableView;
+@synthesize managedObjectContext=_managedObjectContext;
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -31,7 +32,7 @@
 
 - (void)contextDidSave:(NSNotification *)notification
 {
-	[self.appDelegate.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+	[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
 	[self.tableView reloadData];
 }
 
@@ -205,7 +206,7 @@
 	// Create the fetch request for the entity.
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 	// Edit the entity name as appropriate.
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPProduct" inManagedObjectContext:self.appDelegate.managedObjectContext];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPProduct" inManagedObjectContext:self.managedObjectContext];
 	[fetchRequest setEntity:entity];
 	
 	// Edit the sort key as appropriate.
@@ -216,7 +217,7 @@
 	
 	// Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.appDelegate.managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
     aFetchedResultsController.delegate = self;
 	self.fetchedResultsController = aFetchedResultsController;
 	
@@ -232,6 +233,7 @@
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter]removeObserver:self];
 	
+	[_managedObjectContext release];
 	[_tableView release];
 	[fetchedResultsController release];
 	

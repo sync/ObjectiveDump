@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+// GPS
+#define ShouldStopGPSLocationFix @"ShouldStopGPSLocationFix"
 
 @interface MyLocationGetter : NSObject <CLLocationManagerDelegate> {
 	

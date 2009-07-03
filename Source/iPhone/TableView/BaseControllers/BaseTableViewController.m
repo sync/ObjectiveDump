@@ -212,15 +212,6 @@
 	// Nothing, up to the subclassing controller to implement this
 }
 
-
-- (ObjectiveDumpAppDelegate *)appDelegate
-{
-	if (!_appDelegate) {
-		_appDelegate = (ObjectiveDumpAppDelegate *)[[UIApplication sharedApplication]delegate];
-	}
-	return _appDelegate;
-}
-
 - (void)restoreLevelWithSelectionArray:(NSArray *)selectionArray
 {
 	// nothing
@@ -239,8 +230,6 @@
 - (void)dealloc {
 	[_dumpedFilePath release];
 	[_content release];
-	
-	[_appDelegate release];
 	
     [super dealloc];
 }

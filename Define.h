@@ -6,9 +6,3 @@
  *  Copyright 2009 Anthony Mittaz. All rights reserved.
  *
  */
-
-// Networking
-#define kNetworkReachabilityChangedNotification @"kNetworkReachabilityChangedNotification"
-
-// GPS
-#define ShouldStopGPSLocationFix @"ShouldStopGPSLocationFix"

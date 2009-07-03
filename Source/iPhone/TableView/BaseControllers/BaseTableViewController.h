@@ -9,15 +9,12 @@
 #import <UIKit/UIKit.h>
 
 
-@interface BaseTableViewController : UITableViewController <UIAlertViewDelegate>{
-	ObjectiveDumpAppDelegate *_appDelegate;
-	
+@interface BaseTableViewController : UITableViewController <UIAlertViewDelegate>{	
 	NSMutableArray *_content;
 	
 	NSString *_dumpedFilePath;
 }
 
-@property (nonatomic, readonly) ObjectiveDumpAppDelegate *appDelegate;
 @property (nonatomic, readonly) Class cellClass;
 @property (nonatomic, readonly) UITableViewCellStyle cellStyle;
 @property (nonatomic, readonly) NSMutableArray *content;

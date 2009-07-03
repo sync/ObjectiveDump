@@ -10,10 +10,8 @@
 
 
 @interface BaseViewController : UIViewController {
-	ObjectiveDumpAppDelegate *_appDelegate;
+	
 }
-
-@property (nonatomic, readonly) ObjectiveDumpAppDelegate *appDelegate;
 
 // Setting up 
 - (void)setupTableView;

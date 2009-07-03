@@ -76,14 +76,6 @@
 	// e.g. self.myOutlet = nil;
 }
 
-- (ObjectiveDumpAppDelegate *)appDelegate
-{
-	if (!_appDelegate) {
-		_appDelegate = (ObjectiveDumpAppDelegate *)[[UIApplication sharedApplication]delegate];
-	}
-	return _appDelegate;
-}
-
 - (void)restoreLevelWithSelectionArray:(NSArray *)selectionArray
 {
 	// nothing
@@ -140,7 +132,6 @@
 
 
 - (void)dealloc {
-	[_appDelegate release];
 	
     [super dealloc];
 }
