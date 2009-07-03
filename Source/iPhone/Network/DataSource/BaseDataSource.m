@@ -33,13 +33,15 @@
 
 - (id)initWithDelegate:(id)delegate
 {
-	BaseDataSource *dataSource = [[BaseDataSource alloc]init];
-	if (self.lastLoadedDefaultskey) {
-		NSDate *lastLoadedTime = [NSDate dateWithTimeIntervalSince1970:[[[NSUserDefaults standardUserDefaults]valueForKey:self.lastLoadedDefaultskey]doubleValue]];
-		self.lastLoadedTime = lastLoadedTime;
+	self = [super init];
+	if (self != nil) {
+		self.delegate = delegate;
+		if (self.lastLoadedDefaultskey) {
+			NSDate *lastLoadedTime = [NSDate dateWithTimeIntervalSince1970:[[[NSUserDefaults standardUserDefaults]valueForKey:self.lastLoadedDefaultskey]doubleValue]];
+			self.lastLoadedTime = lastLoadedTime;
+		}
 	}
-	dataSource.delegate = delegate;
-	return dataSource;
+	return self;
 }
 
 
