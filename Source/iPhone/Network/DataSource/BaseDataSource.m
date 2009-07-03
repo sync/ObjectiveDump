@@ -24,16 +24,22 @@
 	self = [super init];
 	if (self != nil) {
 		self.isLoading = FALSE;
-		// Get last loaded time from user defaults
-		if (self.lastLoadedDefaultskey) {
-			NSDate *lastLoadedTime = [NSDate dateWithTimeIntervalSince1970:[[[NSUserDefaults standardUserDefaults]valueForKey:self.lastLoadedDefaultskey]doubleValue]];
-			self.lastLoadedTime = lastLoadedTime;
-		}
 		self.hasFailedLoading = FALSE;
 		self.itemsCount = 0;
 		self.lastDisplayedItemIndex = 0;
 	}
 	return self;
+}
+
+- (id)initWithDelegate:(id)delegate
+{
+	BaseDataSource *dataSource = [[BaseDataSource alloc]init];
+	if (self.lastLoadedDefaultskey) {
+		NSDate *lastLoadedTime = [NSDate dateWithTimeIntervalSince1970:[[[NSUserDefaults standardUserDefaults]valueForKey:self.lastLoadedDefaultskey]doubleValue]];
+		self.lastLoadedTime = lastLoadedTime;
+	}
+	dataSource.delegate = delegate;
+	return dataSource;
 }
 
 
@@ -92,6 +98,14 @@
 	return (self.lastLoadedTime != nil && !self.hasFailedLoading);
 }
 
+// Save last fetch date to user prefs
+- (void)saveLastFetchedDate:(NSDate *)date
+{
+	if (self.lastLoadedDefaultskey) {
+		[[NSUserDefaults standardUserDefaults]setDouble:[date timeIntervalSince1970] forKey:self.lastLoadedDefaultskey];
+	}
+}
+
 #pragma mark -
 #pragma mark Default Operation Delegate
 
@@ -130,8 +144,8 @@
 	self.lastLoadedTime = [NSDate date];
 	
 	// Save to the user defaults, useful for
-	// remote data expiry date
-	[[NSUserDefaults standardUserDefaults]setDouble:[self.lastLoadedTime timeIntervalSince1970] forKey:self.lastLoadedDefaultskey];
+	// Set the last fetched time to user defaults
+	[self saveLastFetchedDate:self.lastLoadedTime];
 	
 	// Set that the last loading try has succeed
 	self.hasFailedLoading = FALSE;

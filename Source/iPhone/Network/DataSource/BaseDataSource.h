@@ -49,6 +49,8 @@
 @property (nonatomic, readonly) NSString *lastLoadedDefaultskey;
 @property (nonatomic, readonly) BOOL dataSourceHasExpired;
 
+- (id)initWithDelegate:(id)delegate;
+
 // Using this method you can
 // Easily fill a tableView
 - (void)startLoading;
@@ -59,6 +61,9 @@
 // Setup a default operation
 // Add it to the operation queue
 - (void)setupAndStartOperation;
+
+// Save last fetch date to user prefs
+- (void)saveLastFetchedDate:(NSDate *)date;
 
 @end
 
