@@ -106,9 +106,9 @@
 // Reload tableview when context save
 - (void)setupCoreData
 {
-	if (self.dataSource.fetchedResultsController) {
+	if (self.fetchedResultsController) {
 		NSError *error;
-		if (![[self.dataSource fetchedResultsController] performFetch:&error]) {
+		if (![self.fetchedResultsController performFetch:&error]) {
 			// Handle the error...
 		}
 		
@@ -125,7 +125,7 @@
 
 - (void)contextDidSave:(NSNotification *)notification
 {
-	[self.dataSource.fetchedResultsController.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+	[self.fetchedResultsController.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
 	[self.tableView reloadData];
 }
 
@@ -193,6 +193,10 @@
 		return [self.dataSource numberOfSectionsInTableView:tableView];
 	}
 	
+	if (self.fetchedResultsController) {
+		return [[fetchedResultsController sections] count];
+	}
+	
 	// Check if content first elemetn return array or not
 	// If yes, tableview has more than one section
 	if (self.content && self.content.count > 0
@@ -207,6 +211,11 @@
 	
 	if (self.dataSource) {
 		return [self.dataSource tableView:tableView numberOfRowsInSection:section];
+	}
+	
+	if (self.fetchedResultsController) {
+		id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
+		return [sectionInfo numberOfObjects];
 	}
 	
 	// Check if content first elemetn return array or not
@@ -249,6 +258,10 @@
 		return [self.dataSource objectForIndexPath:indexPath];
 	}
 	
+	if (self.fetchedResultsController) {
+		return [self.fetchedResultsController objectAtIndexPath:indexPath];
+	}
+	
 	// Hack to see if array has got multiple sections or not
 	NSArray *firstLevel = nil;
 	if (self.content && self.content.count > indexPath.section
@@ -262,14 +275,48 @@
 	return (self.content.count>indexPath.row)?[self.content objectAtIndex:indexPath.row]:nil; 
 }
 
+#pragma mark -
+#pragma mark Fetch Results Controlelr
 
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
+- (NSFetchedResultsController *)fetchedResultsController {
+    
+    if (self.dataSource.fetchedResultsController) {
+		return self.dataSource.fetchedResultsController;
+	}
+	
+//	if (fetchedResultsController != nil) {
+//        return fetchedResultsController;
+//    }
+//    
+//    /*
+//	 Set up the fetched results controller.
+//	 */
+//	// Create the fetch request for the entity.
+//	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//	// Edit the entity name as appropriate.
+//	NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPProduct" inManagedObjectContext:self.managedObjectContext];
+//	[fetchRequest setEntity:entity];
+//	
+//	// Edit the sort key as appropriate.
+//	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"Event" ascending:YES];
+//	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+//	
+//	[fetchRequest setSortDescriptors:sortDescriptors];
+//	
+//	// Edit the section name key path and cache name if appropriate.
+//    // nil for section name key path means "no sections".
+//	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+//    aFetchedResultsController.delegate = self;
+//	self.fetchedResultsController = aFetchedResultsController;
+//	
+//	[aFetchedResultsController release];
+//	[fetchRequest release];
+//	[sortDescriptor release];
+//	[sortDescriptors release];
+//	
+//	return fetchedResultsController;
+	return nil;
+}
 
 #pragma mark -
 #pragma mark Show Error
@@ -320,6 +367,9 @@
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter]removeObserver:self];
 	
+	[_managedObjectContext release];
+	[_entityName release];
+	[fetchedResultsController release];
 	[_dataSource release];
 	[_dumpedFilePath release];
 	[_content release];

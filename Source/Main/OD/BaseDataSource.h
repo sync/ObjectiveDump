@@ -117,6 +117,9 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (id)objectForIndexPath:(NSIndexPath *)indexPath;
 
+#warning - (void)addObject:(id)object;
+#warning - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @protocol BaseDataSource <NSObject>

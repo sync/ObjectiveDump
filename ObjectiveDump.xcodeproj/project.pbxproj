@@ -17,8 +17,6 @@
 		3A1E98B90FFE1B5C00312CBC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1E98B80FFE1B5C00312CBC /* UIKit.framework */; };
 		3A1E9BB50FFE30C500312CBC /* Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1E9B9B0FFE30C500312CBC /* Base64.h */; };
 		3A1E9BB60FFE30C500312CBC /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9B9C0FFE30C500312CBC /* Base64.m */; };
-		3A1E9BB70FFE30C500312CBC /* BaseFetchedTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1E9B9D0FFE30C500312CBC /* BaseFetchedTableViewController.h */; };
-		3A1E9BB80FFE30C500312CBC /* BaseFetchedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9B9E0FFE30C500312CBC /* BaseFetchedTableViewController.m */; };
 		3A1E9BBB0FFE30C500312CBC /* BaseTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1E9BA10FFE30C500312CBC /* BaseTableViewController.h */; };
 		3A1E9BBC0FFE30C500312CBC /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9BA20FFE30C500312CBC /* BaseTableViewController.m */; };
 		3A1E9BBD0FFE30C500312CBC /* BaseViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1E9BA30FFE30C500312CBC /* BaseViewController.h */; };
@@ -56,8 +54,6 @@
 		3A1E98B80FFE1B5C00312CBC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3A1E9B9B0FFE30C500312CBC /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Base64.h; path = Main/OD/Base64.h; sourceTree = "<group>"; };
 		3A1E9B9C0FFE30C500312CBC /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Base64.m; path = Main/OD/Base64.m; sourceTree = "<group>"; };
-		3A1E9B9D0FFE30C500312CBC /* BaseFetchedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseFetchedTableViewController.h; path = Main/OD/BaseFetchedTableViewController.h; sourceTree = "<group>"; };
-		3A1E9B9E0FFE30C500312CBC /* BaseFetchedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseFetchedTableViewController.m; path = Main/OD/BaseFetchedTableViewController.m; sourceTree = "<group>"; };
 		3A1E9BA10FFE30C500312CBC /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseTableViewController.h; path = Main/OD/BaseTableViewController.h; sourceTree = "<group>"; };
 		3A1E9BA20FFE30C500312CBC /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableViewController.m; path = Main/OD/BaseTableViewController.m; sourceTree = "<group>"; };
 		3A1E9BA30FFE30C500312CBC /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = Main/OD/BaseViewController.h; sourceTree = "<group>"; };
@@ -185,8 +181,6 @@
 				3A1E9BA40FFE30C500312CBC /* BaseViewController.m */,
 				3A1E9BA10FFE30C500312CBC /* BaseTableViewController.h */,
 				3A1E9BA20FFE30C500312CBC /* BaseTableViewController.m */,
-				3A1E9B9D0FFE30C500312CBC /* BaseFetchedTableViewController.h */,
-				3A1E9B9E0FFE30C500312CBC /* BaseFetchedTableViewController.m */,
 			);
 			name = BaseControllers;
 			path = ../..;
@@ -284,7 +278,6 @@
 			files = (
 				AA747D9F0F9514B9006C5449 /* ObjectiveDump_Prefix.pch in Headers */,
 				3A1E9BB50FFE30C500312CBC /* Base64.h in Headers */,
-				3A1E9BB70FFE30C500312CBC /* BaseFetchedTableViewController.h in Headers */,
 				3A1E9BBB0FFE30C500312CBC /* BaseTableViewController.h in Headers */,
 				3A1E9BBD0FFE30C500312CBC /* BaseViewController.h in Headers */,
 				3A1E9BBF0FFE30C500312CBC /* CoreDataDefaultOperation.h in Headers */,
@@ -343,7 +336,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A1E9BB60FFE30C500312CBC /* Base64.m in Sources */,
-				3A1E9BB80FFE30C500312CBC /* BaseFetchedTableViewController.m in Sources */,
 				3A1E9BBC0FFE30C500312CBC /* BaseTableViewController.m in Sources */,
 				3A1E9BBE0FFE30C500312CBC /* BaseViewController.m in Sources */,
 				3A1E9BC00FFE30C500312CBC /* CoreDataDefaultOperation.m in Sources */,

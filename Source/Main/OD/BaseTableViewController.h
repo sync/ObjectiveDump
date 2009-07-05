@@ -16,7 +16,16 @@
 
 @property (nonatomic, readonly) Class cellClass;
 @property (nonatomic, readonly) UITableViewCellStyle cellStyle;
+
+// Non persistent content
 @property (nonatomic, readonly) NSMutableArray *content;
+
+// Persistent content
+@property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, readonly) NSString *entityName;
+
+// Get the context
+@property (nonatomic, retain) NSManagedObjectContext *_managedObjectContext;
 
 // Setting up 
 - (void)setupDataSource;
@@ -29,8 +38,16 @@
 
 
 @interface BaseTableViewController : UITableViewController <UIAlertViewDelegate,BaseViewControllerSubclass,BaseTableViewControllerSubclass>{	
+	// Non persitent content
 	NSMutableArray *_content;
 	NSString *_dumpedFilePath;
+	
+	// Persitent content
+	NSFetchedResultsController *fetchedResultsController;
+	NSString *_entityName;
+	
+	// Get the context
+	NSManagedObjectContext *_managedObjectContext;
 	
 	BaseDataSource *_dataSource;
 }
