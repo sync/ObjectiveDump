@@ -7,41 +7,42 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
+#import "BaseDataSource.h"
 
+@protocol BaseTableViewControllerSubclass <NSObject>
 
-@interface BaseTableViewController : UITableViewController <UIAlertViewDelegate>{	
-	NSMutableArray *_content;
-	
-	NSString *_dumpedFilePath;
-}
+@optional
 
 @property (nonatomic, readonly) Class cellClass;
 @property (nonatomic, readonly) UITableViewCellStyle cellStyle;
 @property (nonatomic, readonly) NSMutableArray *content;
-@property (nonatomic, copy) NSString *dumpedFilePath;
 
 // Setting up 
-- (void)setupTableView;
-- (void)setupNavigationBar;
-- (void)setupToolbar;
+- (void)setupDataSource;
+- (void)setupCoreData;
 
 // Cell properties
-- (Class)cellClass;
 - (NSDictionary *)attributesForCell:(UITableViewCell *)cell withObject:(id)object;
+
+@end
+
+
+@interface BaseTableViewController : UITableViewController <UIAlertViewDelegate,BaseViewControllerSubclass,BaseTableViewControllerSubclass>{	
+	NSMutableArray *_content;
+	NSString *_dumpedFilePath;
+	
+	BaseDataSource *_dataSource;
+}
+
+@property (nonatomic, copy) NSString *dumpedFilePath;
+@property (nonatomic, retain) BaseDataSource *dataSource;
+
 
 // Retrieve object linked to row
 - (id)objectForIndexPath:(NSIndexPath *)indexPath;
 
-// Restore levels
-- (void)restoreLevelWithSelectionArray:(NSArray *)selectionArray;
-
-// Show error to user
-// Cannot cancel, just ok button
-- (void)showUserErrorWithTitle:(NSString *)title message:(NSString *)message;
-
-// Show loading view
-// Possiblity to add a message
-// Like loading...
-- (void)showLoadingView:(BOOL)show withText:(NSString *)text;
+// Reload tableView when context save
+- (void)contextDidSave:(NSNotification *)notification;
 
 @end

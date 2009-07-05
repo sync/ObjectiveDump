@@ -9,9 +9,29 @@
 #import <Foundation/Foundation.h>
 #import "DefaultOperation.h"
 
+@protocol BaseDataSourceSubclass <NSObject>
+
+@required
+
+// Here you can for example
+// Setup a default operation
+// Add it to the operation queue
+- (void)setupAndStartOperation;
+
+// Cell properties
+- (NSDictionary *)attributesForCell:(UITableViewCell *)cell withObject:(id)object;
+
+@optional
+
+// Content
+@property (nonatomic, readonly) NSMutableArray *content;
+
+@end
+
+@protocol BaseDataSource;
 @protocol BaseDataSourceDelegate;
 
-@interface BaseDataSource : NSObject <DefaultOperationDelegate>{
+@interface BaseDataSource : NSObject <DefaultOperationDelegate, BaseDataSourceSubclass>{
 	// Check if data source is still fetching
 	// Remote data
 	BOOL _isLoading;
@@ -33,7 +53,23 @@
 	// Remote data
 	id<BaseDataSourceDelegate> _delegate;
 	
+	id<BaseDataSource> _dataSource;
+	
 	NSOperationQueue *_operationQueue;
+	
+	// Table view cell setup
+	Class _cellClass;
+	UITableViewCellStyle _cellStyle;
+	NSInteger _rowHeight;
+	
+	// Content
+	NSMutableArray *_content;
+	// Save content when view did unload
+	NSString *_dumpedFilePath;
+	
+	// Core Data
+	NSString *_entityName;
+	NSFetchedResultsController *_fetchedResultsController;
 }
 
 @property (nonatomic) BOOL isLoading;
@@ -43,13 +79,25 @@
 @property (nonatomic) NSInteger itemsCount;
 @property (nonatomic) NSInteger lastDisplayedItemIndex;
 @property (nonatomic, retain) id delegate;
+@property (nonatomic, retain) id dataSource;
 @property (nonatomic, retain) NSOperationQueue *operationQueue;
 @property (nonatomic, readonly) NSURL *nextURL;
 @property (nonatomic, readonly) BOOL canGoNext;
 @property (nonatomic, readonly) NSString *lastLoadedDefaultskey;
 @property (nonatomic, readonly) BOOL dataSourceHasExpired;
+@property (nonatomic) Class cellClass;
+@property (nonatomic) UITableViewCellStyle cellStyle;
+@property (nonatomic) NSInteger rowHeight;
+@property (nonatomic, copy) NSString *dumpedFilePath;
+@property (nonatomic, copy) NSString *entityName;
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
-- (id)initWithDelegate:(id)delegate;
+- (id)initWithDelegate:(id)delegate 
+			dataSource:(id)dataSource 
+			 cellClass:(Class)cellClass 
+			 cellStyle:(UITableViewCellStyle)cellStyle
+		operationQueue:(id)operationQueue
+fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 
 // Using this method you can
 // Easily fill a tableView
@@ -57,30 +105,29 @@
 - (void)cancelLoading;
 - (void)goNext;
 
-// Here you can for example
-// Setup a default operation
-// Add it to the operation queue
-- (void)setupAndStartOperation;
-
 // Save last fetch date to user prefs
 - (void)saveLastFetchedDate:(NSDate *)date;
 
+// Retrieve object linked to row
+- (id)objectForIndexPath:(NSIndexPath *)indexPath;
+
+// TableView methods
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (id)objectForIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
-@protocol BaseDataSourceDelegate <NSObject>
+@protocol BaseDataSource <NSObject>
 
-@optional
+@required
 
 // Useful when constructing url to fetch ws
 - (NSURL *)dataSource:(BaseDataSource *)dataSource nextURLWithLastDisplayedItemIndex:(NSInteger)lastDisplayedItemIndex;
-// Useful when for example having to refresh a tableview 
-// Could include core data object id, or else if non core data related
-// Inside infoDictionary
-- (void)dataSource:(BaseDataSource *)dataSource didFinishLoadingWithInfoDictionary:(NSDictionary *)infoDictionary;
-// Inform the delegate for fetch events
-- (void)dataSourceDidStartLoading:(BaseDataSource *)dataSource;
-- (void)dataSourceDidCancelLoading:(BaseDataSource *)dataSource;
-- (void)dataSource:(BaseDataSource *)dataSource didFailLoadingWithErrorString:(NSString *)errorString;
+
+@optional
+
 // Save the last time the data source successfully load remote data
 - (NSString *)dataSourceLastLoadedDefaultskey:(BaseDataSource *)dataSource;
 // Set an expiry date for last data loaded
@@ -90,5 +137,20 @@
 - (NSTimeInterval)dataSourceExpirtyTimeInterval:(BaseDataSource *)dataSource;
 // Possiblity to tell the data source when data source is expired
 - (BOOL)dataSourceHasExpired:(BaseDataSource *)dataSource;
+
+@end
+
+@protocol BaseDataSourceDelegate <NSObject>
+
+@optional
+
+// Useful when for example having to refresh a tableview 
+// Could include core data object id, or else if non core data related
+// Inside infoDictionary
+- (void)dataSource:(BaseDataSource *)dataSource didFinishLoadingWithInfoDictionary:(NSDictionary *)infoDictionary;
+// Inform the delegate for fetch events
+- (void)dataSourceDidStartLoading:(BaseDataSource *)dataSource;
+- (void)dataSourceDidCancelLoading:(BaseDataSource *)dataSource;
+- (void)dataSource:(BaseDataSource *)dataSource didFailLoadingWithErrorString:(NSString *)errorString;
 
 @end

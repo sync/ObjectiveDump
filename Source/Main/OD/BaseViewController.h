@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol BaseViewControllerSubclass <NSObject>
 
-@interface BaseViewController : UIViewController {
-	
-}
+@optional
 
 // Setting up 
 - (void)setupTableView;
@@ -29,5 +28,13 @@
 // Possiblity to add a message
 // Like loading...
 - (void)showLoadingView:(BOOL)show withText:(NSString *)text;
+
+@end
+
+
+
+@interface BaseViewController : UIViewController <BaseViewControllerSubclass>{
+	
+}
 
 @end

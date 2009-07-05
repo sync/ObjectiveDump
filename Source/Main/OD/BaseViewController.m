@@ -11,27 +11,9 @@
 
 @implementation BaseViewController
 
-/*
-// The designated initializer. Override to perform setup that is required before the view is loaded.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-}
-
+#pragma mark -
+#pragma mark View Events
 
 - (void)viewDidLoad 
 {
@@ -49,6 +31,14 @@
 	// Color and items 
 	[self setupToolbar];
 }
+
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
+}
+
+#pragma mark -
+#pragma mark Setup
 
 // Set for example
 // Style and background color
@@ -71,21 +61,15 @@
 	// Nothing
 }
 
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
+#pragma mark -
+#pragma mark Restore Levels
 
 - (void)restoreLevelWithSelectionArray:(NSArray *)selectionArray
 {
 	// nothing
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
+#pragma mark -
 #pragma mark Show Error
 
 - (void)showUserErrorWithTitle:(NSString *)title message:(NSString *)message
@@ -100,6 +84,7 @@
 	[alert release];
 }
 
+#pragma mark -
 #pragma mark Show Loading View
 
 - (void)showLoadingView:(BOOL)show withText:(NSString *)text
@@ -107,18 +92,8 @@
 	// Nothing, up to the subclassing controller to implement this
 }
 
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (void)didReceiveMemoryWarning {
-	//[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-   // Release anything that's not essential, such as cached data
-}
+#pragma mark -
+#pragma mark Execut Method When Notification Fire
 
 //help executing a method when a notification fire
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -129,7 +104,8 @@
 	[self performSelector: (SEL)context withObject: change];
 }
 
-
+#pragma mark -
+#pragma mark Dealloc
 
 - (void)dealloc {
 	
