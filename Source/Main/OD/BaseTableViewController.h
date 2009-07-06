@@ -50,10 +50,13 @@
 	NSManagedObjectContext *_managedObjectContext;
 	
 	BaseDataSource *_dataSource;
+	
+	id _object;
 }
 
 @property (nonatomic, copy) NSString *dumpedFilePath;
 @property (nonatomic, retain) BaseDataSource *dataSource;
+@property (nonatomic, retain) id object;
 
 
 // Retrieve object linked to row

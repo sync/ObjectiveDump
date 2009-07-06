@@ -35,7 +35,9 @@
 
 
 @interface BaseViewController : UIViewController <BaseViewControllerSubclass>{
-	
+	id _object;
 }
+
+@property (nonatomic, retain) id object;
 
 @end

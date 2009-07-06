@@ -14,6 +14,7 @@
 @synthesize dumpedFilePath=_dumpedFilePath;
 @synthesize dataSource=_dataSource;
 @synthesize managedObjectContext=_managedObjectContext;
+@synthesize object=_object;
 
 #pragma mark -
 #pragma mark Initialisation
@@ -373,6 +374,7 @@
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter]removeObserver:self];
 	
+	[_object release];
 	[_managedObjectContext release];
 	[_entityName release];
 	[_fetchedResultsController release];

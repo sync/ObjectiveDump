@@ -11,6 +11,8 @@
 
 @implementation BaseViewController
 
+@synthesize object=_object;
+
 #pragma mark -
 #pragma mark Initialisation
 
@@ -137,7 +139,8 @@
 
 - (void)dealloc {
 	
-    [super dealloc];
+    [_object release];
+	[super dealloc];
 }
 
 @end
