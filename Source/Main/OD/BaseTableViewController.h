@@ -14,16 +14,12 @@
 
 @optional
 
-@property (nonatomic, readonly) Class cellClass;
-@property (nonatomic, readonly) UITableViewCellStyle cellStyle;
-
 // Non persistent content
 @property (nonatomic, readonly) NSMutableArray *content;
 
 // Persistent content
 @property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, readonly) NSString *entityName;
-@property (nonatomic, readonly) NSString *reuseIdentifier;
 
 // Get the context
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
@@ -31,9 +27,6 @@
 // Setting up 
 - (void)setupDataSource;
 - (void)setupCoreData;
-
-// Cell properties
-- (NSDictionary *)attributesForCell:(UITableViewCell *)cell withObject:(id)object;
 
 @end
 
@@ -62,6 +55,10 @@
 
 // Retrieve object linked to row
 - (id)objectForIndexPath:(NSIndexPath *)indexPath;
+
+// TableView Helper
+- (NSInteger)numberOfSectionsForTableView:(UITableView *)tableView;
+- (NSInteger)numberOfRowsInSection:(NSInteger)section forTableView:(UITableView *)tableView;
 
 // Reload tableView when context save
 - (void)contextDidSave:(NSNotification *)notification;

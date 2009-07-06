@@ -18,9 +18,6 @@
 // Add it to the operation queue
 - (void)setupAndStartOperation;
 
-// Cell properties
-- (NSDictionary *)attributesForCell:(UITableViewCell *)cell withObject:(id)object;
-
 @optional
 
 // Content
@@ -31,7 +28,7 @@
 @protocol BaseDataSource;
 @protocol BaseDataSourceDelegate;
 
-@interface BaseDataSource : NSObject <DefaultOperationDelegate, BaseDataSourceSubclass>{
+@interface BaseDataSource : NSObject <DefaultOperationDelegate, BaseDataSourceSubclass, UITableViewDataSource>{
 	// Check if data source is still fetching
 	// Remote data
 	BOOL _isLoading;
@@ -58,10 +55,7 @@
 	NSOperationQueue *_operationQueue;
 	
 	// Table view cell setup
-	Class _cellClass;
-	UITableViewCellStyle _cellStyle;
 	NSInteger _rowHeight;
-	NSString *_reuseIdentifier;
 	
 	// Content
 	NSMutableArray *_content;
@@ -86,19 +80,14 @@
 @property (nonatomic, readonly) BOOL canGoNext;
 @property (nonatomic, readonly) NSString *lastLoadedDefaultskey;
 @property (nonatomic, readonly) BOOL dataSourceHasExpired;
-@property (nonatomic) Class cellClass;
-@property (nonatomic) UITableViewCellStyle cellStyle;
 @property (nonatomic) NSInteger rowHeight;
 @property (nonatomic, copy) NSString *dumpedFilePath;
 @property (nonatomic, copy) NSString *entityName;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, retain) NSString *reuseIdentifier;
+@property (nonatomic, readonly) id additionalObject;
 
 - (id)initWithDelegate:(id)delegate 
-			dataSource:(id)dataSource 
-			 cellClass:(Class)cellClass 
-			 cellStyle:(UITableViewCellStyle)cellStyle
-	   reuseIdentifier:(NSString *)reuseIdentifier
+			dataSource:(id)dataSource
 		operationQueue:(id)operationQueue
 fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 
@@ -115,10 +104,9 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 - (id)objectForIndexPath:(NSIndexPath *)indexPath;
 
 // TableView methods
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (id)objectForIndexPath:(NSIndexPath *)indexPath;
+- (NSInteger)numberOfSectionsForTableView:(UITableView *)tableView;
+- (NSInteger)numberOfRowsInSection:(NSInteger)section forTableView:(UITableView *)tableView;
 
 //#warning - (void)addObject:(id)object;
 //#warning - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath;
@@ -143,6 +131,9 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 - (NSTimeInterval)dataSourceExpirtyTimeInterval:(BaseDataSource *)dataSource;
 // Possiblity to tell the data source when data source is expired
 - (BOOL)dataSourceHasExpired:(BaseDataSource *)dataSource;
+// Possiblity to pass an addiontional object to the data source
+- (id)dataSourceAdditionalObject:(BaseDataSource *)dataSource;
+
 
 @end
 

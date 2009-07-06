@@ -20,13 +20,10 @@
 @synthesize delegate=_delegate;
 @synthesize dataSource=_dataSource;
 @synthesize operationQueue=_operationQueue;
-@synthesize cellClass=_cellClass;
-@synthesize cellStyle=_cellStyle;
 @synthesize rowHeight=_rowHeight;
 @synthesize dumpedFilePath=_dumpedFilePath;
 @synthesize entityName=_entityName;
 @synthesize fetchedResultsController=_fetchedResultsController;
-@synthesize reuseIdentifier=_reuseIdentifier;
 
 #pragma mark -
 #pragma mark Init
@@ -43,23 +40,17 @@
 		self.delegate = nil;
 		self.dataSource = nil;
 		self.operationQueue = nil;
-		self.cellClass = [UITableViewCell class];
-		self.cellStyle = UITableViewCellStyleDefault;
 		// if set to -1 do nothing
 		self.rowHeight = -1;
 		self.entityName = nil;
 		// When nil, core data is not used
 		self.fetchedResultsController = nil;
-		self.reuseIdentifier = nil;
 	}
 	return self;
 }
 
 - (id)initWithDelegate:(id)delegate 
 			dataSource:(id)dataSource 
-			 cellClass:(Class)cellClass 
-			 cellStyle:(UITableViewCellStyle)cellStyle
-	   reuseIdentifier:(NSString *)reuseIdentifier
 		operationQueue:(id)operationQueue
 			fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
 {
@@ -67,10 +58,7 @@
 	if (self != nil) {
 		self.delegate = delegate;
 		self.dataSource = dataSource;
-		self.cellClass = cellClass;
-		self.cellStyle = cellStyle;
 		self.operationQueue = operationQueue;
-		self.reuseIdentifier = reuseIdentifier;
 		
 		// When nil core data is not used
 		self.fetchedResultsController = fetchedResultsController;
@@ -90,12 +78,6 @@
 - (void)setupAndStartOperation
 {
 	// Nothing
-}
-
-- (NSDictionary *)attributesForCell:(UITableViewCell *)cell withObject:(id)object
-{
-	// Empty dict
-	return [NSDictionary dictionary];
 }
 
 #pragma mark -
@@ -120,7 +102,39 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
+	return [self numberOfSectionsForTableView:tableView];
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
+{
+	return [self numberOfRowsInSection:section forTableView:tableView];
+}
+
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
 	
+	static NSString *MyCellIdentifier = @"MyCellIdentifier";
+	
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyCellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyCellIdentifier] autorelease];
+    }
+	
+	//id object = [self objectForIndexPath:indexPath];
+    
+	// Configure the cell.
+	
+    return cell;
+}
+
+#pragma mark -
+#pragma mark Table view methods helper
+
+- (NSInteger)numberOfSectionsForTableView:(UITableView *)tableView
+{
 	if (self.fetchedResultsController) {
 		NSInteger sectionNumber = [[self.fetchedResultsController sections] count];
 		return sectionNumber;
@@ -135,10 +149,8 @@
 	return 1;
 }
 
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
+- (NSInteger)numberOfRowsInSection:(NSInteger)section forTableView:(UITableView *)tableView
 {
-	
 	if (self.fetchedResultsController) {
 		id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
 		return [sectionInfo numberOfObjects];
@@ -151,31 +163,6 @@
 		return [[self.content objectAtIndex:section]count];
 	}
 	return self.content.count;
-}
-
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
-{
-    if (self.reuseIdentifier) {
-		NSLog(@"%@", self.reuseIdentifier);
-	}
-	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.reuseIdentifier];
-    if (cell == nil) {
-        cell = [[[self.cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:self.reuseIdentifier] autorelease];
-    }
-	
-	id object = [self objectForIndexPath:indexPath];
-    
-	// Configure the cell.
-	NSDictionary *cellAttributes = [self attributesForCell:cell withObject:object];
-	
-	for (NSString *keypath in cellAttributes) {
-		[cell setValue:[cellAttributes valueForKey:keypath] forKeyPath:keypath];
-	}
-	
-    return cell;
 }
 
 - (id)objectForIndexPath:(NSIndexPath *)indexPath
@@ -296,6 +283,15 @@
 	return (difference >= 0);
 }
 
+// Additional object
+- (id)additionalObject
+{
+	if (self.dataSource && [self.dataSource respondsToSelector:@selector(dataSourceAdditionalObject:)]) {
+		return [self.dataSource dataSourceAdditionalObject:self];
+	}
+	return nil;
+}
+
 #pragma mark -
 #pragma mark Default Operation Delegate
 
@@ -353,7 +349,6 @@
 
 - (void)dealloc
 {
-	[_reuseIdentifier release];
 	[_fetchedResultsController release];
 	[_entityName release];
 	[_dumpedFilePath release];

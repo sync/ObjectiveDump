@@ -141,22 +141,6 @@
 #pragma mark -
 #pragma mark Subclassing
 
-- (Class)cellClass
-{
-	if (self.dataSource) {
-		return self.dataSource.cellClass;
-	}
-	return [UITableViewCell class];
-}
-
-- (UITableViewCellStyle)cellStyle
-{
-	if (self.dataSource) {
-		return self.dataSource.cellStyle;
-	}
-	return UITableViewCellStyleDefault;
-}
-
 - (NSArray *)content
 {
 	if (self.dataSource) {
@@ -175,21 +159,6 @@
 	return _content;
 }
 
-- (NSString *)reuseIdentifier
-{
-	return @"MyCellIdentifier";
-}
-
-- (NSDictionary *)attributesForCell:(UITableViewCell *)cell withObject:(id)object
-{
-	if (self.dataSource) {
-		return [self.dataSource attributesForCell:cell withObject:object];
-	}
-	
-	// Empty dict
-	return [NSDictionary dictionary];
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 	// Use your object
@@ -201,12 +170,40 @@
 #pragma mark -
 #pragma mark  Table view methods
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
+{
+	return [self numberOfSectionsForTableView:tableView];
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
+{
+	return [self numberOfRowsInSection:section forTableView:tableView];
+}
+
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (self.dataSource) {
-		return [self.dataSource numberOfSectionsInTableView:tableView];
-	}
+	static NSString *MyCellIdentifier = @"MyCellIdentifier";
 	
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyCellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyCellIdentifier] autorelease];
+    }
+	
+	//id object = [self objectForIndexPath:indexPath];
+    
+	// Configure the cell.
+	
+    return cell;
+}
+
+#pragma mark -
+#pragma mark Table view methods helper
+
+- (NSInteger)numberOfSectionsForTableView:(UITableView *)tableView
+{
 	if (self.fetchedResultsController) {
 		return [[self.fetchedResultsController sections] count];
 	}
@@ -220,13 +217,8 @@
 	return 1;
 }
 
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	
-	if (self.dataSource) {
-		return [self.dataSource tableView:tableView numberOfRowsInSection:section];
-	}
-	
+- (NSInteger)numberOfRowsInSection:(NSInteger)section forTableView:(UITableView *)tableView
+{
 	if (self.fetchedResultsController) {
 		id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
 		return [sectionInfo numberOfObjects];
@@ -239,31 +231,6 @@
 		return [[self.content objectAtIndex:section]count];
 	}
 	return self.content.count;
-}
-
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (self.dataSource) {
-		return [self.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
-	}
-	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.reuseIdentifier];
-    if (cell == nil) {
-        cell = [[[self.cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:self.reuseIdentifier] autorelease];
-    }
-	
-	id object = [self objectForIndexPath:indexPath];
-    
-	// Configure the cell.
-	NSDictionary *cellAttributes = [self attributesForCell:cell withObject:object];
-	
-	for (NSString *keypath in cellAttributes) {
-		[cell setValue:[cellAttributes valueForKey:keypath] forKeyPath:keypath];
-	}
-	
-    return cell;
 }
 
 - (id)objectForIndexPath:(NSIndexPath *)indexPath
@@ -289,12 +256,13 @@
 	return (self.content.count>indexPath.row)?[self.content objectAtIndex:indexPath.row]:nil; 
 }
 
+
 #pragma mark -
 #pragma mark Fetch Results Controlelr
 
 - (NSFetchedResultsController *)fetchedResultsController {
-    
-    if (self.dataSource.fetchedResultsController) {
+	
+	if (self.dataSource) {
 		return self.dataSource.fetchedResultsController;
 	}
 	

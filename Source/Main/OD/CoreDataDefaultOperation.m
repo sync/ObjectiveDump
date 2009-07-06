@@ -12,6 +12,7 @@
 @implementation CoreDataDefaultOperation
 
 @synthesize databaseName=_databaseName;
+@synthesize managedObjectID=_managedObjectID;
 
 - (void)main
 {
@@ -33,6 +34,20 @@
 			[self finishOperationWithObject:responseData];
 		}
 	}
+}
+
+#pragma mark -
+#pragma mark Core Data Helper
+
+- (NSManagedObject *)object
+{
+	if (!_object) {
+		_object = nil;
+		if (self.managedObjectID) {
+			_object = [self.managedObjectContext existingObjectWithID:self.managedObjectID error:nil];
+		}
+	}
+	return _object;
 }
 
 #pragma mark -
@@ -112,6 +127,7 @@
 
 - (void)dealloc {
 	
+	[_managedObjectID release];
 	[_databaseName release];
     [managedObjectContext release];
     [managedObjectModel release];
