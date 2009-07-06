@@ -33,6 +33,7 @@
 	NSFileHandle *_tmpFileHandle;
 	
 	NSTimeInterval _timeOutSeconds;
+	BOOL _timedOut;
 	
 	id<DefaultOperationDelegate> _delegate;
 }
@@ -53,6 +54,7 @@
 @property (nonatomic, copy) NSString *accept;
 @property NSInteger responseStatusCode;
 @property (nonatomic, copy) NSString *acceptEncoding;
+@property (nonatomic) BOOL timedOut;
 
 @property (assign) id delegate;
 

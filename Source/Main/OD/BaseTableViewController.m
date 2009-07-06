@@ -13,7 +13,7 @@
 
 @synthesize dumpedFilePath=_dumpedFilePath;
 @synthesize dataSource=_dataSource;
-
+@synthesize managedObjectContext=_managedObjectContext;
 
 #pragma mark -
 #pragma mark Initialisation
@@ -23,7 +23,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		// Custom initialization
-		
+		[self setupCustomInitialisation];
 	}
 	return self;
 }
@@ -33,8 +33,14 @@
 - (id)initWithCoder:(NSCoder *)decoder {
 	if (self = [super initWithCoder:decoder]) {
 		// Custom initialization
+		[self setupCustomInitialisation];
 	}
 	return self;
+}
+
+- (void)setupCustomInitialisation
+{
+	// Nothing
 }
 
 #pragma mark -
@@ -194,7 +200,7 @@
 	}
 	
 	if (self.fetchedResultsController) {
-		return [[fetchedResultsController sections] count];
+		return [[self.fetchedResultsController sections] count];
 	}
 	
 	// Check if content first elemetn return array or not
@@ -214,7 +220,7 @@
 	}
 	
 	if (self.fetchedResultsController) {
-		id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
+		id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
 		return [sectionInfo numberOfObjects];
 	}
 	
@@ -369,7 +375,7 @@
 	
 	[_managedObjectContext release];
 	[_entityName release];
-	[fetchedResultsController release];
+	[_fetchedResultsController release];
 	[_dataSource release];
 	[_dumpedFilePath release];
 	[_content release];

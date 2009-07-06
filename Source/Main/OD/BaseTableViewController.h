@@ -25,7 +25,7 @@
 @property (nonatomic, readonly) NSString *entityName;
 
 // Get the context
-@property (nonatomic, retain) NSManagedObjectContext *_managedObjectContext;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 // Setting up 
 - (void)setupDataSource;
@@ -37,13 +37,13 @@
 @end
 
 
-@interface BaseTableViewController : UITableViewController <UIAlertViewDelegate,BaseViewControllerSubclass,BaseTableViewControllerSubclass>{	
+@interface BaseTableViewController : UITableViewController <UIAlertViewDelegate, BaseViewControllerSubclass, BaseTableViewControllerSubclass>{	
 	// Non persitent content
 	NSMutableArray *_content;
 	NSString *_dumpedFilePath;
 	
 	// Persitent content
-	NSFetchedResultsController *fetchedResultsController;
+	NSFetchedResultsController *_fetchedResultsController;
 	NSString *_entityName;
 	
 	// Get the context

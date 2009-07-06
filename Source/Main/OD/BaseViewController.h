@@ -13,6 +13,7 @@
 @optional
 
 // Setting up 
+- (void)setupCustomInitialisation;
 - (void)setupTableView;
 - (void)setupNavigationBar;
 - (void)setupToolbar;

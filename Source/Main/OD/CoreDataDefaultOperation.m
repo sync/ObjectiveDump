@@ -23,7 +23,9 @@
 	
 	NSData *responseData = [self downloadUrl];
 	
-	if ([responseData length] != 0)  {
+	if (self.timedOut) {
+		[self failOperationWithErrorString:@"TIMEOUT"];
+	} else if ([responseData length] != 0)  {
         
 		if (![self isCancelled])
 		{

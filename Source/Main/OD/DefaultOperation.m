@@ -28,6 +28,7 @@
 @synthesize timeOutSeconds=_timeOutSeconds;
 @synthesize delegate=_delegate;
 @synthesize acceptEncoding;
+@synthesize timedOut=_timedOut;
 
 
 #pragma mark -
@@ -44,6 +45,7 @@
 	self.contentType = @"text/html; charset=utf-8";
 	self.timeOutSeconds = 30.0;
 	self.responseStatusCode = 0;
+	self.timedOut = FALSE;
 	
 	// Buffer
 	// downloaded data gets offloaded to the filesystem immediately, to get it out of memory
@@ -80,10 +82,13 @@
 	
 	NSData *responseData = [self downloadUrl];
 	
-	if ([responseData length] != 0)  {
+	if (self.timedOut) {
+		[self failOperationWithErrorString:@"TIMEOUT"];
+	} else if ([responseData length] != 0)  {
         
 		if (![self isCancelled])
 		{
+			
 			[self finishOperationWithObject:responseData];
 		}
 	}
@@ -185,6 +190,7 @@
 		if (downloadStartedAt && self.timeOutSeconds > 0 && [now timeIntervalSinceDate:downloadStartedAt] > self.timeOutSeconds) {
 			NSLog(@"timeout at url: %@", self.url); 
 			doneUploading = YES;
+			self.timedOut = TRUE;
 		}
 		
 		if ([self isCancelled])
