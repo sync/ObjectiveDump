@@ -23,6 +23,7 @@
 // Persistent content
 @property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, readonly) NSString *entityName;
+@property (nonatomic, readonly) NSString *reuseIdentifier;
 
 // Get the context
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;

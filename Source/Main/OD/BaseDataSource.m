@@ -8,6 +8,7 @@
 
 #import "BaseDataSource.h"
 
+#define MyCellClass @"MyCellClass"
 
 @implementation BaseDataSource
 
@@ -25,6 +26,7 @@
 @synthesize dumpedFilePath=_dumpedFilePath;
 @synthesize entityName=_entityName;
 @synthesize fetchedResultsController=_fetchedResultsController;
+@synthesize reuseIdentifier=_reuseIdentifier;
 
 #pragma mark -
 #pragma mark Init
@@ -48,6 +50,7 @@
 		self.entityName = nil;
 		// When nil, core data is not used
 		self.fetchedResultsController = nil;
+		self.reuseIdentifier = nil;
 	}
 	return self;
 }
@@ -56,6 +59,7 @@
 			dataSource:(id)dataSource 
 			 cellClass:(Class)cellClass 
 			 cellStyle:(UITableViewCellStyle)cellStyle
+	   reuseIdentifier:(NSString *)reuseIdentifier
 		operationQueue:(id)operationQueue
 			fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
 {
@@ -66,6 +70,7 @@
 		self.cellClass = cellClass;
 		self.cellStyle = cellStyle;
 		self.operationQueue = operationQueue;
+		self.reuseIdentifier = reuseIdentifier;
 		
 		// When nil core data is not used
 		self.fetchedResultsController = fetchedResultsController;
@@ -152,10 +157,13 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(self.cellClass)];
+    if (self.reuseIdentifier) {
+		NSLog(@"%@", self.reuseIdentifier);
+	}
+	
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.reuseIdentifier];
     if (cell == nil) {
-        cell = [[[self.cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:NSStringFromClass(self.cellClass)] autorelease];
+        cell = [[[self.cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:self.reuseIdentifier] autorelease];
     }
 	
 	id object = [self objectForIndexPath:indexPath];
@@ -345,6 +353,7 @@
 
 - (void)dealloc
 {
+	[_reuseIdentifier release];
 	[_fetchedResultsController release];
 	[_entityName release];
 	[_dumpedFilePath release];

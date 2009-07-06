@@ -61,6 +61,7 @@
 	Class _cellClass;
 	UITableViewCellStyle _cellStyle;
 	NSInteger _rowHeight;
+	NSString *_reuseIdentifier;
 	
 	// Content
 	NSMutableArray *_content;
@@ -91,11 +92,13 @@
 @property (nonatomic, copy) NSString *dumpedFilePath;
 @property (nonatomic, copy) NSString *entityName;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, retain) NSString *reuseIdentifier;
 
 - (id)initWithDelegate:(id)delegate 
 			dataSource:(id)dataSource 
 			 cellClass:(Class)cellClass 
 			 cellStyle:(UITableViewCellStyle)cellStyle
+	   reuseIdentifier:(NSString *)reuseIdentifier
 		operationQueue:(id)operationQueue
 fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 

@@ -9,6 +9,8 @@
 #import "BaseTableViewController.h"
 #import "GloballyUniquePathStringAdditions.h"
 
+#define MyCellClass @"MyCellClass"
+
 @implementation BaseTableViewController
 
 @synthesize dumpedFilePath=_dumpedFilePath;
@@ -173,6 +175,11 @@
 	return _content;
 }
 
+- (NSString *)reuseIdentifier
+{
+	return @"MyCellIdentifier";
+}
+
 - (NSDictionary *)attributesForCell:(UITableViewCell *)cell withObject:(id)object
 {
 	if (self.dataSource) {
@@ -242,9 +249,9 @@
 		return [self.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
 	}
 	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(self.cellClass)];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.reuseIdentifier];
     if (cell == nil) {
-        cell = [[[self.cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:NSStringFromClass(self.cellClass)] autorelease];
+        cell = [[[self.cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:self.reuseIdentifier] autorelease];
     }
 	
 	id object = [self objectForIndexPath:indexPath];
