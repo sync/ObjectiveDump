@@ -52,6 +52,7 @@
 - (id)initWithDelegate:(id)delegate 
 			dataSource:(id)dataSource 
 		operationQueue:(id)operationQueue
+			entityName:(NSString *)entityName
 			fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
 {
 	self = [super init];
@@ -59,6 +60,7 @@
 		self.delegate = delegate;
 		self.dataSource = dataSource;
 		self.operationQueue = operationQueue;
+		self.entityName = entityName;
 		
 		// When nil core data is not used
 		self.fetchedResultsController = fetchedResultsController;

@@ -31,7 +31,7 @@
 @end
 
 
-@interface BaseTableViewController : UITableViewController <UIAlertViewDelegate, BaseViewControllerSubclass, BaseTableViewControllerSubclass>{	
+@interface BaseTableViewController : UITableViewController <UIAlertViewDelegate, BaseViewControllerSubclass, BaseTableViewControllerSubclass, NSFetchedResultsControllerDelegate>{	
 	// Non persitent content
 	NSMutableArray *_content;
 	NSString *_dumpedFilePath;

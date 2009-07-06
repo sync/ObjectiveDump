@@ -87,8 +87,9 @@
 @property (nonatomic, readonly) id additionalObject;
 
 - (id)initWithDelegate:(id)delegate 
-			dataSource:(id)dataSource
+			dataSource:(id)dataSource 
 		operationQueue:(id)operationQueue
+			entityName:(NSString *)entityName
 fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 
 // Using this method you can

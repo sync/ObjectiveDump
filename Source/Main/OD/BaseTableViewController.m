@@ -135,7 +135,13 @@
 - (void)contextDidSave:(NSNotification *)notification
 {
 	[self.fetchedResultsController.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
-	[self.tableView reloadData];
+}
+
+#pragma mark -
+#pragma mark fetchedResultsController Delegate
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView reloadData];
 }
 
 #pragma mark -
@@ -254,6 +260,18 @@
 	}
 	// if nothing return nil
 	return (self.content.count>indexPath.row)?[self.content objectAtIndex:indexPath.row]:nil; 
+}
+
+- (NSString *)entityName
+{
+	if (self.dataSource) {
+		return self.dataSource.entityName;
+	}
+	
+	if (!_entityName) {
+		_entityName = nil;
+	}
+	return _entityName;
 }
 
 
