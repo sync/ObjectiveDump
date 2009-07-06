@@ -118,7 +118,7 @@
 	
 	if (self.fetchedResultsController) {
 		NSInteger sectionNumber = [[self.fetchedResultsController sections] count];
-		return (sectionNumber>0)?sectionNumber:1;
+		return sectionNumber;
 	}
 	
 	// Check if content first elemetn return array or not
