@@ -16,7 +16,7 @@
     if (self = [super initWithFrame:frame]) {
         // Initialization code
 		// Add the background view
-		[self addSubview:self.backgroundView];
+		[self addSubview:self.backgroundImageView];
 		// Add the title view
 		[self addSubview:self.titleLabel];
 		
@@ -26,12 +26,12 @@
     return self;
 }
 
-- (UIImageView *)backgroundView
+- (UIImageView *)backgroundImageView
 {
-	if (!_backgroundView) {
-		_backgroundView = [[UIImageView alloc]initWithFrame:CGRectZero];
+	if (!_backgroundImageView) {
+		_backgroundImageView = [[UIImageView alloc]initWithFrame:CGRectZero];
 	}
-	return _backgroundView;
+	return _backgroundImageView;
 }
 
 - (UILabel *)titleLabel
@@ -57,7 +57,7 @@
 	CGRect rect = self.bounds;
 	
 	// Set the background image frame to use all the space
-	self.backgroundView.frame = rect;
+	self.backgroundImageView.frame = rect;
 	
 	// Set the title label frame to use all the size
 	// With a left/right offset
@@ -69,7 +69,7 @@
 
 - (void)dealloc {
 	[_titleLabel release];
-	[_backgroundView release];
+	[_backgroundImageView release];
 	
     [super dealloc];
 }

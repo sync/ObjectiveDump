@@ -10,13 +10,13 @@
 
 
 @interface ODHeaderView : UIView {
-	UIImageView *_backgroundView;
+	UIImageView *_backgroundImageView;
 	UILabel *_titleLabel;
 	
 	CGFloat _leftRightOffset;
 }
 
-@property (nonatomic, readonly) UIImageView *backgroundView;
+@property (nonatomic, readonly) UIImageView *backgroundImageView;
 @property (nonatomic, readonly) UILabel *titleLabel;
 
 @property (nonatomic) CGFloat leftRightOffset;
