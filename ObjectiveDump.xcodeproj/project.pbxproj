@@ -39,6 +39,8 @@
 		3A1E9BCE0FFE30C500312CBC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9BB40FFE30C500312CBC /* Reachability.m */; };
 		3A1E9C7D0FFE37D000312CBC /* BaseDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1E9C7B0FFE37D000312CBC /* BaseDataSource.h */; };
 		3A1E9C7E0FFE37D000312CBC /* BaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9C7C0FFE37D000312CBC /* BaseDataSource.m */; };
+		3A1EAAEB1002C7A100312CBC /* ODHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1EAAE91002C7A100312CBC /* ODHeaderView.h */; };
+		3A1EAAEC1002C7A100312CBC /* ODHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1EAAEA1002C7A100312CBC /* ODHeaderView.m */; };
 		AA747D9F0F9514B9006C5449 /* ObjectiveDump_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* ObjectiveDump_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -76,6 +78,8 @@
 		3A1E9BB40FFE30C500312CBC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Main/OD/Reachability.m; sourceTree = "<group>"; };
 		3A1E9C7B0FFE37D000312CBC /* BaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseDataSource.h; path = Main/OD/BaseDataSource.h; sourceTree = "<group>"; };
 		3A1E9C7C0FFE37D000312CBC /* BaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseDataSource.m; path = Main/OD/BaseDataSource.m; sourceTree = "<group>"; };
+		3A1EAAE91002C7A100312CBC /* ODHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODHeaderView.h; sourceTree = "<group>"; };
+		3A1EAAEA1002C7A100312CBC /* ODHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODHeaderView.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* ObjectiveDump_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveDump_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libObjectiveDump.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjectiveDump.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,6 +254,7 @@
 		3A1E9B990FFE307600312CBC /* OD */ = {
 			isa = PBXGroup;
 			children = (
+				3A1EAAE81002C77800312CBC /* Views */,
 				3A1E9A6A0FFE2B6000312CBC /* Reachability */,
 				3A1E9A690FFE2B4600312CBC /* CoreLocation */,
 				3A1E9A680FFE2B3200312CBC /* Other */,
@@ -267,6 +272,15 @@
 				3A1E9C7C0FFE37D000312CBC /* BaseDataSource.m */,
 			);
 			name = DataSource;
+			sourceTree = "<group>";
+		};
+		3A1EAAE81002C77800312CBC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3A1EAAE91002C7A100312CBC /* ODHeaderView.h */,
+				3A1EAAEA1002C7A100312CBC /* ODHeaderView.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,6 +303,7 @@
 				3A1E9BCB0FFE30C500312CBC /* NSHTTPCookieAdditions.h in Headers */,
 				3A1E9BCD0FFE30C500312CBC /* Reachability.h in Headers */,
 				3A1E9C7D0FFE37D000312CBC /* BaseDataSource.h in Headers */,
+				3A1EAAEB1002C7A100312CBC /* ODHeaderView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +362,7 @@
 				3A1E9BCC0FFE30C500312CBC /* NSHTTPCookieAdditions.m in Sources */,
 				3A1E9BCE0FFE30C500312CBC /* Reachability.m in Sources */,
 				3A1E9C7E0FFE37D000312CBC /* BaseDataSource.m in Sources */,
+				3A1EAAEC1002C7A100312CBC /* ODHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
