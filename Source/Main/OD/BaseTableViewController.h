@@ -60,7 +60,4 @@
 - (NSInteger)numberOfSectionsForTableView:(UITableView *)tableView;
 - (NSInteger)numberOfRowsInSection:(NSInteger)section forTableView:(UITableView *)tableView;
 
-// Reload tableView when context save
-- (void)contextDidSave:(NSNotification *)notification;
-
 @end

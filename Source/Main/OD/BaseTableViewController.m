@@ -120,21 +120,7 @@
 		if (![self.fetchedResultsController performFetch:&error]) {
 			// Handle the error...
 		}
-		
-		// Merge any saved changes with the context on other thread
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(contextDidSave:) 
-													 name:NSManagedObjectContextDidSaveNotification
-												   object:nil];
 	}
-}
-
-#pragma mark -
-#pragma mark Context Did Save
-
-- (void)contextDidSave:(NSNotification *)notification
-{
-	[self.fetchedResultsController.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
 }
 
 #pragma mark -
@@ -365,7 +351,6 @@
 #pragma mark Dealloc
 
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter]removeObserver:self];
 	
 	[_object release];
 	[_managedObjectContext release];
