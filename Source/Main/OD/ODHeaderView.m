@@ -72,15 +72,21 @@
 	// Get the bounds of view
 	CGRect rect = self.bounds;
 	
-	// Set the background image frame to use all the space
-	self.backgroundImageView.frame = rect;
+	// Only if background image is set
+	if (_backgroundImageView) {
+		// Set the background image frame to use all the space
+		self.backgroundImageView.frame = rect;
+	}
 	
-	// Set the title label frame to use all the size
-	// With a left/right offset
-	self.titleLabel.frame = CGRectMake(rect.origin.x + self.leftRightOffset, 
-									   rect.origin.y, 
-									   rect.size.width - 2 * self.leftRightOffset, 
-									   rect.size.height);
+	// Only if title label is set
+	if (_titleLabel) {
+		// Set the title label frame to use all the size
+		// With a left/right offset
+		self.titleLabel.frame = CGRectMake(rect.origin.x + self.leftRightOffset, 
+										   rect.origin.y, 
+										   rect.size.width - 2 * self.leftRightOffset, 
+										   rect.size.height);
+	}
 }
 
 - (void)dealloc {
