@@ -21,4 +21,6 @@
 
 @property (nonatomic) CGFloat leftRightOffset;
 
+- (void)setupCustomInitialisation;
+
 @end

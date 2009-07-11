@@ -46,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A0345DE1007747F00A89785 /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		3A1E98AA0FFE1B5C00312CBC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		3A1E98AC0FFE1B5C00312CBC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3A1E98AE0FFE1B5C00312CBC /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -120,6 +121,7 @@
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				3A0345DE1007747F00A89785 /* UnitTests-Info.plist */,
 			);
 			name = ObjectiveDump;
 			sourceTree = "<group>";
@@ -154,6 +156,13 @@
 				AA747D9E0F9514B9006C5449 /* ObjectiveDump_Prefix.pch */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		3A0345E21007748F00A89785 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		3A1E98600FFE1A8300312CBC /* Source */ = {
@@ -254,6 +263,7 @@
 		3A1E9B990FFE307600312CBC /* OD */ = {
 			isa = PBXGroup;
 			children = (
+				3A0345E21007748F00A89785 /* Tests */,
 				3A1EAAE81002C77800312CBC /* Views */,
 				3A1E9A6A0FFE2B6000312CBC /* Reachability */,
 				3A1E9A690FFE2B4600312CBC /* CoreLocation */,

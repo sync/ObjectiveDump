@@ -12,24 +12,40 @@
 
 @synthesize leftRightOffset=_leftRightOffset;
 
+// The designated initializer. Override to perform setup that is required before the view is loaded.
+// Only when xibless (interface buildder)
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        // Initialization code
-		// Add the background view
-		[self addSubview:self.backgroundImageView];
-		// Add the title view
-		[self addSubview:self.titleLabel];
-		
-		// Set the offset to be 5.0;
-		self.leftRightOffset = 5.0;
+        [self setupCustomInitialisation];
     }
     return self;
 }
+
+// The designated initializer. Override to perform setup that is required before the view is loaded.
+// Only when using xib (interface buildder)
+- (id)initWithCoder:(NSCoder *)decoder {
+	if (self = [super initWithCoder:decoder]) {
+		// Custom initialization
+		[self setupCustomInitialisation];
+	}
+	return self;
+}
+
+- (void)setupCustomInitialisation
+{
+	// Initialization code
+	// Set the offset to be 5.0;
+	self.leftRightOffset = 5.0;
+	
+}
+
+
 
 - (UIImageView *)backgroundImageView
 {
 	if (!_backgroundImageView) {
 		_backgroundImageView = [[UIImageView alloc]initWithFrame:CGRectZero];
+		[self addSubview:_backgroundImageView];
 	}
 	return _backgroundImageView;
 }
@@ -41,7 +57,7 @@
 		_titleLabel.backgroundColor = [UIColor clearColor];
 		_titleLabel.textAlignment = UITextAlignmentCenter;
 		_titleLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
-		
+		[self addSubview:_titleLabel];
 	}
 	return _titleLabel;
 }
