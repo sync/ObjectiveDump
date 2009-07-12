@@ -7,8 +7,7 @@
 //
 
 #import "BaseDataSource.h"
-
-#define MyCellClass @"MyCellClass"
+#import "ODDateAdditions.h"
 
 @implementation BaseDataSource
 
@@ -67,8 +66,7 @@
 		
 		// Save the last loaded time 
 		if (self.lastLoadedDefaultskey) {
-			NSDate *lastLoadedTime = [NSDate dateWithTimeIntervalSince1970:[[[NSUserDefaults standardUserDefaults]valueForKey:self.lastLoadedDefaultskey]doubleValue]];
-			self.lastLoadedTime = lastLoadedTime;
+			self.lastLoadedTime = [[NSUserDefaults standardUserDefaults]objectForKey:self.lastLoadedDefaultskey];
 		}
 	}
 	return self;
@@ -254,7 +252,7 @@
 - (void)saveLastFetchedDate:(NSDate *)date
 {
 	if (self.lastLoadedDefaultskey) {
-		[[NSUserDefaults standardUserDefaults]setDouble:[date timeIntervalSince1970] forKey:self.lastLoadedDefaultskey];
+		[[NSUserDefaults standardUserDefaults]setObject:date forKey:self.lastLoadedDefaultskey];
 	}
 }
 
@@ -279,10 +277,10 @@
 	if (self.dataSource && [self.dataSource respondsToSelector:@selector(dataSourceHasExpired:)]) {
 		return [self.dataSource dataSourceHasExpired:self];
 	}
-	NSDate *now = [NSDate date];
+	// Compute the expired date
 	NSDate *expiredDate = [[NSDate date]addTimeInterval:self.expirtyTimeInterval];
-	NSTimeInterval difference = [now timeIntervalSinceDate:expiredDate];
-	return (difference >= 0);
+	
+	return [self.lastLoadedTime isLaterThanDate:expiredDate];
 }
 
 // Additional object

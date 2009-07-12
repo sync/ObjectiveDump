@@ -9,8 +9,6 @@
 #import "BaseTableViewController.h"
 #import "GloballyUniquePathStringAdditions.h"
 
-#define MyCellClass @"MyCellClass"
-
 @implementation BaseTableViewController
 
 @synthesize dumpedFilePath=_dumpedFilePath;
@@ -245,7 +243,7 @@
 		firstLevel = self.content;
 	}
 	// if nothing return nil
-	return (self.content.count>indexPath.row)?[self.content objectAtIndex:indexPath.row]:nil; 
+	return (firstLevel.count>indexPath.row)?[firstLevel objectAtIndex:indexPath.row]:nil; 
 }
 
 - (NSString *)entityName
