@@ -269,7 +269,9 @@
 		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
 		[dict addEntriesFromDictionary:self.infoDictionary];
 		[dict setObject:[NSNumber numberWithInteger:self.responseStatusCode] forKey:@"responseStatusCode"];
-		[dict setObject:object forKey:@"object"];
+		if (object) {
+			[dict setObject:object forKey:@"object"];
+		}
 		[self.delegate performSelectorOnMainThread:@selector(defaultOperationDidFinishLoadingWithInfo:) withObject:dict waitUntilDone:FALSE];
 	}
 }
@@ -279,7 +281,9 @@
 	if ([self.delegate respondsToSelector:@selector(defaultOperationDidFailWithInfo:)]) {
 		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
 		[dict addEntriesFromDictionary:self.infoDictionary];
-		[dict setObject:errorString forKey:@"errorString"];
+		if (errorString) {
+			[dict setObject:errorString forKey:@"errorString"];
+		}
 		[dict setObject:[NSNumber numberWithInteger:self.responseStatusCode] forKey:@"responseStatusCode"];
 		[self.delegate performSelectorOnMainThread:@selector(defaultOperationDidFailWithInfo:) withObject:dict waitUntilDone:FALSE];
 	}
