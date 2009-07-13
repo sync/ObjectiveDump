@@ -182,7 +182,7 @@
 		firstLevel = self.content;
 	}
 	// if nothing return nil
-	return (self.content.count>indexPath.row)?[self.content objectAtIndex:indexPath.row]:nil; 
+	return (firstLevel.count>indexPath.row)?[firstLevel objectAtIndex:indexPath.row]:nil; 
 }
 
 

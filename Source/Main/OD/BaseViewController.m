@@ -115,14 +115,6 @@
 }
 
 #pragma mark -
-#pragma mark Show Loading View
-
-- (void)showLoadingView:(BOOL)show withText:(NSString *)text
-{
-	// Nothing, up to the subclassing controller to implement this
-}
-
-#pragma mark -
 #pragma mark Execut Method When Notification Fire
 
 //help executing a method when a notification fire

@@ -45,6 +45,7 @@
 		3AD97CE71009B1490037DEC4 /* ODDateAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */; };
 		3AD97DB41009C0610037DEC4 /* ODDateAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */; };
 		3AD97E251009F5F70037DEC4 /* ODDateAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD97E241009F5F70037DEC4 /* ODDateAdditionsTests.m */; };
+		3AE36326100AC7880005FBA3 /* ODLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE36319100AC1820005FBA3 /* ODLoadingView.m */; };
 		AA747D9F0F9514B9006C5449 /* ObjectiveDump_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* ObjectiveDump_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -87,10 +88,12 @@
 		3A1EAAEA1002C7A100312CBC /* ODHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODHeaderView.m; sourceTree = "<group>"; };
 		3AD97CE41009B1490037DEC4 /* ODDateAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODDateAdditions.h; sourceTree = "<group>"; };
 		3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODDateAdditions.m; sourceTree = "<group>"; };
-		3AD97CFD1009B3BE0037DEC4 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = LogicTests.octest; path = "build/Debug-iphonesimulator/LogicTests.octest"; sourceTree = "<group>"; };
+		3AD97CFD1009B3BE0037DEC4 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD97CFE1009B3BE0037DEC4 /* LogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicTests-Info.plist"; sourceTree = "<group>"; };
 		3AD97E231009F5F70037DEC4 /* ODDateAdditionsTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODDateAdditionsTests.h; sourceTree = "<group>"; };
 		3AD97E241009F5F70037DEC4 /* ODDateAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODDateAdditionsTests.m; sourceTree = "<group>"; };
+		3AE36318100AC1820005FBA3 /* ODLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODLoadingView.h; sourceTree = "<group>"; };
+		3AE36319100AC1820005FBA3 /* ODLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODLoadingView.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* ObjectiveDump_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveDump_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libObjectiveDump.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjectiveDump.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -294,6 +297,8 @@
 			children = (
 				3A1EAAE91002C7A100312CBC /* ODHeaderView.h */,
 				3A1EAAEA1002C7A100312CBC /* ODHeaderView.m */,
+				3AE36318100AC1820005FBA3 /* ODLoadingView.h */,
+				3AE36319100AC1820005FBA3 /* ODLoadingView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -442,6 +447,7 @@
 				3A1E9BBC0FFE30C500312CBC /* BaseTableViewController.m in Sources */,
 				3A1E9BBE0FFE30C500312CBC /* BaseViewController.m in Sources */,
 				3A1E9BC00FFE30C500312CBC /* CoreDataDefaultOperation.m in Sources */,
+				3AE36326100AC7880005FBA3 /* ODLoadingView.m in Sources */,
 				3A1E9BC20FFE30C500312CBC /* CoreDataUtils.m in Sources */,
 				3A1E9BC40FFE30C500312CBC /* DefaultOperation.m in Sources */,
 				3A1E9BC60FFE30C500312CBC /* GloballyUniquePathStringAdditions.m in Sources */,

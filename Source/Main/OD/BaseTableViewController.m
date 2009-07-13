@@ -8,6 +8,9 @@
 
 #import "BaseTableViewController.h"
 #import "GloballyUniquePathStringAdditions.h"
+#import "ODLoadingView.h"
+
+#define LoadingViewTag 1034343
 
 @implementation BaseTableViewController
 
@@ -258,6 +261,38 @@
 	return _entityName;
 }
 
+#pragma mark -
+#pragma mark Loading View
+
+- (void)showLoadingViewForText:(NSString *)loadingText
+{
+	// Get view bounds
+	CGRect rect = self.view.bounds;
+	// Compute the loading view
+	ODLoadingView *loadingView = [[ODLoadingView alloc]initWithFrame:rect];
+	loadingView.tag = LoadingViewTag;
+	if (loadingText) {
+		loadingView.loadingLabel.text = loadingText;
+	}
+	// Animate the activity indicator
+	[loadingView.activityIndicatorView startAnimating];
+	// Add the view to the top of the tableview
+	[self.view addSubview:loadingView];
+	[loadingView release];
+	// Lock the tableview scrollview
+	self.tableView.scrollEnabled = FALSE;
+}
+
+- (void)hideLoadingView
+{
+	// Remove loading view
+	ODLoadingView *loadingView = (ODLoadingView *)[self.view viewWithTag:LoadingViewTag];
+	[loadingView.activityIndicatorView stopAnimating];
+	[loadingView removeFromSuperview];
+	// Unlock the tableview scrollview
+	self.tableView.scrollEnabled = TRUE;
+}
+
 
 #pragma mark -
 #pragma mark Fetch Results Controlelr
@@ -315,14 +350,6 @@
 	alert.delegate = self;
 	[alert show];	
 	[alert release];
-}
-
-#pragma mark -
-#pragma mark Show Loading View
-
-- (void)showLoadingView:(BOOL)show withText:(NSString *)text
-{
-	// Nothing, up to the subclassing controller to implement this
 }
 
 #pragma mark -

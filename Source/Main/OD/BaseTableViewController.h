@@ -52,6 +52,9 @@
 @property (nonatomic, retain) BaseDataSource *dataSource;
 @property (nonatomic, retain) id object;
 
+// Loading View
+- (void)showLoadingViewForText:(NSString *)loadingText;
+- (void)hideLoadingView;
 
 // Retrieve object linked to row
 - (id)objectForIndexPath:(NSIndexPath *)indexPath;

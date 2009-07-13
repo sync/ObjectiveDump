@@ -16,7 +16,7 @@
 	//Build the path we want the file to be at 
 	NSString *basePath = [self applicationDocumentsDirectory];
 	NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString]; 
-	return basePath = [basePath stringByAppendingPathComponent:guid];
+	return [basePath stringByAppendingPathComponent:guid];
 }
 
 #pragma mark -
