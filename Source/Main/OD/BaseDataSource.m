@@ -83,7 +83,7 @@
 #pragma mark -
 #pragma mark Content
 
-- (NSArray *)content
+- (NSMutableArray *)content
 {
 	if (!_content) {
 		if ([[NSFileManager defaultManager]fileExistsAtPath:self.dumpedFilePath]) {

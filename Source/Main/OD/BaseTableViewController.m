@@ -134,7 +134,7 @@
 #pragma mark -
 #pragma mark Subclassing
 
-- (NSArray *)content
+- (NSMutableArray *)content
 {
 	if (self.dataSource) {
 		return self.dataSource.content;
