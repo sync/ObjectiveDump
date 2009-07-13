@@ -35,4 +35,8 @@
 
 @property (nonatomic, retain) id object;
 
+// Loading View
+- (void)showLoadingViewForText:(NSString *)loadingText;
+- (void)hideLoadingView;
+
 @end

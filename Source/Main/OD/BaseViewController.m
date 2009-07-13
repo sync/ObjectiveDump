@@ -7,7 +7,9 @@
 //
 
 #import "BaseViewController.h"
+#import "ODLoadingView.h"
 
+#define LoadingViewTag 1035343
 
 @implementation BaseViewController
 
@@ -89,6 +91,34 @@
 - (void)setupToolbar
 {	
 	// Nothing
+}
+
+#pragma mark -
+#pragma mark Loading View
+
+- (void)showLoadingViewForText:(NSString *)loadingText
+{
+	// Get view bounds
+	CGRect rect = self.view.bounds;
+	// Compute the loading view
+	ODLoadingView *loadingView = [[ODLoadingView alloc]initWithFrame:rect];
+	loadingView.tag = LoadingViewTag;
+	if (loadingText) {
+		loadingView.loadingLabel.text = loadingText;
+	}
+	// Animate the activity indicator
+	[loadingView.activityIndicatorView startAnimating];
+	// Add the view to the top of the tableview
+	[self.view addSubview:loadingView];
+	[loadingView release];
+}
+
+- (void)hideLoadingView
+{
+	// Remove loading view
+	ODLoadingView *loadingView = (ODLoadingView *)[self.view viewWithTag:LoadingViewTag];
+	[loadingView.activityIndicatorView stopAnimating];
+	[loadingView removeFromSuperview];
 }
 
 #pragma mark -
