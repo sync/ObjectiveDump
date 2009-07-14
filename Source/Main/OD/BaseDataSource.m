@@ -91,7 +91,7 @@
 			[[NSFileManager defaultManager]removeItemAtPath:self.dumpedFilePath error:nil];
 			self.dumpedFilePath = nil;
 		} else {
-			_content = [[NSMutableArray alloc]init];
+			_content = [[NSMutableArray alloc]initWithCapacity:0];
 		}
 	}
 	return _content;
