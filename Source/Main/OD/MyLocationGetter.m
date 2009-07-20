@@ -45,7 +45,10 @@
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (abs(howRecent) < 5.0)
     {
-        [manager stopUpdatingLocation];
+        // Tell everyone that gps got a fix
+		[[NSNotificationCenter defaultCenter] postNotificationName:GPSLocationDidFix object:nil userInfo:nil];
+		// Stop updating location, save battery
+		[manager stopUpdatingLocation];
     }
 }
 

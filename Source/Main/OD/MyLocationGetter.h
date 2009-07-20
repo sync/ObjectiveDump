@@ -11,6 +11,7 @@
 
 // GPS
 #define ShouldStopGPSLocationFix @"ShouldStopGPSLocationFix"
+#define GPSLocationDidFix @"GPSLocationDidFix"
 
 @interface MyLocationGetter : NSObject <CLLocationManagerDelegate> {
 	
