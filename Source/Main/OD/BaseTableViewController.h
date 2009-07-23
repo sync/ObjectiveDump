@@ -31,7 +31,10 @@
 @end
 
 
-@interface BaseTableViewController : UITableViewController <UIAlertViewDelegate, BaseViewControllerSubclass, BaseTableViewControllerSubclass, NSFetchedResultsControllerDelegate>{	
+@interface BaseTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, BaseViewControllerSubclass, BaseTableViewControllerSubclass, NSFetchedResultsControllerDelegate>{	
+	// TableView
+	UITableView *_tableView;
+	
 	// Non persitent content
 	NSMutableArray *_content;
 	NSString *_dumpedFilePath;
@@ -47,6 +50,8 @@
 	
 	id _object;
 }
+
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
 
 @property (nonatomic, copy) NSString *dumpedFilePath;
 @property (nonatomic, retain) BaseDataSource *dataSource;

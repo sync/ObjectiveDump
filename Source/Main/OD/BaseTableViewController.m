@@ -14,6 +14,7 @@
 
 @implementation BaseTableViewController
 
+@synthesize tableView=_tableView;
 @synthesize dumpedFilePath=_dumpedFilePath;
 @synthesize dataSource=_dataSource;
 @synthesize managedObjectContext=_managedObjectContext;
@@ -90,7 +91,9 @@
 // Style and background color
 - (void)setupTableView
 {
-	// Nothing
+	// Become tableView delegate and datasource
+	self.tableView.delegate = self;
+	self.tableView.dataSource = self;
 }
 
 // Set for example
@@ -384,6 +387,7 @@
 	[_dataSource release];
 	[_dumpedFilePath release];
 	[_content release];
+	[_tableView release];
 	
     [super dealloc];
 }
