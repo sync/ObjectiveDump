@@ -11,6 +11,7 @@
 #import "ODLoadingView.h"
 
 #define LoadingViewTag 1034343
+#define ErrorViewTag 1034354
 
 @implementation BaseTableViewController
 
@@ -293,6 +294,35 @@
 	// Remove loading view
 	ODLoadingView *loadingView = (ODLoadingView *)[self.tableView viewWithTag:LoadingViewTag];
 	[loadingView.activityIndicatorView stopAnimating];
+	[loadingView removeFromSuperview];
+	// Unlock the tableview scrollview
+	self.tableView.scrollEnabled = TRUE;
+}
+
+#pragma mark -
+#pragma mark Error View
+
+- (void)showErrorViewForText:(NSString *)errorText
+{
+	// Get view bounds
+	CGRect rect = self.view.bounds;
+	// Compute the loading view
+	ODLoadingView *errorView = [[ODLoadingView alloc]initWithFrame:rect];
+	errorView.tag = ErrorViewTag;
+	if (errorText) {
+		errorView.loadingLabel.text = errorText;
+	}
+	// Add the view to the top of the tableview
+	[self.tableView addSubview:errorView];
+	[errorView release];
+	// Lock the tableview scrollview
+	self.tableView.scrollEnabled = FALSE;
+}
+
+- (void)hideErrorView
+{
+	// Remove loading view
+	ODLoadingView *loadingView = (ODLoadingView *)[self.tableView viewWithTag:ErrorViewTag];
 	[loadingView removeFromSuperview];
 	// Unlock the tableview scrollview
 	self.tableView.scrollEnabled = TRUE;

@@ -61,6 +61,10 @@
 - (void)showLoadingViewForText:(NSString *)loadingText;
 - (void)hideLoadingView;
 
+// Error View
+- (void)showErrorViewForText:(NSString *)errorText;
+- (void)hideErrorView;
+
 // Retrieve object linked to row
 - (id)objectForIndexPath:(NSIndexPath *)indexPath;
 
