@@ -56,10 +56,6 @@
 	[super viewDidLoad];
 	
 	// Set for example
-	// Style and background color
-	[self setupTableView];
-	
-	// Set for example
 	// Color and items
 	[self setupNavigationBar];
 	
@@ -67,11 +63,17 @@
 	// Color and items 
 	[self setupToolbar];
 	
+	// Set for example
+	// Background color
+	[self setupTableView];
+	
 	// If using data source
 	[self setupDataSource];
 	
 	// If using core data
 	[self setupCoreData];
+	
+
 }
 
 - (void)viewDidUnload 
@@ -91,7 +93,7 @@
 // Style and background color
 - (void)setupTableView
 {
-	// Become tableView delegate and datasource
+//	// Become tableView delegate and datasource
 	self.tableView.delegate = self;
 	self.tableView.dataSource = self;
 }
@@ -280,7 +282,7 @@
 	// Animate the activity indicator
 	[loadingView.activityIndicatorView startAnimating];
 	// Add the view to the top of the tableview
-	[self.view addSubview:loadingView];
+	[self.tableView addSubview:loadingView];
 	[loadingView release];
 	// Lock the tableview scrollview
 	self.tableView.scrollEnabled = FALSE;
@@ -289,7 +291,7 @@
 - (void)hideLoadingView
 {
 	// Remove loading view
-	ODLoadingView *loadingView = (ODLoadingView *)[self.view viewWithTag:LoadingViewTag];
+	ODLoadingView *loadingView = (ODLoadingView *)[self.tableView viewWithTag:LoadingViewTag];
 	[loadingView.activityIndicatorView stopAnimating];
 	[loadingView removeFromSuperview];
 	// Unlock the tableview scrollview
@@ -329,6 +331,14 @@
 //    // nil for section name key path means "no sections".
 //	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
 //    aFetchedResultsController.delegate = self;
+//	
+//	// Fetch once
+//	NSError *error;
+//	BOOL success = [fetchedResultsController performFetch:&error];
+//	if (!success) {
+//		NSLog(@"Fetched Controller unable to fetch with error: %@", error);
+//	}
+//	
 //	self.fetchedResultsController = aFetchedResultsController;
 //	
 //	[aFetchedResultsController release];
