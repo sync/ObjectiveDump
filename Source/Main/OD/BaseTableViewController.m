@@ -9,6 +9,7 @@
 #import "BaseTableViewController.h"
 #import "GloballyUniquePathStringAdditions.h"
 #import "ODLoadingView.h"
+#import "ODShowMoreTableFooterView.h"
 
 #define LoadingViewTag 1034343
 #define ErrorViewTag 1034354
@@ -297,6 +298,34 @@
 	[loadingView removeFromSuperview];
 	// Unlock the tableview scrollview
 	self.tableView.scrollEnabled = TRUE;
+}
+
+#pragma mark -
+#pragma mark Show More Table Footer View
+
+- (void)showMoreTableFooterViewForText:(NSString *)moreText showing:(NSString *)showing
+{
+	ODShowMoreTableFooterView *footerView = [[ODShowMoreTableFooterView alloc]initWithFrame:CGRectMake(0.0, 
+																									   0.0, 
+																									   self.tableView.frame.size.width, 
+																									   40.0)];
+	footerView.delegate = self;
+	footerView.moreTextLabel.text = moreText;
+	footerView.showingTextLabel.text = showing;
+	self.tableView.tableFooterView = footerView;
+	[footerView release];
+}
+
+- (void)hideMoreTableFooterView
+{
+	self.tableView.tableFooterView = nil;
+}
+
+#pragma mark TapDetectingViewDelegate 
+
+- (void)tapDetectingView:(TapDetectingView *)view gotSingleTapAtPoint:(CGPoint)tapPoint {
+    // Do something
+	NSLog(@"single tapped table footer view");
 }
 
 #pragma mark -

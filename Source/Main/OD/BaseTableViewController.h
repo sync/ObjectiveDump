@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "BaseDataSource.h"
+#import "TapDetectingView.h"
 
 @protocol BaseTableViewControllerSubclass <NSObject>
 
@@ -31,7 +32,7 @@
 @end
 
 
-@interface BaseTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, BaseViewControllerSubclass, BaseTableViewControllerSubclass, NSFetchedResultsControllerDelegate>{	
+@interface BaseTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, BaseViewControllerSubclass, BaseTableViewControllerSubclass, NSFetchedResultsControllerDelegate, TapDetectingViewDelegate>{	
 	// TableView
 	UITableView *_tableView;
 	
@@ -71,5 +72,9 @@
 // TableView Helper
 - (NSInteger)numberOfSectionsForTableView:(UITableView *)tableView;
 - (NSInteger)numberOfRowsInSection:(NSInteger)section forTableView:(UITableView *)tableView;
+
+// Show More Table Footer View
+- (void)showMoreTableFooterViewForText:(NSString *)moreText showing:(NSString *)showing;
+- (void)hideMoreTableFooterView;
 
 @end

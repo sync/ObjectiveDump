@@ -45,6 +45,10 @@
 		3AD97CE71009B1490037DEC4 /* ODDateAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */; };
 		3AD97DB41009C0610037DEC4 /* ODDateAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */; };
 		3AD97E251009F5F70037DEC4 /* ODDateAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD97E241009F5F70037DEC4 /* ODDateAdditionsTests.m */; };
+		3ADCDC63101977A500657E4E /* ODShowMoreTableFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ADCDC61101977A500657E4E /* ODShowMoreTableFooterView.h */; };
+		3ADCDC64101977A500657E4E /* ODShowMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADCDC62101977A500657E4E /* ODShowMoreTableFooterView.m */; };
+		3ADCDCE710198F7500657E4E /* TapDetectingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ADCDCE510198F7500657E4E /* TapDetectingView.h */; };
+		3ADCDCE810198F7500657E4E /* TapDetectingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADCDCE610198F7500657E4E /* TapDetectingView.m */; };
 		3AE36326100AC7880005FBA3 /* ODLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE36319100AC1820005FBA3 /* ODLoadingView.m */; };
 		AA747D9F0F9514B9006C5449 /* ObjectiveDump_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* ObjectiveDump_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
@@ -92,6 +96,10 @@
 		3AD97CFE1009B3BE0037DEC4 /* LogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LogicTests-Info.plist"; sourceTree = "<group>"; };
 		3AD97E231009F5F70037DEC4 /* ODDateAdditionsTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODDateAdditionsTests.h; sourceTree = "<group>"; };
 		3AD97E241009F5F70037DEC4 /* ODDateAdditionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODDateAdditionsTests.m; sourceTree = "<group>"; };
+		3ADCDC61101977A500657E4E /* ODShowMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODShowMoreTableFooterView.h; sourceTree = "<group>"; };
+		3ADCDC62101977A500657E4E /* ODShowMoreTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODShowMoreTableFooterView.m; sourceTree = "<group>"; };
+		3ADCDCE510198F7500657E4E /* TapDetectingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingView.h; sourceTree = "<group>"; };
+		3ADCDCE610198F7500657E4E /* TapDetectingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingView.m; sourceTree = "<group>"; };
 		3AE36318100AC1820005FBA3 /* ODLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODLoadingView.h; sourceTree = "<group>"; };
 		3AE36319100AC1820005FBA3 /* ODLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODLoadingView.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* ObjectiveDump_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveDump_Prefix.pch; sourceTree = SOURCE_ROOT; };
@@ -295,10 +303,14 @@
 		3A1EAAE81002C77800312CBC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3ADCDCE510198F7500657E4E /* TapDetectingView.h */,
+				3ADCDCE610198F7500657E4E /* TapDetectingView.m */,
 				3A1EAAE91002C7A100312CBC /* ODHeaderView.h */,
 				3A1EAAEA1002C7A100312CBC /* ODHeaderView.m */,
 				3AE36318100AC1820005FBA3 /* ODLoadingView.h */,
 				3AE36319100AC1820005FBA3 /* ODLoadingView.m */,
+				3ADCDC61101977A500657E4E /* ODShowMoreTableFooterView.h */,
+				3ADCDC62101977A500657E4E /* ODShowMoreTableFooterView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -343,6 +355,8 @@
 				3A1E9C7D0FFE37D000312CBC /* BaseDataSource.h in Headers */,
 				3A1EAAEB1002C7A100312CBC /* ODHeaderView.h in Headers */,
 				3AD97CE61009B1490037DEC4 /* ODDateAdditions.h in Headers */,
+				3ADCDC63101977A500657E4E /* ODShowMoreTableFooterView.h in Headers */,
+				3ADCDCE710198F7500657E4E /* TapDetectingView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +472,8 @@
 				3A1E9C7E0FFE37D000312CBC /* BaseDataSource.m in Sources */,
 				3A1EAAEC1002C7A100312CBC /* ODHeaderView.m in Sources */,
 				3AD97CE71009B1490037DEC4 /* ODDateAdditions.m in Sources */,
+				3ADCDC64101977A500657E4E /* ODShowMoreTableFooterView.m in Sources */,
+				3ADCDCE810198F7500657E4E /* TapDetectingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
