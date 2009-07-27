@@ -35,6 +35,8 @@
 	NSTimeInterval _timeOutSeconds;
 	BOOL _timedOut;
 	
+	NSInteger _offset;
+	
 	id<DefaultOperationDelegate> _delegate;
 }
 
@@ -55,6 +57,7 @@
 @property NSInteger responseStatusCode;
 @property (nonatomic, copy) NSString *acceptEncoding;
 @property (nonatomic) BOOL timedOut;
+@property (nonatomic) NSInteger offset;
 
 @property (assign) id delegate;
 

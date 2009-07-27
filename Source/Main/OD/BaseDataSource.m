@@ -191,6 +191,13 @@
 
 - (void)startLoading
 {
+	// Update the last fetched date
+	// Doing this in order to check
+	// Ir url has changed since last fetch
+	// Save the last loaded time 
+	if (self.lastLoadedDefaultskey) {
+		self.lastLoadedTime = [[NSUserDefaults standardUserDefaults]objectForKey:self.lastLoadedDefaultskey];
+	}
 	// Check expiry date for last loaded data
 	// If still valid does not start
 	if (self.dataSourceHasExpired) {
@@ -237,7 +244,8 @@
 
 - (BOOL)canGoNext
 {
-	return (self.lastDisplayedItemIndex < self.itemsCount);
+	BOOL canGoNext = (self.lastDisplayedItemIndex < self.itemsCount);
+	return canGoNext;
 }
 
 #pragma mark -

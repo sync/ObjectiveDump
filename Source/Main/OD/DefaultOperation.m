@@ -29,6 +29,7 @@
 @synthesize delegate=_delegate;
 @synthesize acceptEncoding;
 @synthesize timedOut=_timedOut;
+@synthesize offset=_offset;
 
 
 #pragma mark -
@@ -46,6 +47,7 @@
 	self.timeOutSeconds = 30.0;
 	self.responseStatusCode = 0;
 	self.timedOut = FALSE;
+	self.offset = 0;
 	
 	// Buffer
 	// downloaded data gets offloaded to the filesystem immediately, to get it out of memory

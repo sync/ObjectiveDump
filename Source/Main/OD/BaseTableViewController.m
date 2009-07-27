@@ -9,7 +9,6 @@
 #import "BaseTableViewController.h"
 #import "GloballyUniquePathStringAdditions.h"
 #import "ODLoadingView.h"
-#import "ODShowMoreTableFooterView.h"
 
 #define LoadingViewTag 1034343
 #define ErrorViewTag 1034354
@@ -166,6 +165,12 @@
 	
 }
 
+- (ODShowMoreTableFooterView *)showMoreTableFooterView
+{
+	// Return a ODShowMoreTableFooterView here
+	return nil;
+}
+
 
 #pragma mark -
 #pragma mark  Table view methods
@@ -305,15 +310,12 @@
 
 - (void)showMoreTableFooterViewForText:(NSString *)moreText showing:(NSString *)showing
 {
-	ODShowMoreTableFooterView *footerView = [[ODShowMoreTableFooterView alloc]initWithFrame:CGRectMake(0.0, 
-																									   0.0, 
-																									   self.tableView.frame.size.width, 
-																									   40.0)];
-	footerView.delegate = self;
-	footerView.moreTextLabel.text = moreText;
-	footerView.showingTextLabel.text = showing;
-	self.tableView.tableFooterView = footerView;
-	[footerView release];
+	
+	self.showMoreTableFooterView.moreTextLabel.text = moreText;
+	self.showMoreTableFooterView.showingTextLabel.text = showing;
+	self.showMoreTableFooterView.delegate = self;
+	
+	self.tableView.tableFooterView = self.showMoreTableFooterView;
 }
 
 - (void)hideMoreTableFooterView
@@ -321,11 +323,24 @@
 	self.tableView.tableFooterView = nil;
 }
 
+#pragma mark -
 #pragma mark TapDetectingViewDelegate 
 
 - (void)tapDetectingView:(TapDetectingView *)view gotSingleTapAtPoint:(CGPoint)tapPoint {
-    // Do something
-	NSLog(@"single tapped table footer view");
+    // Reload data source
+	[self.dataSource startLoading];
+}
+
+#pragma mark -
+#pragma mark Build Next Url
+
+- (NSURL *)buildNextUrlWithOffset:(NSInteger)offset limit:(NSInteger)limit urlString:(NSString *)urlString
+{
+	// Add the limit and offset
+	// &start=10&limit=5
+	NSString *newUrlString = [NSString stringWithFormat:@"%@&start=%d&limit=%d",urlString, offset, limit]; 
+	// Construct the url
+	return [NSURL URLWithString:newUrlString];
 }
 
 #pragma mark -
@@ -449,6 +464,7 @@
 
 - (void)dealloc {
 	
+	[_showMoreTableFooterView release];
 	[_object release];
 	[_managedObjectContext release];
 	[_entityName release];
