@@ -16,6 +16,11 @@
 
 @implementation ODShowMoreTableFooterView
 
+@synthesize previousBackgroundColor=_previousBackgroundColor;
+@synthesize selectedBackgroundColor=_selectedBackgroundColor;
+@synthesize backgroundImage=_backgroundImage;
+@synthesize selectedBackgroundImage=_selectedBackgroundImage;
+
 
 // The designated initializer. Override to perform setup that is required before the view is loaded.
 // Only when xibless (interface buildder)
@@ -39,14 +44,17 @@
 - (void)setupCustomInitialisation
 {
 	// Initialization code
-	// Nothing
+	// Set the background color
 	self.backgroundColor = [UIColor whiteColor];
+	// Set the selected background color
+	self.selectedBackgroundColor = [UIColor blueColor];
 }
 
 - (UIImageView *)backgroundImageView
 {
 	if (!_backgroundImageView) {
 		_backgroundImageView = [[UIImageView alloc]initWithFrame:CGRectZero];
+		_backgroundImageView.image = self.backgroundImage;
 		[self addSubview:_backgroundImageView];
 	}
 	return _backgroundImageView;
@@ -134,10 +142,80 @@
 	}
 }
 
+#pragma mark -
+#pragma mark Highlighted:
+
+- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+{
+	if (_showingTextLabel) {
+		self.showingTextLabel.highlighted = TRUE;
+	}
+	
+	if (_moreTextLabel) {
+		self.moreTextLabel.highlighted = TRUE;
+	}
+	
+	// Remember the previous background color
+	self.previousBackgroundColor = self.backgroundColor;
+	
+	// Set the new background color
+	self.backgroundColor = self.selectedBackgroundColor;
+	
+	return [super beginTrackingWithTouch:touch withEvent:event];
+}
+
+- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+{
+	if (_showingTextLabel) {
+		self.showingTextLabel.highlighted = FALSE;
+	}
+	
+	if (_moreTextLabel) {
+		self.moreTextLabel.highlighted = FALSE;
+	}
+	
+	self.backgroundColor = self.previousBackgroundColor;
+	
+	return NO;
+}
+
+- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+{
+	if (_showingTextLabel) {
+		self.showingTextLabel.highlighted = FALSE;
+	}
+	
+	if (_moreTextLabel) {
+		self.moreTextLabel.highlighted = FALSE;
+	}
+	
+	self.backgroundColor = self.previousBackgroundColor;
+	
+	return [super endTrackingWithTouch:touch withEvent:event];
+}
+
+- (void)cancelTrackingWithEvent:(UIEvent *)event
+{
+	if (_showingTextLabel) {
+		self.showingTextLabel.highlighted = FALSE;
+	}
+	
+	if (_moreTextLabel) {
+		self.moreTextLabel.highlighted = FALSE;
+	}
+	
+	self.backgroundColor = self.previousBackgroundColor;
+	
+	return [super cancelTrackingWithEvent:event];
+}
+
 
 - (void)dealloc {
 	
-    [_activityIndicatorView release];
+    [_backgroundImage release];
+	[_selectedBackgroundImage release];
+	[_previousBackgroundColor release];
+	[_activityIndicatorView release];
 	[_showingTextLabel release];
 	[_moreTextLabel release];
 	[_backgroundImageView release];

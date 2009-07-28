@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "BaseDataSource.h"
-#import "TapDetectingView.h"
 #import "ODShowMoreTableFooterView.h"
 
 @protocol BaseTableViewControllerSubclass <NSObject>
@@ -36,7 +35,7 @@
 @end
 
 
-@interface BaseTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, BaseViewControllerSubclass, BaseTableViewControllerSubclass, NSFetchedResultsControllerDelegate, TapDetectingViewDelegate>{	
+@interface BaseTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, BaseViewControllerSubclass, BaseTableViewControllerSubclass, NSFetchedResultsControllerDelegate>{	
 	// TableView
 	UITableView *_tableView;
 	
@@ -85,5 +84,8 @@
 
 // Build Next Url
 - (NSURL *)buildNextUrlWithOffset:(NSInteger)offset limit:(NSInteger)limit urlString:(NSString *)urlString;
+
+// Show More Table Footer View  Pressed 
+- (IBAction)showMoreTableFooterViewDidClick:(id)sender;
 
 @end

@@ -313,9 +313,11 @@
 	
 	self.showMoreTableFooterView.moreTextLabel.text = moreText;
 	self.showMoreTableFooterView.showingTextLabel.text = showing;
-	self.showMoreTableFooterView.delegate = self;
+	[self.showMoreTableFooterView addTarget:self
+									 action:@selector(showMoreTableFooterViewDidClick:) 
+						   forControlEvents:UIControlEventTouchUpInside];
 	
-//	self.tableView.tableFooterView = self.showMoreTableFooterView;
+	self.tableView.tableFooterView = self.showMoreTableFooterView;
 }
 
 - (void)hideMoreTableFooterView
@@ -324,9 +326,9 @@
 }
 
 #pragma mark -
-#pragma mark TapDetectingViewDelegate 
+#pragma mark Show More Table Footer View  Pressed 
 
-- (void)tapDetectingView:(TapDetectingView *)view gotSingleTapAtPoint:(CGPoint)tapPoint {
+- (IBAction)showMoreTableFooterViewDidClick:(id)sender {
     // Reload data source
 	[self.dataSource startLoading];
 }
