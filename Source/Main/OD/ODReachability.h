@@ -51,9 +51,9 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 // Networking
 #define kNetworkReachabilityChangedNotification @"kNetworkReachabilityChangedNotification"
 
-@class Reachability;
+@class ODReachability;
 
-@interface Reachability : NSObject {
+@interface ODReachability : NSObject {
     
 @private
 	BOOL _networkStatusNotificationsEnabled;
@@ -69,10 +69,10 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
  of the device.
  */
 typedef enum {
-	NotReachable = 0,
-	ReachableViaCarrierDataNetwork,
-	ReachableViaWiFiNetwork
-} NetworkStatus;
+	ODNotReachable = 0,
+	ODReachableViaCarrierDataNetwork,
+	ODReachableViaWiFiNetwork
+} ODNetworkStatus;
 
 
 // Set to YES to register for changes in network status. Otherwise reachability queries
@@ -88,15 +88,15 @@ typedef enum {
 @property (nonatomic, assign) NSMutableDictionary *reachabilityQueries;
 
 // This class is intended to be used as a singleton.
-+ (Reachability *)sharedReachability;
++ (ODReachability *)sharedReachability;
 
 // Is self.hostName is not nil, determines its reachability.
 // If self.hostName is nil and self.address is not nil, determines the reachability of self.address.
-- (NetworkStatus)remoteHostStatus;
+- (ODNetworkStatus)remoteHostStatus;
 // Is the device able to communicate with Internet hosts? If so, through which network interface?
-- (NetworkStatus)internetConnectionStatus;
+- (ODNetworkStatus)internetConnectionStatus;
 // Is the device able to communicate with hosts on the local WiFi network? (Typically these are Bonjour hosts).
-- (NetworkStatus)localWiFiConnectionStatus;
+- (ODNetworkStatus)localWiFiConnectionStatus;
 
 /*
  When reachability change notifications are posted, the callback method 'ReachabilityCallback' is called
@@ -106,7 +106,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 @end
 
-@interface ReachabilityQuery : NSObject
+@interface ODReachabilityQuery : NSObject
 {
 @private
 	SCNetworkReachabilityRef _reachabilityRef;

@@ -1,6 +1,6 @@
 /*
 
-File: Reachability.m
+File: ODReachability.m
 Abstract: SystemConfiguration framework wrapper.
 
 Version: 1.5
@@ -52,16 +52,16 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 #import <ifaddrs.h>
 #include <netdb.h>
 
-#import "Reachability.h"
+#import "ODReachability.h"
 #import <SystemConfiguration/SCNetworkReachability.h>
 
 static NSString *kLinkLocalAddressKey = @"169.254.0.0";
 static NSString *kDefaultRouteKey = @"0.0.0.0";
 
-static Reachability *_sharedReachability;
+static ODReachability *_sharedReachability;
 
 // A class extension that declares internal methods for this class.
-@interface Reachability()
+@interface ODReachability()
 - (BOOL)isAdHocWiFiNetworkAvailableFlags:(SCNetworkReachabilityFlags *)outFlags;
 - (BOOL)isNetworkAvailableFlags:(SCNetworkReachabilityFlags *)outFlags;
 - (BOOL)isReachableWithoutRequiringConnection:(SCNetworkReachabilityFlags)flags;
@@ -71,17 +71,17 @@ static Reachability *_sharedReachability;
 - (void)stopListeningForReachabilityChanges;
 @end
 
-@implementation Reachability
+@implementation ODReachability
 
 @synthesize networkStatusNotificationsEnabled = _networkStatusNotificationsEnabled;
 @synthesize hostName = _hostName;
 @synthesize address = _address;
 @synthesize reachabilityQueries = _reachabilityQueries;
 
-+ (Reachability *)sharedReachability
++ (ODReachability *)sharedReachability
 {
 	if (!_sharedReachability) {
-		_sharedReachability = [[Reachability alloc] init];
+		_sharedReachability = [[ODReachability alloc] init];
 		// Clients of Reachability will typically call [[Reachability sharedReachability] setHostName:]
 		// before calling one of the status methods.
         _sharedReachability.hostName = nil;
@@ -149,7 +149,7 @@ static Reachability *_sharedReachability;
 - (BOOL)isAdHocWiFiNetworkAvailableFlags:(SCNetworkReachabilityFlags *)outFlags
 {		
     // Look in the cache of reachability queries for one that matches this query.
-	ReachabilityQuery *query = [self.reachabilityQueries objectForKey:kLinkLocalAddressKey];
+	ODReachabilityQuery *query = [self.reachabilityQueries objectForKey:kLinkLocalAddressKey];
 	SCNetworkReachabilityRef adHocWiFiNetworkReachability = query.reachabilityRef;
 	
     // If a cached reachability query was not found, create one.
@@ -166,7 +166,7 @@ static Reachability *_sharedReachability;
         
         adHocWiFiNetworkReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&sin);
 		
-		query = [[[ReachabilityQuery alloc] init] autorelease];
+		query = [[[ODReachabilityQuery alloc] init] autorelease];
 		query.hostNameOrAddress = kLinkLocalAddressKey;
 		query.reachabilityRef = adHocWiFiNetworkReachability;
 		
@@ -214,7 +214,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 // determine which network interface is available.
 - (BOOL)isNetworkAvailableFlags:(SCNetworkReachabilityFlags *)outFlags
 {
-	ReachabilityQuery *query = [self.reachabilityQueries objectForKey:kDefaultRouteKey];
+	ODReachabilityQuery *query = [self.reachabilityQueries objectForKey:kDefaultRouteKey];
 	SCNetworkReachabilityRef defaultRouteReachability = query.reachabilityRef;
 	
     // If a cached reachability query was not found, create one.
@@ -227,7 +227,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
         
         defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
 		
-		ReachabilityQuery *query = [[[ReachabilityQuery alloc] init] autorelease];
+		ODReachabilityQuery *query = [[[ODReachabilityQuery alloc] init] autorelease];
 		query.hostNameOrAddress = kDefaultRouteKey;
 		query.reachabilityRef = defaultRouteReachability;
 		
@@ -265,7 +265,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	// Walk through the cache that holds SCNetworkReachabilityRefs for reachability
 	// queries to particular hosts or addresses.
 	NSEnumerator *enumerator = [self.reachabilityQueries objectEnumerator];
-	ReachabilityQuery *reachabilityQuery;
+	ODReachabilityQuery *reachabilityQuery;
     
 	while (reachabilityQuery = [enumerator nextObject]) {
 		
@@ -294,7 +294,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	}
 	
 	// Look in the cache for an existing SCNetworkReachabilityRef for hostName.
-	ReachabilityQuery *cachedQuery = [self.reachabilityQueries objectForKey:hostName];
+	ODReachabilityQuery *cachedQuery = [self.reachabilityQueries objectForKey:hostName];
 	SCNetworkReachabilityRef reachabilityRefForHostName = cachedQuery.reachabilityRef;
 	
 	if (reachabilityRefForHostName) {
@@ -306,7 +306,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     NSAssert1(reachabilityRefForHostName != NULL, @"Failed to create SCNetworkReachabilityRef for host: %@", hostName);
     
-	ReachabilityQuery *query = [[[ReachabilityQuery alloc] init] autorelease];
+	ODReachabilityQuery *query = [[[ODReachabilityQuery alloc] init] autorelease];
 	query.hostNameOrAddress = hostName;
 	query.reachabilityRef = reachabilityRefForHostName;
 	
@@ -344,7 +344,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	}
 	
 	// Look in the cache for an existing SCNetworkReachabilityRef for addressString.
-	ReachabilityQuery *cachedQuery = [self.reachabilityQueries objectForKey:addressString];
+	ODReachabilityQuery *cachedQuery = [self.reachabilityQueries objectForKey:addressString];
 	SCNetworkReachabilityRef reachabilityRefForAddress = cachedQuery.reachabilityRef;
 	
 	if (reachabilityRefForAddress) {
@@ -356,7 +356,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     
     NSAssert1(reachabilityRefForAddress != NULL, @"Failed to create SCNetworkReachabilityRef for address: %@", addressString);
     
-	ReachabilityQuery *query = [[[ReachabilityQuery alloc] init] autorelease];
+	ODReachabilityQuery *query = [[[ODReachabilityQuery alloc] init] autorelease];
 	query.hostNameOrAddress = addressString;
 	query.reachabilityRef = reachabilityRefForAddress;
     
@@ -373,7 +373,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
     return reachabilityRefForAddress;
 }
 
-- (NetworkStatus)remoteHostStatus
+- (ODNetworkStatus)remoteHostStatus
 {
 	/*
      If the current host name or address is reachable, determine which network interface it is reachable through.
@@ -391,32 +391,32 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 		
 	} else {
 		NSAssert(self.hostName != nil && self.address != nil, @"No hostName or address specified. Cannot determine reachability.");
-		return NotReachable;
+		return ODNotReachable;
 	}
 	
 	if (!reachabilityRef) {
-		return NotReachable;
+		return ODNotReachable;
 	}
 	
 	SCNetworkReachabilityFlags reachabilityFlags;
 	BOOL gotFlags = SCNetworkReachabilityGetFlags(reachabilityRef, &reachabilityFlags);
     if (!gotFlags) {
-        return NotReachable;
+        return ODNotReachable;
     }
     
 	BOOL reachable = [self isReachableWithoutRequiringConnection:reachabilityFlags];
 	
 	if (!reachable) {
-		return NotReachable;
+		return ODNotReachable;
 	}
-	if (reachabilityFlags & ReachableViaCarrierDataNetwork) {
-		return ReachableViaCarrierDataNetwork;
+	if (reachabilityFlags & ODReachableViaCarrierDataNetwork) {
+		return ODReachableViaCarrierDataNetwork;
 	}
 	
-	return ReachableViaWiFiNetwork;
+	return ODReachableViaWiFiNetwork;
 }
 
-- (NetworkStatus)internetConnectionStatus
+- (ODNetworkStatus)internetConnectionStatus
 {
 	/*
      To determine if the device has an Internet connection, query the address
@@ -439,19 +439,19 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 		if (defaultRouteFlags & kSCNetworkReachabilityFlagsIsDirect) {
             
 			// The connection is to an ad-hoc WiFi network, so Internet access is not available.
-			return NotReachable;
+			return ODNotReachable;
 		}
-		else if (defaultRouteFlags & ReachableViaCarrierDataNetwork) {
-			return ReachableViaCarrierDataNetwork;
+		else if (defaultRouteFlags & ODReachableViaCarrierDataNetwork) {
+			return ODReachableViaCarrierDataNetwork;
 		}
 		
-		return ReachableViaWiFiNetwork;
+		return ODReachableViaWiFiNetwork;
 	}
 	
-	return NotReachable;
+	return ODNotReachable;
 }
 
-- (NetworkStatus)localWiFiConnectionStatus
+- (ODNetworkStatus)localWiFiConnectionStatus
 {
 	SCNetworkReachabilityFlags selfAssignedAddressFlags;
 	
@@ -468,10 +468,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	BOOL hasLinkLocalNetworkAccess = [self isAdHocWiFiNetworkAvailableFlags:&selfAssignedAddressFlags];
     
 	if (hasLinkLocalNetworkAccess && (selfAssignedAddressFlags & kSCNetworkReachabilityFlagsIsDirect)) {
-		return ReachableViaWiFiNetwork;
+		return ODReachableViaWiFiNetwork;
 	}
 	
-	return NotReachable;
+	return ODNotReachable;
 }
 
 // Convert an IP address from an NSString to a sockaddr_in * that can be used to create
@@ -497,11 +497,11 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 @end
 
-@interface ReachabilityQuery ()
+@interface ODReachabilityQuery ()
 - (CFRunLoopRef)startListeningForReachabilityChanges:(SCNetworkReachabilityRef)reachability onRunLoop:(CFRunLoopRef)runLoop;
 @end
 
-@implementation ReachabilityQuery
+@implementation ODReachabilityQuery
 
 @synthesize reachabilityRef = _reachabilityRef;
 @synthesize runLoops = _runLoops;
@@ -541,7 +541,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 - (void)scheduleOnRunLoop:(NSRunLoop *)inRunLoop
 {
 	// Only register for network state changes if the client has specifically enabled them.
-	if ([[Reachability sharedReachability] networkStatusNotificationsEnabled] == NO) {
+	if ([[ODReachability sharedReachability] networkStatusNotificationsEnabled] == NO) {
 		return;
 	}
 	

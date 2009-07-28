@@ -315,7 +315,7 @@
 	self.showMoreTableFooterView.showingTextLabel.text = showing;
 	self.showMoreTableFooterView.delegate = self;
 	
-	self.tableView.tableFooterView = self.showMoreTableFooterView;
+//	self.tableView.tableFooterView = self.showMoreTableFooterView;
 }
 
 - (void)hideMoreTableFooterView

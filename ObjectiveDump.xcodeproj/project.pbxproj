@@ -35,8 +35,8 @@
 		3A1E9BCA0FFE30C500312CBC /* MyLocationGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9BB00FFE30C500312CBC /* MyLocationGetter.m */; };
 		3A1E9BCB0FFE30C500312CBC /* NSHTTPCookieAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1E9BB10FFE30C500312CBC /* NSHTTPCookieAdditions.h */; };
 		3A1E9BCC0FFE30C500312CBC /* NSHTTPCookieAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9BB20FFE30C500312CBC /* NSHTTPCookieAdditions.m */; };
-		3A1E9BCD0FFE30C500312CBC /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1E9BB30FFE30C500312CBC /* Reachability.h */; };
-		3A1E9BCE0FFE30C500312CBC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9BB40FFE30C500312CBC /* Reachability.m */; };
+		3A1E9BCD0FFE30C500312CBC /* ODReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1E9BB30FFE30C500312CBC /* ODReachability.h */; };
+		3A1E9BCE0FFE30C500312CBC /* ODReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9BB40FFE30C500312CBC /* ODReachability.m */; };
 		3A1E9C7D0FFE37D000312CBC /* BaseDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1E9C7B0FFE37D000312CBC /* BaseDataSource.h */; };
 		3A1E9C7E0FFE37D000312CBC /* BaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9C7C0FFE37D000312CBC /* BaseDataSource.m */; };
 		3A1EAAEB1002C7A100312CBC /* ODHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1EAAE91002C7A100312CBC /* ODHeaderView.h */; };
@@ -84,8 +84,8 @@
 		3A1E9BB00FFE30C500312CBC /* MyLocationGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyLocationGetter.m; path = Main/OD/MyLocationGetter.m; sourceTree = "<group>"; };
 		3A1E9BB10FFE30C500312CBC /* NSHTTPCookieAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSHTTPCookieAdditions.h; path = Main/OD/NSHTTPCookieAdditions.h; sourceTree = "<group>"; };
 		3A1E9BB20FFE30C500312CBC /* NSHTTPCookieAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSHTTPCookieAdditions.m; path = Main/OD/NSHTTPCookieAdditions.m; sourceTree = "<group>"; };
-		3A1E9BB30FFE30C500312CBC /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Main/OD/Reachability.h; sourceTree = "<group>"; };
-		3A1E9BB40FFE30C500312CBC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Main/OD/Reachability.m; sourceTree = "<group>"; };
+		3A1E9BB30FFE30C500312CBC /* ODReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODReachability.h; path = Main/OD/ODReachability.h; sourceTree = "<group>"; };
+		3A1E9BB40FFE30C500312CBC /* ODReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODReachability.m; path = Main/OD/ODReachability.m; sourceTree = "<group>"; };
 		3A1E9C7B0FFE37D000312CBC /* BaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseDataSource.h; path = Main/OD/BaseDataSource.h; sourceTree = "<group>"; };
 		3A1E9C7C0FFE37D000312CBC /* BaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseDataSource.m; path = Main/OD/BaseDataSource.m; sourceTree = "<group>"; };
 		3A1EAAE91002C7A100312CBC /* ODHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODHeaderView.h; sourceTree = "<group>"; };
@@ -260,8 +260,8 @@
 		3A1E9A6A0FFE2B6000312CBC /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
-				3A1E9BB30FFE30C500312CBC /* Reachability.h */,
-				3A1E9BB40FFE30C500312CBC /* Reachability.m */,
+				3A1E9BB30FFE30C500312CBC /* ODReachability.h */,
+				3A1E9BB40FFE30C500312CBC /* ODReachability.m */,
 			);
 			name = Reachability;
 			path = ../..;
@@ -351,7 +351,7 @@
 				3A1E9BC70FFE30C500312CBC /* mk.h in Headers */,
 				3A1E9BC90FFE30C500312CBC /* MyLocationGetter.h in Headers */,
 				3A1E9BCB0FFE30C500312CBC /* NSHTTPCookieAdditions.h in Headers */,
-				3A1E9BCD0FFE30C500312CBC /* Reachability.h in Headers */,
+				3A1E9BCD0FFE30C500312CBC /* ODReachability.h in Headers */,
 				3A1E9C7D0FFE37D000312CBC /* BaseDataSource.h in Headers */,
 				3A1EAAEB1002C7A100312CBC /* ODHeaderView.h in Headers */,
 				3AD97CE61009B1490037DEC4 /* ODDateAdditions.h in Headers */,
@@ -468,7 +468,7 @@
 				3A1E9BC80FFE30C500312CBC /* mk.m in Sources */,
 				3A1E9BCA0FFE30C500312CBC /* MyLocationGetter.m in Sources */,
 				3A1E9BCC0FFE30C500312CBC /* NSHTTPCookieAdditions.m in Sources */,
-				3A1E9BCE0FFE30C500312CBC /* Reachability.m in Sources */,
+				3A1E9BCE0FFE30C500312CBC /* ODReachability.m in Sources */,
 				3A1E9C7E0FFE37D000312CBC /* BaseDataSource.m in Sources */,
 				3A1EAAEC1002C7A100312CBC /* ODHeaderView.m in Sources */,
 				3AD97CE71009B1490037DEC4 /* ODDateAdditions.m in Sources */,
