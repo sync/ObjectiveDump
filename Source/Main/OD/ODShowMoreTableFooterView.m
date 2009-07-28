@@ -115,18 +115,18 @@
 		// Set the more label frame to use all the half height
 		// With a left offset
 		self.moreTextLabel.frame = CGRectMake(rect.origin.x + HorizontallOffset,
-											  rect.origin.y + round((rect.size.height - self.moreTextLabel.font.capHeight - FontDiff) / 2.0) - VerticalOffset, 
+											  rect.origin.y + roundf((rect.size.height - self.moreTextLabel.font.capHeight - FontDiff) / 2.0) - VerticalOffset, 
 											  rect.size.width - HorizontallOffset - HorizontallTextActivityOffset - ActivityWidth, 
-											  self.moreTextLabel.font.capHeight + FontDiff);
+											  roundf(self.moreTextLabel.font.capHeight + FontDiff));
 	}
 	
 	if (_showingTextLabel) {
 		// Set the showing label frame to use all the half height
 		// With a left offset
 		self.showingTextLabel.frame = CGRectMake(rect.origin.x + HorizontallOffset,
-											  rect.origin.y + round((rect.size.height - self.showingTextLabel.font.capHeight - FontDiff) / 2.0) + VerticalOffset, 
+											  rect.origin.y + roundf((rect.size.height - self.showingTextLabel.font.capHeight - FontDiff) / 2.0) + VerticalOffset, 
 											  rect.size.width - HorizontallOffset - HorizontallTextActivityOffset - ActivityWidth, 
-											  self.showingTextLabel.font.capHeight + FontDiff);
+											  roundf(self.showingTextLabel.font.capHeight + FontDiff));
 	}
 	
 	// Only if the activity indicator is set
@@ -145,68 +145,113 @@
 #pragma mark -
 #pragma mark Highlighted:
 
-- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+//- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+//{
+//	if (_showingTextLabel) {
+//		self.showingTextLabel.highlighted = TRUE;
+//	}
+//	
+//	if (_moreTextLabel) {
+//		self.moreTextLabel.highlighted = TRUE;
+//	}
+//	
+//	// Remember the previous background color
+//	self.previousBackgroundColor = self.backgroundColor;
+//	
+//	// Set the new background color
+//	self.backgroundColor = self.selectedBackgroundColor;
+//	
+//	return [super beginTrackingWithTouch:touch withEvent:event];
+//}
+//
+//- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+//{
+//	if (_showingTextLabel) {
+//		self.showingTextLabel.highlighted = FALSE;
+//	}
+//	
+//	if (_moreTextLabel) {
+//		self.moreTextLabel.highlighted = FALSE;
+//	}
+//	
+//	self.backgroundColor = self.previousBackgroundColor;
+//	
+//	return NO;
+//}
+//
+//- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+//{
+//	if (_showingTextLabel) {
+//		self.showingTextLabel.highlighted = FALSE;
+//	}
+//	
+//	if (_moreTextLabel) {
+//		self.moreTextLabel.highlighted = FALSE;
+//	}
+//	
+//	self.backgroundColor = self.previousBackgroundColor;
+//	
+//	return [super endTrackingWithTouch:touch withEvent:event];
+//}
+//
+//- (void)cancelTrackingWithEvent:(UIEvent *)event
+//{
+//	if (_showingTextLabel) {
+//		self.showingTextLabel.highlighted = FALSE;
+//	}
+//	
+//	if (_moreTextLabel) {
+//		self.moreTextLabel.highlighted = FALSE;
+//	}
+//	
+//	self.backgroundColor = self.previousBackgroundColor;
+//	
+//	return [super cancelTrackingWithEvent:event];
+//}
+
+#pragma mark -
+#pragma mark Highlighted:
+
+- (void)setHighlighted:(BOOL)highlighted
 {
+	[super setHighlighted:highlighted];
+	
 	if (_showingTextLabel) {
-		self.showingTextLabel.highlighted = TRUE;
+		self.showingTextLabel.highlighted = [self isHighlighted];
 	}
 	
 	if (_moreTextLabel) {
-		self.moreTextLabel.highlighted = TRUE;
+		self.moreTextLabel.highlighted = [self isHighlighted];
 	}
 	
-	// Remember the previous background color
-	self.previousBackgroundColor = self.backgroundColor;
-	
-	// Set the new background color
-	self.backgroundColor = self.selectedBackgroundColor;
-	
-	return [super beginTrackingWithTouch:touch withEvent:event];
+	[self setNeedsDisplay];
 }
 
-- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
-{
-	if (_showingTextLabel) {
-		self.showingTextLabel.highlighted = FALSE;
-	}
-	
-	if (_moreTextLabel) {
-		self.moreTextLabel.highlighted = FALSE;
-	}
-	
-	self.backgroundColor = self.previousBackgroundColor;
-	
-	return NO;
-}
+#pragma mark -
+#pragma mark Draw
 
-- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+- (void)drawRect:(CGRect)rect
 {
-	if (_showingTextLabel) {
-		self.showingTextLabel.highlighted = FALSE;
+	if ([self isHighlighted]) {
+		// Stick a background gradient when highlighted
+		CGContextRef ctx = UIGraphicsGetCurrentContext();
+		
+		CGContextSaveGState(ctx);
+		
+		CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
+		CGFloat components[] = {5.0/255.0, 140.0/255.0, 245.0/255.0, 1.0, 1.0/255.0, 92.7/255.0, 230.0/255.0, 1.0};
+		CGFloat locations[] = {0.0, 1.0};
+		CGGradientRef gradient = CGGradientCreateWithColorComponents(space, components, locations, 2);
+		CGContextDrawLinearGradient(ctx, gradient, CGPointMake(rect.origin.x, rect.origin.y),
+									CGPointMake(rect.origin.x, rect.size.height), kCGGradientDrawsAfterEndLocation);
+		CGGradientRelease(gradient);
+		CGColorSpaceRelease(space);
+		
+		CGContextRestoreGState(ctx);
 	}
 	
-	if (_moreTextLabel) {
-		self.moreTextLabel.highlighted = FALSE;
-	}
-	
-	self.backgroundColor = self.previousBackgroundColor;
-	
-	return [super endTrackingWithTouch:touch withEvent:event];
-}
-
-- (void)cancelTrackingWithEvent:(UIEvent *)event
-{
-	if (_showingTextLabel) {
-		self.showingTextLabel.highlighted = FALSE;
-	}
-	
-	if (_moreTextLabel) {
-		self.moreTextLabel.highlighted = FALSE;
-	}
-	
-	self.backgroundColor = self.previousBackgroundColor;
-	
-	return [super cancelTrackingWithEvent:event];
+	// Draw the rest
+	[super drawRect:rect];
 }
 
 
