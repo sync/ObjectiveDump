@@ -8,9 +8,11 @@
 
 #import "ODShowMoreTableFooterView.h"
 
-#define HorizontallOffset 10.0
+#define HorizontallOffset 50.0
 #define ActivityWidth 20.0
 #define HorizontallTextActivityOffset 10.0
+#define FontDiff 6.0
+#define VerticalOffset 7.0
 
 @implementation ODShowMoreTableFooterView
 
@@ -105,18 +107,18 @@
 		// Set the more label frame to use all the half height
 		// With a left offset
 		self.moreTextLabel.frame = CGRectMake(rect.origin.x + HorizontallOffset,
-											  rect.origin.y, 
+											  rect.origin.y + round((rect.size.height - self.moreTextLabel.font.capHeight - FontDiff) / 2.0) - VerticalOffset, 
 											  rect.size.width - HorizontallOffset - HorizontallTextActivityOffset - ActivityWidth, 
-											  rect.size.height / 2.0);
+											  self.moreTextLabel.font.capHeight + FontDiff);
 	}
 	
 	if (_showingTextLabel) {
 		// Set the showing label frame to use all the half height
 		// With a left offset
 		self.showingTextLabel.frame = CGRectMake(rect.origin.x + HorizontallOffset,
-											  rect.origin.y + rect.size.height / 2.0, 
+											  rect.origin.y + round((rect.size.height - self.showingTextLabel.font.capHeight - FontDiff) / 2.0) + VerticalOffset, 
 											  rect.size.width - HorizontallOffset - HorizontallTextActivityOffset - ActivityWidth, 
-											  rect.size.height / 2.0);
+											  self.showingTextLabel.font.capHeight + FontDiff);
 	}
 	
 	// Only if the activity indicator is set
@@ -125,7 +127,7 @@
 		// And higher than center vertically
 		// Get the activiy indicator frame
 		CGRect activityRect = self.activityIndicatorView.frame;
-		self.activityIndicatorView.frame = CGRectMake(rect.origin.x + HorizontallOffset + HorizontallTextActivityOffset + ActivityWidth,
+		self.activityIndicatorView.frame = CGRectMake(rect.origin.x +  rect.size.width - (HorizontallOffset + HorizontallTextActivityOffset + ActivityWidth),
 													  (rect.size.height - activityRect.size.height) / 2,
 													  activityRect.size.width,
 													  activityRect.size.height);
