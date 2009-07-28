@@ -9,6 +9,10 @@
 #import "BaseDataSource.h"
 #import "ODDateAdditions.h"
 
+#define CanGoNextKeyHelper @"_cgnHelper"
+#define CanGoNextKeyItemsCount @"CanGoNextKeyItemsCount"
+#define CanGoNextKeyLastDisplayedItemIndex @"CanGoNextKeyLastDisplayedItemIndex"
+
 @implementation BaseDataSource
 
 @synthesize isLoading=_isLoading;
@@ -245,7 +249,59 @@
 - (BOOL)canGoNext
 {
 	BOOL canGoNext = (self.lastDisplayedItemIndex < self.itemsCount);
+	// Remember if it was possible or not
+	// to go next
+	[self savecanGoNextWhenCached:canGoNext];
 	return canGoNext;
+}
+
+- (NSString *)canGoNextKey
+{
+	NSString *canGoNextKey = nil;
+	if (self.dataSource && [self.dataSource respondsToSelector:@selector(dataSourceCanGoNextDefaultskey:)]) {
+		NSString *key = [self.dataSource dataSourceCanGoNextDefaultskey:self];
+		if (key) {
+			canGoNextKey = [NSString stringWithFormat:@"%@%@", key, CanGoNextKeyHelper];
+		}
+	}
+	return canGoNextKey;
+}
+
+- (BOOL)canGoNextWhenCached
+{
+	BOOL canGoNextWhenCached = FALSE;
+	if (self.canGoNextKey) {
+		canGoNextWhenCached = [[NSUserDefaults standardUserDefaults]boolForKey:self.canGoNextKey];
+		// Set the total number of items
+		self.itemsCount = [[NSUserDefaults standardUserDefaults]integerForKey:[NSString stringWithFormat:@"%@%@", 
+														  self.canGoNextKey, 
+														  CanGoNextKeyItemsCount]];
+		// Set the offset
+		self.lastDisplayedItemIndex = [[NSUserDefaults standardUserDefaults]integerForKey:[NSString stringWithFormat:@"%@%@", 
+															 self.canGoNextKey, 
+															 CanGoNextKeyLastDisplayedItemIndex]];
+		
+	}
+	return canGoNextWhenCached;
+}
+
+// Save wether it is possible or not to go next when chached
+- (void)savecanGoNextWhenCached:(BOOL)goNext
+{
+	if (self.canGoNextKey) {
+		// Remember if it is possible to go next
+		[[NSUserDefaults standardUserDefaults]setBool:goNext forKey:self.canGoNextKey];
+		// Remember the total number of item
+		[[NSUserDefaults standardUserDefaults]setInteger:self.itemsCount 
+												  forKey:[NSString stringWithFormat:@"%@%@", 
+														  self.canGoNextKey, 
+														  CanGoNextKeyItemsCount]];
+		// Remember the offset
+		[[NSUserDefaults standardUserDefaults]setInteger:self.lastDisplayedItemIndex 
+												  forKey:[NSString stringWithFormat:@"%@%@", 
+														  self.canGoNextKey, 
+														  CanGoNextKeyLastDisplayedItemIndex]];
+	}
 }
 
 #pragma mark -

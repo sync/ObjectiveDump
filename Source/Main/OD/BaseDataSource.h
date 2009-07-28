@@ -85,6 +85,8 @@
 @property (nonatomic, copy) NSString *entityName;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, readonly) id additionalObject;
+@property (nonatomic, readonly) BOOL canGoNextWhenCached;
+@property (nonatomic, readonly) NSString *canGoNextKey;
 
 - (id)initWithDelegate:(id)delegate 
 			dataSource:(id)dataSource 
@@ -100,6 +102,9 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 
 // Save last fetch date to user prefs
 - (void)saveLastFetchedDate:(NSDate *)date;
+
+// Save wether it is possible or not to go next when chached
+- (void)savecanGoNextWhenCached:(BOOL)goNext;
 
 // Retrieve object linked to row
 - (id)objectForIndexPath:(NSIndexPath *)indexPath;
@@ -134,6 +139,9 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 - (BOOL)dataSourceHasExpired:(BaseDataSource *)dataSource;
 // Possiblity to pass an addiontional object to the data source
 - (id)dataSourceAdditionalObject:(BaseDataSource *)dataSource;
+// Help determine if the data source can go next when data
+// Were previously cached
+- (NSString *)dataSourceCanGoNextDefaultskey:(BaseDataSource *)dataSource;
 
 
 @end
