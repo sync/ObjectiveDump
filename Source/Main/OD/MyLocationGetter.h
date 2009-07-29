@@ -22,5 +22,6 @@
 @property (nonatomic, readonly) CLLocationManager *locationManager;
 
 - (void)startUpdates;
+- (void)stopUpdates;
 
 @end
