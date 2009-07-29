@@ -114,6 +114,9 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 - (NSInteger)numberOfSectionsForTableView:(UITableView *)tableView;
 - (NSInteger)numberOfRowsInSection:(NSInteger)section forTableView:(UITableView *)tableView;
 
+// Find out when given indexPath corresponds to the last row
+- (BOOL)isIndexPathLastRow:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView;
+
 //#warning - (void)addObject:(id)object;
 //#warning - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath;
 

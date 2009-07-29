@@ -189,6 +189,16 @@
 	return (firstLevel.count>indexPath.row)?[firstLevel objectAtIndex:indexPath.row]:nil; 
 }
 
+- (BOOL)isIndexPathLastRow:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView
+{
+	BOOL isLast = FALSE;
+	NSInteger totalNumberOfRows = [tableView numberOfRowsInSection:indexPath.section];
+	if (totalNumberOfRows - 1 == indexPath.row) {
+		isLast = TRUE;
+	}
+	return isLast;
+}
+
 
 #pragma mark -
 #pragma mark Start Loading
@@ -249,9 +259,6 @@
 - (BOOL)canGoNext
 {
 	BOOL canGoNext = (self.lastDisplayedItemIndex < self.itemsCount);
-	// Remember if it was possible or not
-	// to go next
-	[self savecanGoNextWhenCached:canGoNext];
 	return canGoNext;
 }
 
@@ -402,6 +409,10 @@
 	
 	// Increase the last diplayed index
 	self.lastDisplayedItemIndex += [[info valueForKey:@"lastDisplayedItemIndex"]integerValue];
+	
+	self.itemsCount = [[info valueForKey:@"totalItemsCount"]integerValue];
+	
+	[self savecanGoNextWhenCached:self.canGoNext];
 	
 	if (self.delegate && [self.delegate respondsToSelector:@selector(dataSource:didFinishLoadingWithInfoDictionary:)]) {
 		[self.delegate dataSource:self didFinishLoadingWithInfoDictionary:info];

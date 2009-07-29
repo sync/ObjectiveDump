@@ -134,7 +134,7 @@
 #pragma mark fetchedResultsController Delegate
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView reloadData];
+	[self.tableView reloadData];
 }
 
 #pragma mark -
@@ -163,12 +163,6 @@
 	// Use your object
 	//	id object = [self objectForIndexPath:indexPath];
 	
-}
-
-- (ODShowMoreTableFooterView *)showMoreTableFooterView
-{
-	// Return a ODShowMoreTableFooterView here
-	return nil;
 }
 
 
@@ -306,34 +300,6 @@
 }
 
 #pragma mark -
-#pragma mark Show More Table Footer View
-
-- (void)showMoreTableFooterViewForText:(NSString *)moreText showing:(NSString *)showing
-{
-	
-	self.showMoreTableFooterView.moreTextLabel.text = moreText;
-	self.showMoreTableFooterView.showingTextLabel.text = showing;
-	[self.showMoreTableFooterView addTarget:self
-									 action:@selector(showMoreTableFooterViewDidClick:) 
-						   forControlEvents:UIControlEventTouchUpInside];
-	
-	self.tableView.tableFooterView = self.showMoreTableFooterView;
-}
-
-- (void)hideMoreTableFooterView
-{
-	self.tableView.tableFooterView = nil;
-}
-
-#pragma mark -
-#pragma mark Show More Table Footer View  Pressed 
-
-- (IBAction)showMoreTableFooterViewDidClick:(id)sender {
-    // Reload data source
-	[self.dataSource startLoading];
-}
-
-#pragma mark -
 #pragma mark Build Next Url
 
 - (NSURL *)buildNextUrlWithOffset:(NSInteger)offset limit:(NSInteger)limit urlString:(NSString *)urlString
@@ -466,7 +432,6 @@
 
 - (void)dealloc {
 	
-	[_showMoreTableFooterView release];
 	[_object release];
 	[_managedObjectContext release];
 	[_entityName release];

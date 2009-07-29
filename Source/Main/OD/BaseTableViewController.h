@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "BaseDataSource.h"
-#import "ODShowMoreTableFooterView.h"
 
 @protocol BaseTableViewControllerSubclass <NSObject>
 
@@ -28,9 +27,6 @@
 // Setting up 
 - (void)setupDataSource;
 - (void)setupCoreData;
-
-// Show more footer view
-@property (nonatomic, readonly) ODShowMoreTableFooterView *showMoreTableFooterView;
 
 @end
 
@@ -51,8 +47,6 @@
 	NSManagedObjectContext *_managedObjectContext;
 	
 	BaseDataSource *_dataSource;
-	
-	ODShowMoreTableFooterView *_showMoreTableFooterView;
 	
 	id _object;
 }
@@ -78,14 +72,7 @@
 - (NSInteger)numberOfSectionsForTableView:(UITableView *)tableView;
 - (NSInteger)numberOfRowsInSection:(NSInteger)section forTableView:(UITableView *)tableView;
 
-// Show More Table Footer View
-- (void)showMoreTableFooterViewForText:(NSString *)moreText showing:(NSString *)showing;
-- (void)hideMoreTableFooterView;
-
 // Build Next Url
 - (NSURL *)buildNextUrlWithOffset:(NSInteger)offset limit:(NSInteger)limit urlString:(NSString *)urlString;
-
-// Show More Table Footer View  Pressed 
-- (IBAction)showMoreTableFooterViewDidClick:(id)sender;
 
 @end
