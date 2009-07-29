@@ -378,7 +378,7 @@
 //	NSError *error;
 //	BOOL success = [fetchedResultsController performFetch:&error];
 //	if (!success) {
-//		NSLog(@"Fetched Controller unable to fetch with error: %@", error);
+//		DLog(@"Fetched Controller unable to fetch with error: %@", error);
 //	}
 //	
 //	self.fetchedResultsController = aFetchedResultsController;

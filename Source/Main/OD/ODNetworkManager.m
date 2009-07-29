@@ -145,7 +145,7 @@ static ODNetworkManager *sharedODNetworkManager = nil;
 	// the user clicked one of the OK/Cancel buttons
 	if (buttonIndex == 0)
 	{
-		NSLog(@"OK");
+		DLog(@"OK");
 		// Do nothing
 	}
 }

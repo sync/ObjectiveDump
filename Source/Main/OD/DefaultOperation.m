@@ -122,9 +122,9 @@
 														kCFHTTPAuthenticationSchemeBasic,
 														FALSE);      // ForProxy
 		if (result) {
-			NSLog(@"added authentication for url %@", self.url);
+			DLog(@"added authentication for url %@", self.url);
 		} else {
-			NSLog(@"failed to add authentication!");
+			DLog(@"failed to add authentication!");
 		}
 	}
 	
@@ -190,14 +190,14 @@
 		
 		// See if we need to timeout
 		if (downloadStartedAt && self.timeOutSeconds > 0 && [now timeIntervalSinceDate:downloadStartedAt] > self.timeOutSeconds) {
-			NSLog(@"timeout at url: %@", self.url); 
+			DLog(@"timeout at url: %@", self.url); 
 			doneUploading = YES;
 			self.timedOut = TRUE;
 		}
 		
 		if ([self isCancelled])
 		{
-			NSLog(@"canceled at url: %@", self.url); 
+			DLog(@"canceled at url: %@", self.url); 
 			doneUploading = YES;
 		}
 		
@@ -237,7 +237,7 @@
 			
 			CFRelease(responseHeaders);
 			responseHeaders = NULL;
-			NSLog(@"response status code: %d for url: %@", responseStatusCode, self.url);
+			DLog(@"response status code: %d for url: %@", responseStatusCode, self.url);
 			
 			// Store cookies in global persistent store
 			[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookies:cookies forURL:url mainDocumentURL:nil];
