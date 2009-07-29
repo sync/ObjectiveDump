@@ -161,5 +161,6 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 - (void)dataSourceDidStartLoading:(BaseDataSource *)dataSource;
 - (void)dataSourceDidCancelLoading:(BaseDataSource *)dataSource;
 - (void)dataSource:(BaseDataSource *)dataSource didFailLoadingWithErrorString:(NSString *)errorString;
+- (void)dataSourceNetworkIsDown:(BaseDataSource *)dataSource;
 
 @end

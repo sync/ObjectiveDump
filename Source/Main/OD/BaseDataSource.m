@@ -8,6 +8,7 @@
 
 #import "BaseDataSource.h"
 #import "ODDateAdditions.h"
+#import "ODNetworkManager.h"
 
 #define CanGoNextKeyHelper @"_cgnHelper"
 #define CanGoNextKeyItemsCount @"CanGoNextKeyItemsCount"
@@ -216,8 +217,17 @@
 	// If still valid does not start
 	if (self.dataSourceHasExpired) {
 		if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceDidStartLoading:)]) {
-			[self setupAndStartOperation];
-			[self.delegate dataSourceDidStartLoading:self];
+			// Check for network connection
+			// If not throw error
+			if ([ODNetworkManager sharedODNetworkManager].hasValidNetworkConnection) {
+				[self setupAndStartOperation];
+				[self.delegate dataSourceDidStartLoading:self];
+			} else {
+				// Inform the user that network is down
+				if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceNetworkIsDown:)]) {	
+					[self.delegate dataSourceNetworkIsDown:self];
+				}
+			}
 		}
 	} else {
 		// Data is still valid

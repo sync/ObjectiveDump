@@ -41,6 +41,8 @@
 		3A1E9C7E0FFE37D000312CBC /* BaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9C7C0FFE37D000312CBC /* BaseDataSource.m */; };
 		3A1EAAEB1002C7A100312CBC /* ODHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1EAAE91002C7A100312CBC /* ODHeaderView.h */; };
 		3A1EAAEC1002C7A100312CBC /* ODHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1EAAEA1002C7A100312CBC /* ODHeaderView.m */; };
+		3A4062C9102069DD004CCA4C /* ODNetworkManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A4062C7102069DD004CCA4C /* ODNetworkManager.h */; };
+		3A4062CA102069DD004CCA4C /* ODNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4062C8102069DD004CCA4C /* ODNetworkManager.m */; };
 		3A4BC3D5101FD38F00551DED /* ODShowMoreCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A4BC3D3101FD38F00551DED /* ODShowMoreCell.h */; };
 		3A4BC3D6101FD38F00551DED /* ODShowMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4BC3D4101FD38F00551DED /* ODShowMoreCell.m */; };
 		3AD97CE61009B1490037DEC4 /* ODDateAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AD97CE41009B1490037DEC4 /* ODDateAdditions.h */; };
@@ -90,6 +92,8 @@
 		3A1E9C7C0FFE37D000312CBC /* BaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseDataSource.m; path = Main/OD/BaseDataSource.m; sourceTree = "<group>"; };
 		3A1EAAE91002C7A100312CBC /* ODHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODHeaderView.h; sourceTree = "<group>"; };
 		3A1EAAEA1002C7A100312CBC /* ODHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODHeaderView.m; sourceTree = "<group>"; };
+		3A4062C7102069DD004CCA4C /* ODNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODNetworkManager.h; path = Main/OD/ODNetworkManager.h; sourceTree = "<group>"; };
+		3A4062C8102069DD004CCA4C /* ODNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODNetworkManager.m; path = Main/OD/ODNetworkManager.m; sourceTree = "<group>"; };
 		3A4BC3D3101FD38F00551DED /* ODShowMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODShowMoreCell.h; sourceTree = "<group>"; };
 		3A4BC3D4101FD38F00551DED /* ODShowMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODShowMoreCell.m; sourceTree = "<group>"; };
 		3AD97CE41009B1490037DEC4 /* ODDateAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODDateAdditions.h; sourceTree = "<group>"; };
@@ -260,6 +264,8 @@
 		3A1E9A6A0FFE2B6000312CBC /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
+				3A4062C7102069DD004CCA4C /* ODNetworkManager.h */,
+				3A4062C8102069DD004CCA4C /* ODNetworkManager.m */,
 				3A1E9BB30FFE30C500312CBC /* ODReachability.h */,
 				3A1E9BB40FFE30C500312CBC /* ODReachability.m */,
 			);
@@ -365,6 +371,7 @@
 				3AD97CE61009B1490037DEC4 /* ODDateAdditions.h in Headers */,
 				3ADCDCE710198F7500657E4E /* TapDetectingView.h in Headers */,
 				3A4BC3D5101FD38F00551DED /* ODShowMoreCell.h in Headers */,
+				3A4062C9102069DD004CCA4C /* ODNetworkManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +489,7 @@
 				3AD97CE71009B1490037DEC4 /* ODDateAdditions.m in Sources */,
 				3ADCDCE810198F7500657E4E /* TapDetectingView.m in Sources */,
 				3A4BC3D6101FD38F00551DED /* ODShowMoreCell.m in Sources */,
+				3A4062CA102069DD004CCA4C /* ODNetworkManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
