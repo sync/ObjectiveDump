@@ -11,27 +11,28 @@
 
 @implementation MyLocationGetter
 
-@synthesize locationManager;
+- (CLLocationManager *)locationManager
+{
+	if (!_locationManager) {
+		_locationManager = [[CLLocationManager alloc] init];
+		
+		_locationManager.delegate = self;
+		_locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+		
+		// Set a movement threshold for new events
+		_locationManager.distanceFilter = 500;
+	}
+	return _locationManager;
+}
 
 - (void)startUpdates
-{
-    // Create the location manager if this object does not
-    // already have one.
-    if (nil == locationManager)
-        locationManager = [[CLLocationManager alloc] init];
-	
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
-	
-    // Set a movement threshold for new events
-    locationManager.distanceFilter = 500;
-	
-    [locationManager startUpdatingLocation];
+{	
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void)stopUpdates
 {	
-    [locationManager stopUpdatingLocation];
+    [self.locationManager stopUpdatingLocation];
 }
 
 
@@ -62,7 +63,7 @@
 }
 
 - (void)dealloc {
-	[locationManager release];
+	[_locationManager release];
 	
 	[super dealloc];
 }

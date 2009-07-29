@@ -15,12 +15,12 @@
 
 @interface MyLocationGetter : NSObject <CLLocationManagerDelegate> {
 	
-	CLLocationManager *locationManager;
+	CLLocationManager *_locationManager;
 
 }
 
-- (void)startUpdates;
+@property (nonatomic, readonly) CLLocationManager *locationManager;
 
-@property (nonatomic, retain) CLLocationManager *locationManager;
+- (void)startUpdates;
 
 @end
