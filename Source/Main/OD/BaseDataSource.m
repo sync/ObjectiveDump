@@ -334,7 +334,10 @@
 - (void)saveLastFetchedDate:(NSDate *)date
 {
 	if (self.lastLoadedDefaultskey) {
-		[[NSUserDefaults standardUserDefaults]setObject:date forKey:self.lastLoadedDefaultskey];
+		// Only if offset is not greater than 0
+		if (self.lastDisplayedItemIndex == 0) {
+			[[NSUserDefaults standardUserDefaults]setObject:date forKey:self.lastLoadedDefaultskey];
+		}
 	}
 }
 
