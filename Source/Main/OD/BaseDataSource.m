@@ -287,7 +287,8 @@
 - (BOOL)canGoNextWhenCached
 {
 	BOOL canGoNextWhenCached = FALSE;
-	if (self.canGoNextKey) {
+	// Make sure the data has not expired
+	if (![self dataSourceHasExpired] && self.canGoNextKey) {
 		canGoNextWhenCached = [[NSUserDefaults standardUserDefaults]boolForKey:self.canGoNextKey];
 		// Set the total number of items
 		self.itemsCount = [[NSUserDefaults standardUserDefaults]integerForKey:[NSString stringWithFormat:@"%@%@", 
