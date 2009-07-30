@@ -30,6 +30,7 @@
 @synthesize acceptEncoding;
 @synthesize timedOut=_timedOut;
 @synthesize offset=_offset;
+@synthesize hadFoundAtLeastOneItem=_hadFoundAtLeastOneItem;
 
 
 #pragma mark -
@@ -48,6 +49,7 @@
 	self.responseStatusCode = 0;
 	self.timedOut = FALSE;
 	self.offset = 0;
+	self.hadFoundAtLeastOneItem = FALSE;
 	
 	// Buffer
 	// downloaded data gets offloaded to the filesystem immediately, to get it out of memory
@@ -271,6 +273,7 @@
 		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
 		[dict addEntriesFromDictionary:self.infoDictionary];
 		[dict setObject:[NSNumber numberWithInteger:self.responseStatusCode] forKey:@"responseStatusCode"];
+		[dict setObject:[NSNumber numberWithBool:self.hadFoundAtLeastOneItem] forKey:@"hadFoundAtLeastOneItem"];
 		if (object) {
 			[dict setObject:object forKey:@"object"];
 		}
@@ -287,6 +290,7 @@
 			[dict setObject:errorString forKey:@"errorString"];
 		}
 		[dict setObject:[NSNumber numberWithInteger:self.responseStatusCode] forKey:@"responseStatusCode"];
+		[dict setObject:[NSNumber numberWithBool:self.hadFoundAtLeastOneItem] forKey:@"hadFoundAtLeastOneItem"];
 		[self.delegate performSelectorOnMainThread:@selector(defaultOperationDidFailWithInfo:) withObject:dict waitUntilDone:FALSE];
 	}
 }

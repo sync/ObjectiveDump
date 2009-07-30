@@ -37,6 +37,8 @@
 	
 	NSInteger _offset;
 	
+	BOOL _hadFoundAtLeastOneItem;
+	
 	id<DefaultOperationDelegate> _delegate;
 }
 
@@ -58,6 +60,7 @@
 @property (nonatomic, copy) NSString *acceptEncoding;
 @property (nonatomic) BOOL timedOut;
 @property (nonatomic) NSInteger offset;
+@property (nonatomic) BOOL hadFoundAtLeastOneItem;
 
 @property (assign) id delegate;
 
