@@ -10,9 +10,9 @@
 
 #define HorizontallOffset 50.0
 #define ActivityWidth 20.0
-#define HorizontallTextActivityOffset 10.0
 #define FontDiff 6.0
 #define VerticalOffset 7.0
+#define TextActivityDiff 10.0
 
 @implementation ODShowMoreCell
 
@@ -68,23 +68,59 @@
 	// Get the bounds of view
 	CGRect rect = self.bounds;
 	
-	// Only if title label is set
+	CGRect moreTextLabelFrame = CGRectZero;
+	CGRect showingTextLabelFrame = CGRectZero;
+	
+	CGFloat widdest = 0;
+	
+	// Calculate the width of 
+	// The more text label
 	if (_moreTextLabel) {
-		// Set the more label frame to use all the half height
-		// With a left offset
-		self.moreTextLabel.frame = CGRectMake(rect.origin.x + HorizontallOffset,
-											  rect.origin.y + roundf((rect.size.height - self.moreTextLabel.font.capHeight - FontDiff) / 2.0) - VerticalOffset, 
-											  rect.size.width - HorizontallOffset - HorizontallTextActivityOffset - ActivityWidth, 
-											  roundf(self.moreTextLabel.font.capHeight + FontDiff));
+		// Default frame
+		moreTextLabelFrame = CGRectMake(rect.origin.x,
+									   rect.origin.y + roundf((rect.size.height - self.moreTextLabel.font.capHeight - FontDiff) / 2.0) - VerticalOffset, 
+									   rect.size.width - ActivityWidth, 
+									   roundf(self.moreTextLabel.font.capHeight + FontDiff));
+		
+		// Get the text width
+		CGRect textFrame = [self.moreTextLabel textRectForBounds:moreTextLabelFrame limitedToNumberOfLines:self.moreTextLabel.numberOfLines];
+		
+		if (textFrame.size.width > widdest) {
+			widdest = textFrame.size.width;
+		}
+		
+	}
+	
+	// Calculate the width of 
+	// The showing text label
+	if (_showingTextLabel) {
+		// Default frame
+		showingTextLabelFrame = CGRectMake(rect.origin.x,
+									   rect.origin.y + roundf((rect.size.height - self.showingTextLabel.font.capHeight - FontDiff) / 2.0) + VerticalOffset, 
+									   rect.size.width - ActivityWidth, 
+									   roundf(self.showingTextLabel.font.capHeight + FontDiff));
+		
+		// Get the text width
+		CGRect textFrame = [self.showingTextLabel textRectForBounds:showingTextLabelFrame limitedToNumberOfLines:self.showingTextLabel.numberOfLines];
+		
+		if (textFrame.size.width > widdest) {
+			widdest = textFrame.size.width;
+		}
+	
+	}
+	
+	if (_moreTextLabel) {
+		self.moreTextLabel.frame = CGRectMake(moreTextLabelFrame.origin.x + roundf((rect.size.width - widdest) / 2.0), 
+											  moreTextLabelFrame.origin.y, 
+											  moreTextLabelFrame.size.width - roundf((rect.size.width - widdest) / 2.0),
+											  moreTextLabelFrame.size.height);
 	}
 	
 	if (_showingTextLabel) {
-		// Set the showing label frame to use all the half height
-		// With a left offset
-		self.showingTextLabel.frame = CGRectMake(rect.origin.x + HorizontallOffset,
-												 rect.origin.y + roundf((rect.size.height - self.showingTextLabel.font.capHeight - FontDiff) / 2.0) + VerticalOffset, 
-												 rect.size.width - HorizontallOffset - HorizontallTextActivityOffset - ActivityWidth, 
-												 roundf(self.showingTextLabel.font.capHeight + FontDiff));
+		self.showingTextLabel.frame = CGRectMake(showingTextLabelFrame.origin.x + roundf((rect.size.width - widdest) / 2.0), 
+												 showingTextLabelFrame.origin.y, 
+												 showingTextLabelFrame.size.width - roundf((rect.size.width - widdest) / 2.0),
+												 showingTextLabelFrame.size.height);
 	}
 	
 	// Only if the activity indicator is set
@@ -93,7 +129,7 @@
 		// And higher than center vertically
 		// Get the activiy indicator frame
 		CGRect activityRect = self.activityIndicatorView.frame;
-		self.activityIndicatorView.frame = CGRectMake(rect.origin.x +  rect.size.width - (HorizontallOffset + HorizontallTextActivityOffset + ActivityWidth),
+		self.activityIndicatorView.frame = CGRectMake(rect.origin.x +  roundf((rect.size.width - widdest) / 2.0) + widdest + TextActivityDiff,
 													  (rect.size.height - activityRect.size.height) / 2,
 													  activityRect.size.width,
 													  activityRect.size.height);
