@@ -143,7 +143,7 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 // Possiblity to pass an addiontional object to the data source
 - (id)dataSourceAdditionalObject:(BaseDataSource *)dataSource;
 // Help determine if the data source can go next when data
-// Were previously cached
+// Was previously cached
 - (NSString *)dataSourceCanGoNextDefaultskey:(BaseDataSource *)dataSource;
 
 
