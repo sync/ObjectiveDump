@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import <CoreData/CoreData.h>
 #import "BaseDataSource.h"
 
 @protocol BaseTableViewControllerSubclass <NSObject>
