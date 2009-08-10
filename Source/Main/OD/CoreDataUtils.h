@@ -50,7 +50,7 @@ Copyright © 2006-2007 Apple Inc. All Rights Reserved.
 
 
 #import <UIKit/UIKit.h>
-
+#import <CoreData/CoreData.h>
 
 @interface NSManagedObjectContext (FetchUtils)
 

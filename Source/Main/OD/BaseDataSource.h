@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DefaultOperation.h"
+#import <CoreData/CoreData.h>
 
 @protocol BaseDataSourceSubclass <NSObject>
 

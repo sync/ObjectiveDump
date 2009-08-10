@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "DefaultOperation.h"
 
 @interface CoreDataDefaultOperation : DefaultOperation {
