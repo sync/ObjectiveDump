@@ -7,9 +7,8 @@
 //
 
 #import "ODDateAdditions.h"
-#import "ODDateAdditions.h"
 
-@implementation NSDate (RFC2822)
+@implementation NSDate (ODDateAdditions)
 
 - (BOOL)isEarlierThanDate:(NSDate *)date
 {
