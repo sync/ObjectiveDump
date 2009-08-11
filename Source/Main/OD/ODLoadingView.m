@@ -66,6 +66,8 @@
 		_loadingLabel.backgroundColor = [UIColor clearColor];
 		_loadingLabel.textAlignment = UITextAlignmentCenter;
 		_loadingLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
+		_loadingLabel.numberOfLines = 0;
+		_loadingLabel.adjustsFontSizeToFitWidth = FALSE;
 		[self addSubview:_loadingLabel];
 	}
 	return _loadingLabel;
