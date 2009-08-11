@@ -6,7 +6,7 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import "ODStringAdditionss.h"
+#import "ODStringAdditions.h"
 
 
 @implementation NSString (ODStringAdditions)
