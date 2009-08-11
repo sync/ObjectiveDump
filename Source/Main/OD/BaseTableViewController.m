@@ -161,7 +161,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 	// Use your object
-	//	id object = [self objectForIndexPath:indexPath];
+	//	id object = [self objectForIndexPath:indexPath forTableView:tableView];
 	
 }
 
@@ -191,7 +191,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyCellIdentifier] autorelease];
     }
 	
-	//id object = [self objectForIndexPath:indexPath];
+	//id object = [self objectForIndexPath:indexPath forTableView:tableView];
     
 	// Configure the cell.
 	
@@ -232,10 +232,10 @@
 	return self.content.count;
 }
 
-- (id)objectForIndexPath:(NSIndexPath *)indexPath
+- (id)objectForIndexPath:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView;
 {
 	if (self.dataSource) {
-		return [self.dataSource objectForIndexPath:indexPath];
+		return [self.dataSource objectForIndexPath:indexPath forTableView:tableView];
 	}
 	
 	if (self.fetchedResultsController) {

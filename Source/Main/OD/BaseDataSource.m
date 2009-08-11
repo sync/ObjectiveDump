@@ -170,7 +170,7 @@
 	return self.content.count;
 }
 
-- (id)objectForIndexPath:(NSIndexPath *)indexPath
+- (id)objectForIndexPath:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView;
 {
 	
 	if (self.fetchedResultsController) {

@@ -108,10 +108,10 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 - (void)savecanGoNextWhenCached:(BOOL)goNext;
 
 // Retrieve object linked to row
-- (id)objectForIndexPath:(NSIndexPath *)indexPath;
+// Retrieve object linked to row
+- (id)objectForIndexPath:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView;
 
 // TableView methods
-- (id)objectForIndexPath:(NSIndexPath *)indexPath;
 - (NSInteger)numberOfSectionsForTableView:(UITableView *)tableView;
 - (NSInteger)numberOfRowsInSection:(NSInteger)section forTableView:(UITableView *)tableView;
 

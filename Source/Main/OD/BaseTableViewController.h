@@ -67,7 +67,7 @@
 - (void)hideErrorView;
 
 // Retrieve object linked to row
-- (id)objectForIndexPath:(NSIndexPath *)indexPath;
+- (id)objectForIndexPath:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView;
 
 // TableView Helper
 - (NSInteger)numberOfSectionsForTableView:(UITableView *)tableView;
