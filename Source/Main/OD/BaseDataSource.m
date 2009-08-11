@@ -269,6 +269,9 @@
 - (BOOL)canGoNext
 {
 	BOOL canGoNext = (self.lastDisplayedItemIndex < self.itemsCount);
+	if (canGoNext) {
+		DLog(@"canGoNext");
+	}
 	return canGoNext;
 }
 
