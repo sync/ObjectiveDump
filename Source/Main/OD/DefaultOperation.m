@@ -10,6 +10,7 @@
 #import "Base64.h"
 #import "NSHTTPCookieAdditions.h"
 #import <CFNetwork/CFNetwork.h>
+#import "ODDataAdditions.h"
 
 @implementation DefaultOperation
 
@@ -31,6 +32,7 @@
 @synthesize timedOut=_timedOut;
 @synthesize offset=_offset;
 @synthesize hadFoundAtLeastOneItem=_hadFoundAtLeastOneItem;
+@synthesize gzipped=_gzipped;
 
 
 #pragma mark -
@@ -50,6 +52,8 @@
 	self.timedOut = FALSE;
 	self.offset = 0;
 	self.hadFoundAtLeastOneItem = FALSE;
+	self.gzipped = FALSE;
+	self.acceptEncoding = @"gzip, deflate";
 	
 	// Buffer
 	// downloaded data gets offloaded to the filesystem immediately, to get it out of memory
@@ -233,6 +237,15 @@
 			CFDictionaryRef responseHeaders = CFHTTPMessageCopyAllHeaderFields(headers);
 			self.responseStatusCode = CFHTTPMessageGetResponseStatusCode(headers);
 			
+			// Handle compression
+			// "Content-Encoding" = gzip;
+			NSString *contentEncoding = [(NSDictionary *)responseHeaders valueForKey:@"Content-Encoding"];
+			if (contentEncoding && [contentEncoding isEqualToString:@"gzip"]) {
+				self.gzipped = TRUE;
+			} else {
+				self.gzipped = FALSE;
+			}
+			
 			// Handle cookies
 			NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:(NSDictionary *)responseHeaders forURL:url];
 			//[self setResponseCookies:cookies];
@@ -255,7 +268,7 @@
 	_readStream = NULL;
 	// end new way
 	
-	return [NSData dataWithContentsOfMappedFile:self.tmpFilePath];
+	return (self.gzipped)?[[NSData dataWithContentsOfMappedFile:self.tmpFilePath]gzipInflate]:[NSData dataWithContentsOfMappedFile:self.tmpFilePath];
 }
 
 - (void)startOperation

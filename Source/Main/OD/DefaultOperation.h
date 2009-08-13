@@ -38,6 +38,7 @@
 	NSInteger _offset;
 	
 	BOOL _hadFoundAtLeastOneItem;
+	BOOL _gzipped;
 	
 	id<DefaultOperationDelegate> _delegate;
 }
@@ -61,6 +62,7 @@
 @property (nonatomic) BOOL timedOut;
 @property (nonatomic) NSInteger offset;
 @property (nonatomic) BOOL hadFoundAtLeastOneItem;
+@property (nonatomic) BOOL gzipped;
 
 @property (assign) id delegate;
 
