@@ -45,6 +45,9 @@
 		3A4062CA102069DD004CCA4C /* ODNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4062C8102069DD004CCA4C /* ODNetworkManager.m */; };
 		3A4BC3D5101FD38F00551DED /* ODShowMoreCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A4BC3D3101FD38F00551DED /* ODShowMoreCell.h */; };
 		3A4BC3D6101FD38F00551DED /* ODShowMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4BC3D4101FD38F00551DED /* ODShowMoreCell.m */; };
+		3A9DD6B21033B05D00FCF47C /* ODDataAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A9DD6B01033B05D00FCF47C /* ODDataAdditions.h */; };
+		3A9DD6B31033B05D00FCF47C /* ODDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A9DD6B11033B05D00FCF47C /* ODDataAdditions.m */; };
+		3A9DD6B71033B0DE00FCF47C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9DD6B61033B0DE00FCF47C /* libz.dylib */; };
 		3AD97CE61009B1490037DEC4 /* ODDateAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AD97CE41009B1490037DEC4 /* ODDateAdditions.h */; };
 		3AD97CE71009B1490037DEC4 /* ODDateAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */; };
 		3AD97DB41009C0610037DEC4 /* ODDateAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */; };
@@ -98,6 +101,9 @@
 		3A4062C8102069DD004CCA4C /* ODNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODNetworkManager.m; path = Main/OD/ODNetworkManager.m; sourceTree = "<group>"; };
 		3A4BC3D3101FD38F00551DED /* ODShowMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODShowMoreCell.h; sourceTree = "<group>"; };
 		3A4BC3D4101FD38F00551DED /* ODShowMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODShowMoreCell.m; sourceTree = "<group>"; };
+		3A9DD6B01033B05D00FCF47C /* ODDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODDataAdditions.h; sourceTree = "<group>"; };
+		3A9DD6B11033B05D00FCF47C /* ODDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODDataAdditions.m; sourceTree = "<group>"; };
+		3A9DD6B61033B0DE00FCF47C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		3AD97CE41009B1490037DEC4 /* ODDateAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODDateAdditions.h; sourceTree = "<group>"; };
 		3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODDateAdditions.m; sourceTree = "<group>"; };
 		3AD97CFD1009B3BE0037DEC4 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +142,7 @@
 				3A1E98B50FFE1B5C00312CBC /* QuartzCore.framework in Frameworks */,
 				3A1E98B70FFE1B5C00312CBC /* SystemConfiguration.framework in Frameworks */,
 				3A1E98B90FFE1B5C00312CBC /* UIKit.framework in Frameworks */,
+				3A9DD6B71033B0DE00FCF47C /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +167,7 @@
 				034768DFFF38A50411DB9C8B /* Products */,
 				3A0345DE1007747F00A89785 /* UnitTests-Info.plist */,
 				3AD97CFE1009B3BE0037DEC4 /* LogicTests-Info.plist */,
+				3A9DD6B61033B0DE00FCF47C /* libz.dylib */,
 			);
 			name = ObjectiveDump;
 			sourceTree = "<group>";
@@ -287,6 +295,7 @@
 		3A1E9B990FFE307600312CBC /* OD */ = {
 			isa = PBXGroup;
 			children = (
+				3A9DD6AF1033B04400FCF47C /* NSDate */,
 				3AEA2E73102FCC87008D6BE1 /* String */,
 				3AD97CE31009B1190037DEC4 /* Date */,
 				3A1EAAE81002C77800312CBC /* Views */,
@@ -330,6 +339,15 @@
 				3A4BC3D4101FD38F00551DED /* ODShowMoreCell.m */,
 			);
 			name = TableViewCell;
+			sourceTree = "<group>";
+		};
+		3A9DD6AF1033B04400FCF47C /* NSDate */ = {
+			isa = PBXGroup;
+			children = (
+				3A9DD6B01033B05D00FCF47C /* ODDataAdditions.h */,
+				3A9DD6B11033B05D00FCF47C /* ODDataAdditions.m */,
+			);
+			name = NSDate;
 			sourceTree = "<group>";
 		};
 		3AD97CE31009B1190037DEC4 /* Date */ = {
@@ -387,6 +405,7 @@
 				3A4BC3D5101FD38F00551DED /* ODShowMoreCell.h in Headers */,
 				3A4062C9102069DD004CCA4C /* ODNetworkManager.h in Headers */,
 				3AEA333D1031429C008D6BE1 /* ODStringAdditions.h in Headers */,
+				3A9DD6B21033B05D00FCF47C /* ODDataAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +525,7 @@
 				3A4BC3D6101FD38F00551DED /* ODShowMoreCell.m in Sources */,
 				3A4062CA102069DD004CCA4C /* ODNetworkManager.m in Sources */,
 				3AEA333E1031429C008D6BE1 /* ODStringAdditions.m in Sources */,
+				3A9DD6B31033B05D00FCF47C /* ODDataAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
