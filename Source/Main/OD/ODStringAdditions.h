@@ -12,5 +12,6 @@
 @interface NSString (ODStringAdditions)
 
 - (NSString *)firstIndex;
+- (NSString *)trimNewLines;
 
 @end
