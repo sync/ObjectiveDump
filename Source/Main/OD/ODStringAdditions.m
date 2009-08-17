@@ -21,10 +21,4 @@
 	return string;
 }
 
-// Remove spaces and new line at the beginning and end of a strings
-- (NSString *)trimNewLines
-{
-    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-}
-
 @end
