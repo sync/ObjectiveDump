@@ -1,12 +1,12 @@
 //
-//  BaseDataSource.m
-//  
+//  BaseMapViewDataSource.m
+//  ObjectiveDump
 //
-//  Created by Anthony Mittaz on 1/07/09.
+//  Created by Anthony Mittaz on 25/08/09.
 //  Copyright 2009 Anthony Mittaz. All rights reserved.
 //
 
-#import "BaseDataSource.h"
+#import "BaseMapViewDataSource.h"
 #import "ODDateAdditions.h"
 #import "ODNetworkManager.h"
 
@@ -14,7 +14,7 @@
 #define CanGoNextKeyItemsCount @"CanGoNextKeyItemsCount"
 #define CanGoNextKeyLastDisplayedItemIndex @"CanGoNextKeyLastDisplayedItemIndex"
 
-@implementation BaseDataSource
+@implementation BaseMapViewDataSource
 
 @synthesize isLoading=_isLoading;
 @synthesize lastLoadedTime=_lastLoadedTime;
@@ -24,10 +24,8 @@
 @synthesize delegate=_delegate;
 @synthesize dataSource=_dataSource;
 @synthesize operationQueue=_operationQueue;
-@synthesize rowHeight=_rowHeight;
 @synthesize dumpedFilePath=_dumpedFilePath;
 @synthesize entityName=_entityName;
-@synthesize fetchedResultsController=_fetchedResultsController;
 
 #pragma mark -
 #pragma mark Init
@@ -44,11 +42,7 @@
 		self.delegate = nil;
 		self.dataSource = nil;
 		self.operationQueue = nil;
-		// if set to -1 do nothing
-		self.rowHeight = -1;
 		self.entityName = nil;
-		// When nil, core data is not used
-		self.fetchedResultsController = nil;
 	}
 	return self;
 }
@@ -57,7 +51,6 @@
 			dataSource:(id)dataSource 
 		operationQueue:(id)operationQueue
 			entityName:(NSString *)entityName
-			fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
 {
 	self = [super init];
 	if (self != nil) {
@@ -65,9 +58,6 @@
 		self.dataSource = dataSource;
 		self.operationQueue = operationQueue;
 		self.entityName = entityName;
-		
-		// When nil core data is not used
-		self.fetchedResultsController = fetchedResultsController;
 		
 		// Save the last loaded time 
 		if (self.lastLoadedDefaultskey) {
@@ -101,105 +91,6 @@
 	}
 	return _content;
 }
-
-#pragma mark -
-#pragma mark Table view methods
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
-{
-	return [self numberOfSectionsForTableView:tableView];
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
-{
-	return [self numberOfRowsInSection:section forTableView:tableView];
-}
-
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
-{
-	
-	static NSString *MyCellIdentifier = @"MyCellIdentifier";
-	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyCellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyCellIdentifier] autorelease];
-    }
-	
-	//id object = [self objectForIndexPath:indexPath];
-    
-	// Configure the cell.
-	
-    return cell;
-}
-
-#pragma mark -
-#pragma mark Table view methods helper
-
-- (NSInteger)numberOfSectionsForTableView:(UITableView *)tableView
-{
-	if (self.fetchedResultsController) {
-		NSInteger sectionNumber = [[self.fetchedResultsController sections] count];
-		return sectionNumber;
-	}
-	
-	// Check if content first elemetn return array or not
-	// If yes, tableview has more than one section
-	if (self.content && self.content.count > 0
-		&& [[self.content objectAtIndex:0]respondsToSelector:@selector(objectAtIndex:)]) {
-		return self.content.count;
-	}
-	return 1;
-}
-
-- (NSInteger)numberOfRowsInSection:(NSInteger)section forTableView:(UITableView *)tableView
-{
-	if (self.fetchedResultsController) {
-		id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-		return [sectionInfo numberOfObjects];
-	}
-	
-	// Check if content first elemetn return array or not
-	// If yes, tableview has more than one section
-	if (self.content && self.content.count > section
-		&& [[self.content objectAtIndex:section]respondsToSelector:@selector(objectAtIndex:)]) {
-		return [[self.content objectAtIndex:section]count];
-	}
-	return self.content.count;
-}
-
-- (id)objectForIndexPath:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView;
-{
-	
-	if (self.fetchedResultsController) {
-		return [self.fetchedResultsController objectAtIndexPath:indexPath];
-	}
-	
-	// Hack to see if array has got multiple sections or not
-	NSArray *firstLevel = nil;
-	if (self.content && self.content.count > indexPath.section
-		&& [[self.content objectAtIndex:indexPath.section]respondsToSelector:@selector(objectAtIndex:)] 
-		&& self.content.count>indexPath.section) {
-		firstLevel = [self.content objectAtIndex:indexPath.section];
-	} else {
-		firstLevel = self.content;
-	}
-	// if nothing return nil
-	return (firstLevel.count>indexPath.row)?[firstLevel objectAtIndex:indexPath.row]:nil; 
-}
-
-- (BOOL)isIndexPathLastRow:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView
-{
-	BOOL isLast = FALSE;
-	NSInteger totalNumberOfRows = [tableView numberOfRowsInSection:indexPath.section];
-	if (totalNumberOfRows - 1 == indexPath.row) {
-		isLast = TRUE;
-	}
-	return isLast;
-}
-
 
 #pragma mark -
 #pragma mark Start Loading
@@ -294,12 +185,12 @@
 		canGoNextWhenCached = [[NSUserDefaults standardUserDefaults]boolForKey:self.canGoNextKey];
 		// Set the total number of items
 		self.itemsCount = [[NSUserDefaults standardUserDefaults]integerForKey:[NSString stringWithFormat:@"%@%@", 
-														  self.canGoNextKey, 
-														  CanGoNextKeyItemsCount]];
+																			   self.canGoNextKey, 
+																			   CanGoNextKeyItemsCount]];
 		// Set the offset
 		self.lastDisplayedItemIndex = [[NSUserDefaults standardUserDefaults]integerForKey:[NSString stringWithFormat:@"%@%@", 
-															 self.canGoNextKey, 
-															 CanGoNextKeyLastDisplayedItemIndex]];
+																						   self.canGoNextKey, 
+																						   CanGoNextKeyLastDisplayedItemIndex]];
 		
 	}
 	return canGoNextWhenCached;
@@ -440,7 +331,6 @@
 
 - (void)dealloc
 {
-	[_fetchedResultsController release];
 	[_entityName release];
 	[_dumpedFilePath release];
 	[_content release];
@@ -453,42 +343,3 @@
 }
 
 @end
-
-
-//
-//	FetchResultsController example
-//
-//- (NSFetchedResultsController *)fetchedResultsController {
-//    
-//    if (fetchedResultsController != nil) {
-//        return fetchedResultsController;
-//    }
-//    
-//    /*
-//	 Set up the fetched results controller.
-//	 */
-//	// Create the fetch request for the entity.
-//	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//	// Edit the entity name as appropriate.
-//	NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPProduct" inManagedObjectContext:self.managedObjectContext];
-//	[fetchRequest setEntity:entity];
-//	
-//	// Edit the sort key as appropriate.
-//	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"Event" ascending:YES];
-//	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-//	
-//	[fetchRequest setSortDescriptors:sortDescriptors];
-//	
-//	// Edit the section name key path and cache name if appropriate.
-//    // nil for section name key path means "no sections".
-//	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
-//    aFetchedResultsController.delegate = self;
-//	self.fetchedResultsController = aFetchedResultsController;
-//	
-//	[aFetchedResultsController release];
-//	[fetchRequest release];
-//	[sortDescriptor release];
-//	[sortDescriptors release];
-//	
-//	return fetchedResultsController;
-//}

@@ -45,6 +45,12 @@
 		3A4062CA102069DD004CCA4C /* ODNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4062C8102069DD004CCA4C /* ODNetworkManager.m */; };
 		3A4BC3D5101FD38F00551DED /* ODShowMoreCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A4BC3D3101FD38F00551DED /* ODShowMoreCell.h */; };
 		3A4BC3D6101FD38F00551DED /* ODShowMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4BC3D4101FD38F00551DED /* ODShowMoreCell.m */; };
+		3A94656C10437C1A008175DF /* BaseMapViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A94656810437C1A008175DF /* BaseMapViewController.h */; };
+		3A94656D10437C1A008175DF /* BaseMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A94656910437C1A008175DF /* BaseMapViewController.m */; };
+		3A94656E10437C1A008175DF /* BaseMapViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A94656A10437C1A008175DF /* BaseMapViewDataSource.h */; };
+		3A94656F10437C1A008175DF /* BaseMapViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A94656B10437C1A008175DF /* BaseMapViewDataSource.m */; };
+		3A94658B104381E5008175DF /* BasePinAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A946589104381E5008175DF /* BasePinAnnotation.h */; };
+		3A94658C104381E5008175DF /* BasePinAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A94658A104381E5008175DF /* BasePinAnnotation.m */; };
 		3A9DD6B21033B05D00FCF47C /* ODDataAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A9DD6B01033B05D00FCF47C /* ODDataAdditions.h */; };
 		3A9DD6B31033B05D00FCF47C /* ODDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A9DD6B11033B05D00FCF47C /* ODDataAdditions.m */; };
 		3A9DD6B71033B0DE00FCF47C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9DD6B61033B0DE00FCF47C /* libz.dylib */; };
@@ -101,6 +107,12 @@
 		3A4062C8102069DD004CCA4C /* ODNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODNetworkManager.m; path = Main/OD/ODNetworkManager.m; sourceTree = "<group>"; };
 		3A4BC3D3101FD38F00551DED /* ODShowMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODShowMoreCell.h; sourceTree = "<group>"; };
 		3A4BC3D4101FD38F00551DED /* ODShowMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODShowMoreCell.m; sourceTree = "<group>"; };
+		3A94656810437C1A008175DF /* BaseMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseMapViewController.h; path = Main/OD/BaseMapViewController.h; sourceTree = "<group>"; };
+		3A94656910437C1A008175DF /* BaseMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseMapViewController.m; path = Main/OD/BaseMapViewController.m; sourceTree = "<group>"; };
+		3A94656A10437C1A008175DF /* BaseMapViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseMapViewDataSource.h; path = Main/OD/BaseMapViewDataSource.h; sourceTree = "<group>"; };
+		3A94656B10437C1A008175DF /* BaseMapViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseMapViewDataSource.m; path = Main/OD/BaseMapViewDataSource.m; sourceTree = "<group>"; };
+		3A946589104381E5008175DF /* BasePinAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasePinAnnotation.h; path = Main/OD/BasePinAnnotation.h; sourceTree = "<group>"; };
+		3A94658A104381E5008175DF /* BasePinAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasePinAnnotation.m; path = Main/OD/BasePinAnnotation.m; sourceTree = "<group>"; };
 		3A9DD6B01033B05D00FCF47C /* ODDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODDataAdditions.h; sourceTree = "<group>"; };
 		3A9DD6B11033B05D00FCF47C /* ODDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODDataAdditions.m; sourceTree = "<group>"; };
 		3A9DD6B61033B0DE00FCF47C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -167,7 +179,6 @@
 				034768DFFF38A50411DB9C8B /* Products */,
 				3A0345DE1007747F00A89785 /* UnitTests-Info.plist */,
 				3AD97CFE1009B3BE0037DEC4 /* LogicTests-Info.plist */,
-				3A9DD6B61033B0DE00FCF47C /* libz.dylib */,
 			);
 			name = ObjectiveDump;
 			sourceTree = "<group>";
@@ -175,6 +186,7 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A9DD6B61033B0DE00FCF47C /* libz.dylib */,
 				3A1E98B80FFE1B5C00312CBC /* UIKit.framework */,
 				3A1E98B60FFE1B5C00312CBC /* SystemConfiguration.framework */,
 				3A1E98B40FFE1B5C00312CBC /* QuartzCore.framework */,
@@ -220,9 +232,12 @@
 		3A1E9A650FFE2AFB00312CBC /* BaseControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3A946588104381C2008175DF /* Pin Annotation */,
 				3A1E9C780FFE37C000312CBC /* DataSource */,
 				3A1E9BA30FFE30C500312CBC /* BaseViewController.h */,
 				3A1E9BA40FFE30C500312CBC /* BaseViewController.m */,
+				3A94656810437C1A008175DF /* BaseMapViewController.h */,
+				3A94656910437C1A008175DF /* BaseMapViewController.m */,
 				3A1E9BA10FFE30C500312CBC /* BaseTableViewController.h */,
 				3A1E9BA20FFE30C500312CBC /* BaseTableViewController.m */,
 			);
@@ -315,6 +330,8 @@
 			children = (
 				3A1E9C7B0FFE37D000312CBC /* BaseDataSource.h */,
 				3A1E9C7C0FFE37D000312CBC /* BaseDataSource.m */,
+				3A94656A10437C1A008175DF /* BaseMapViewDataSource.h */,
+				3A94656B10437C1A008175DF /* BaseMapViewDataSource.m */,
 			);
 			name = DataSource;
 			sourceTree = "<group>";
@@ -339,6 +356,15 @@
 				3A4BC3D4101FD38F00551DED /* ODShowMoreCell.m */,
 			);
 			name = TableViewCell;
+			sourceTree = "<group>";
+		};
+		3A946588104381C2008175DF /* Pin Annotation */ = {
+			isa = PBXGroup;
+			children = (
+				3A946589104381E5008175DF /* BasePinAnnotation.h */,
+				3A94658A104381E5008175DF /* BasePinAnnotation.m */,
+			);
+			name = "Pin Annotation";
 			sourceTree = "<group>";
 		};
 		3A9DD6AF1033B04400FCF47C /* NSDate */ = {
@@ -406,6 +432,9 @@
 				3A4062C9102069DD004CCA4C /* ODNetworkManager.h in Headers */,
 				3AEA333D1031429C008D6BE1 /* ODStringAdditions.h in Headers */,
 				3A9DD6B21033B05D00FCF47C /* ODDataAdditions.h in Headers */,
+				3A94656C10437C1A008175DF /* BaseMapViewController.h in Headers */,
+				3A94656E10437C1A008175DF /* BaseMapViewDataSource.h in Headers */,
+				3A94658B104381E5008175DF /* BasePinAnnotation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +555,9 @@
 				3A4062CA102069DD004CCA4C /* ODNetworkManager.m in Sources */,
 				3AEA333E1031429C008D6BE1 /* ODStringAdditions.m in Sources */,
 				3A9DD6B31033B05D00FCF47C /* ODDataAdditions.m in Sources */,
+				3A94656D10437C1A008175DF /* BaseMapViewController.m in Sources */,
+				3A94656F10437C1A008175DF /* BaseMapViewDataSource.m in Sources */,
+				3A94658C104381E5008175DF /* BasePinAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

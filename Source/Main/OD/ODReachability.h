@@ -102,7 +102,7 @@ typedef enum {
  When reachability change notifications are posted, the callback method 'ReachabilityCallback' is called
  and posts a notification that the client application can observe to learn about changes.
  */
-static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info);
+//static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info);
 
 @end
 

@@ -52,10 +52,6 @@
 	[super viewDidLoad];
 	
 	// Set for example
-	// Style and background color
-	[self setupTableView];
-	
-	// Set for example
 	// Color and items
 	[self setupNavigationBar];
 	
