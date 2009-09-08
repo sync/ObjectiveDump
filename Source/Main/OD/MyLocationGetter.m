@@ -11,16 +11,37 @@
 
 @implementation MyLocationGetter
 
+@synthesize alwaysOn=_alwaysOn;
+
+- (id) init
+{
+	self = [super init];
+	if (self != nil) {
+		self.alwaysOn = FALSE;
+	}
+	return self;
+}
+
+
 - (CLLocationManager *)locationManager
 {
 	if (!_locationManager) {
 		_locationManager = [[CLLocationManager alloc] init];
 		
 		_locationManager.delegate = self;
-		_locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+		if (self.alwaysOn) {
+			_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+		} else {
+			_locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+		}
 		
 		// Set a movement threshold for new events
-		_locationManager.distanceFilter = 500;
+		if (self.alwaysOn) {
+			_locationManager.distanceFilter = kCLDistanceFilterNone;
+		} else {
+			_locationManager.distanceFilter = 500;
+		}
+		
 	}
 	return _locationManager;
 }
@@ -41,16 +62,19 @@
     didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation
 {
-    // If it's a relatively recent event, turn off updates to save power
-    NSDate* eventDate = newLocation.timestamp;
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (abs(howRecent) < 5.0)
-    {
-        // Tell everyone that gps got a fix
-		[[NSNotificationCenter defaultCenter] postNotificationName:GPSLocationDidFix object:nil userInfo:nil];
-		// Stop updating location, save battery
-		[manager stopUpdatingLocation];
-    }
+    if (!self.alwaysOn) {
+		// If it's a relatively recent event, turn off updates to save power
+		NSDate* eventDate = newLocation.timestamp;
+		NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+		if (abs(howRecent) < 5.0)
+		{
+			// Stop updating location, save battery
+			[manager stopUpdatingLocation];
+		}
+	}
+	
+	// Tell everyone that gps got a fix
+	[[NSNotificationCenter defaultCenter] postNotificationName:GPSLocationDidFix object:nil userInfo:nil];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
