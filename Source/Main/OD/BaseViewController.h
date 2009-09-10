@@ -17,7 +17,7 @@
 - (void)setupTableView;
 - (void)setupMapView;
 - (void)setupNavigationBar;
-- (void)setupToolbar
+- (void)setupToolbar;
 
 // Restore levels
 - (void)restoreLevelWithSelectionArray:(NSArray *)selectionArray;
