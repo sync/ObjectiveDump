@@ -215,7 +215,7 @@
 	}
 	// Check expiry date for last loaded data
 	// If still valid does not start
-	if (self.dataSourceHasExpired) {
+	if (self.dataSourceHasExpired && !self.isLoading) {
 		if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceDidStartLoading:)]) {
 			// Check for network connection
 			// If not throw error
@@ -386,6 +386,8 @@
 {
 	// Show the netowrk activity indicator while operation is doing something
 	[[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:TRUE];
+	// Show that datasource is loading
+	self.isLoading = TRUE;
 }
 
 - (void)defaultOperationDidFailWithInfo:(NSDictionary *)info
@@ -405,6 +407,8 @@
 	if (self.delegate && [self.delegate respondsToSelector:@selector(dataSource:didFailLoadingWithErrorString:)]) {
 		[self.delegate dataSource:self didFailLoadingWithErrorString:errorString];
 	}
+	// Show that datasource is not loading
+	self.isLoading = FALSE;
 	
 }
 
@@ -433,6 +437,8 @@
 	if (self.delegate && [self.delegate respondsToSelector:@selector(dataSource:didFinishLoadingWithInfoDictionary:)]) {
 		[self.delegate dataSource:self didFinishLoadingWithInfoDictionary:info];
 	}
+	// Show that datasource is not loading
+	self.isLoading = FALSE;
 }
 
 #pragma mark -
