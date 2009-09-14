@@ -22,12 +22,12 @@
 + (ODNetworkManager *)sharedODNetworkManager;
 
 // Network Connection Status
-@property (nonatomic) BOOL noConnectionAlertShowing;
-@property (nonatomic) BOOL hasValidNetworkConnection;
+@property BOOL noConnectionAlertShowing;
+@property BOOL hasValidNetworkConnection;
 
-@property (nonatomic) ODNetworkStatus remoteHostStatus;
-@property (nonatomic) ODNetworkStatus internetConnectionStatus;
-@property (nonatomic) ODNetworkStatus localWiFiConnectionStatus;
+@property ODNetworkStatus remoteHostStatus;
+@property ODNetworkStatus internetConnectionStatus;
+@property ODNetworkStatus localWiFiConnectionStatus;
 
 // Network Connection
 - (void)updateStatus;
