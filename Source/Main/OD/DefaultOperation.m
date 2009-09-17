@@ -38,6 +38,7 @@
 #pragma mark -
 #pragma mark Initialisation:
 
+
 - (id)initWithURL:(NSURL *)anUrl infoDictionary:(NSDictionary *)anInfoDictionary;
 {
 	self = [super init];

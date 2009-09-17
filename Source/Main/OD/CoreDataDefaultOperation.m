@@ -16,6 +16,7 @@
 
 - (void)main
 {
+	
 	if ([self isCancelled])
 	{
 		return;  // user cancelled this operation
@@ -68,9 +69,26 @@
     if (coordinator != nil) {
         managedObjectContext = [[NSManagedObjectContext alloc] init];
         [managedObjectContext setPersistentStoreCoordinator: coordinator];
-		managedObjectContext.mergePolicy = NSOverwriteMergePolicy;
+		managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+		
+		// Core Data
+		if (managedObjectContext) {
+			// Merge any saved changes with the context on other thread
+			[[NSNotificationCenter defaultCenter] addObserver:self 
+													 selector:@selector(contextDidSave:) 
+														 name:NSManagedObjectContextDidSaveNotification
+													   object:nil];
+		}
     }
     return managedObjectContext;
+}
+
+#pragma mark -
+#pragma mark Context Did Save
+
+- (void)contextDidSave:(NSNotification *)notification
+{
+	[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
 }
 
 
@@ -92,6 +110,8 @@
 #pragma mark Memory management
 
 - (void)dealloc {
+	
+	[[NSNotificationCenter defaultCenter]removeObserver:self];
 	
 	[_managedObjectID release];
 	[_databaseName release];
