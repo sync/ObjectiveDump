@@ -298,10 +298,8 @@
 		// Reuse the same managed object context as the given object
 		NSManagedObject *givenObject = (NSManagedObject *)self.object;
 		NSManagedObjectContext *context = givenObject.managedObjectContext;
-		// Get the product at shop from the db using the unique objectID
-		id object = [context objectWithID:annotation.objectID];
-		// Push the new view controller
-		DLog(@"Touched pint object: %@", object);
+//		// Get the product at shop from the db using the unique objectID
+//		id object = [context objectWithID:annotation.objectID];
 	}
 }
 
