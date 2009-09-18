@@ -296,8 +296,8 @@
 	if ([annotation respondsToSelector:@selector(objectID)] && annotation.objectID) {
 		// Get the managed object context for the controller
 		// Reuse the same managed object context as the given object
-		NSManagedObject *givenObject = (NSManagedObject *)self.object;
-		NSManagedObjectContext *context = givenObject.managedObjectContext;
+//		NSManagedObject *givenObject = (NSManagedObject *)self.object;
+//		NSManagedObjectContext *context = givenObject.managedObjectContext;
 //		// Get the product at shop from the db using the unique objectID
 //		id object = [context objectWithID:annotation.objectID];
 	}
