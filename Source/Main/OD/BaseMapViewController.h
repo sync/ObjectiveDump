@@ -49,6 +49,8 @@
 	BaseMapViewDataSource *_dataSource;
 	
 	id _object;
+	
+	BOOL _viewDidLoadCalled;
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
@@ -56,6 +58,7 @@
 @property (nonatomic, copy) NSString *dumpedFilePath;
 @property (nonatomic, retain) BaseMapViewDataSource *dataSource;
 @property (nonatomic, retain) id object;
+@property (nonatomic) BOOL viewDidLoadCalled;
 
 // Loading View
 - (void)showLoadingViewForText:(NSString *)loadingText;

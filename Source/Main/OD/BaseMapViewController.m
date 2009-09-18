@@ -22,6 +22,7 @@
 @synthesize dataSource=_dataSource;
 @synthesize managedObjectContext=_managedObjectContext;
 @synthesize object=_object;
+@synthesize viewDidLoadCalled=_viewDidLoadCalled;
 
 #pragma mark -
 #pragma mark Initialisation
@@ -76,7 +77,7 @@
 	// If using core data
 	[self setupCoreData];
 	
-	
+	self.viewDidLoadCalled = TRUE;
 }
 
 - (void)viewDidUnload 

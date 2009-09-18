@@ -50,6 +50,7 @@
 	BaseDataSource *_dataSource;
 	
 	id _object;
+	BOOL _viewDidLoadCalled;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
@@ -57,6 +58,7 @@
 @property (nonatomic, copy) NSString *dumpedFilePath;
 @property (nonatomic, retain) BaseDataSource *dataSource;
 @property (nonatomic, retain) id object;
+@property (nonatomic) BOOL viewDidLoadCalled;
 
 // Loading View
 - (void)showLoadingViewForText:(NSString *)loadingText;

@@ -32,9 +32,12 @@
 
 @interface BaseViewController : UIViewController <BaseViewControllerSubclass>{
 	id _object;
+	
+	BOOL _viewDidLoadCalled;
 }
 
 @property (nonatomic, retain) id object;
+@property (nonatomic) BOOL viewDidLoadCalled;
 
 // Loading View
 - (void)showLoadingViewForText:(NSString *)loadingText;

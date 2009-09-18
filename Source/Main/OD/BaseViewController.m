@@ -14,6 +14,7 @@
 @implementation BaseViewController
 
 @synthesize object=_object;
+@synthesize viewDidLoadCalled=_viewDidLoadCalled;
 
 #pragma mark -
 #pragma mark Initialisation
@@ -41,6 +42,7 @@
 - (void)setupCustomInitialisation
 {
 	// Nothing
+	self.viewDidLoadCalled = FALSE;
 }
 
 
@@ -58,6 +60,8 @@
 	// Set for example
 	// Color and items 
 	[self setupToolbar];
+	
+	self.viewDidLoadCalled = TRUE;
 }
 
 - (void)viewDidUnload {
