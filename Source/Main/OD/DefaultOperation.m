@@ -33,6 +33,7 @@
 @synthesize offset=_offset;
 @synthesize hadFoundAtLeastOneItem=_hadFoundAtLeastOneItem;
 @synthesize gzipped=_gzipped;
+@synthesize additionalObject=_additionalObject;
 
 
 #pragma mark -
@@ -55,6 +56,7 @@
 	self.hadFoundAtLeastOneItem = FALSE;
 	self.gzipped = FALSE;
 	self.acceptEncoding = @"gzip, deflate";
+	self.additionalObject = nil;
 	
 	// Buffer
 	// downloaded data gets offloaded to the filesystem immediately, to get it out of memory
@@ -322,6 +324,7 @@
 
 - (void)dealloc
 {
+	[_additionalObject release];
 	[acceptEncoding release];
 	[_tmpFileHandle release];
 	[_tmpFilePath release];

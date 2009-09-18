@@ -41,7 +41,11 @@
 	BOOL _gzipped;
 	
 	id<DefaultOperationDelegate> _delegate;
+	
+	id _additionalObject;
 }
+
+@property (nonatomic, retain) id additionalObject;
 
 @property (nonatomic) NSTimeInterval timeOutSeconds;
 
