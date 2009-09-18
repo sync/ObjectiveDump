@@ -28,8 +28,4 @@
 
 @property (nonatomic, readonly) NSString *applicationDocumentsDirectory;
 
-
-// Context Did Save
-- (void)contextDidSave:(NSNotification *)notification;
-
 @end
