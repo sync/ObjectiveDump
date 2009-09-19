@@ -100,17 +100,24 @@
 {
 	// Get view bounds
 	CGRect rect = self.view.bounds;
-	// Compute the loading view
-	ODLoadingView *loadingView = [[ODLoadingView alloc]initWithFrame:rect];
-	loadingView.tag = LoadingViewTag;
+	// Check if there is already one loading view in place
+	ODLoadingView *loadingView = (ODLoadingView *)[self.view viewWithTag:LoadingViewTag];
+	if (!loadingView) {
+		// Compute the loading view
+		loadingView = [[ODLoadingView alloc]initWithFrame:rect];
+		loadingView.tag = LoadingViewTag;
+		// Add the view to the top of the tableview
+		[self.view addSubview:loadingView];
+		[loadingView release];
+	} else {
+		loadingView.frame = rect;
+	}
+	// Setup text
 	if (loadingText) {
 		loadingView.loadingLabel.text = loadingText;
 	}
 	// Animate the activity indicator
 	[loadingView.activityIndicatorView startAnimating];
-	// Add the view to the top of the tableview
-	[self.view addSubview:loadingView];
-	[loadingView release];
 }
 
 - (void)hideLoadingView

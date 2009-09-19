@@ -168,18 +168,24 @@
 {
 	// Get view bounds
 	CGRect rect = self.view.bounds;
-	// Compute the loading view
-	ODLoadingView *loadingView = [[ODLoadingView alloc]initWithFrame:rect];
-	loadingView.tag = LoadingViewTag;
+	// Check if there is already one loading view in place
+	ODLoadingView *loadingView = (ODLoadingView *)[self.mapView viewWithTag:LoadingViewTag];
+	if (!loadingView) {
+		// Compute the loading view
+		loadingView = [[ODLoadingView alloc]initWithFrame:rect];
+		loadingView.tag = LoadingViewTag;
+		// Add the view to the top of the tableview
+		[self.mapView addSubview:loadingView];
+		[loadingView release];
+	} else {
+		loadingView.frame = rect;
+	}
+	// Setup text
 	if (loadingText) {
 		loadingView.loadingLabel.text = loadingText;
 	}
 	// Animate the activity indicator
 	[loadingView.activityIndicatorView startAnimating];
-	// Add the view to the top of the tableview
-	[self.mapView addSubview:loadingView];
-	[loadingView release];
-	// Lock the tableview scrollview
 	self.mapView.scrollEnabled = FALSE;
 }
 
@@ -189,7 +195,6 @@
 	ODLoadingView *loadingView = (ODLoadingView *)[self.mapView viewWithTag:LoadingViewTag];
 	[loadingView.activityIndicatorView stopAnimating];
 	[loadingView removeFromSuperview];
-	// Unlock the tableview scrollview
 	self.mapView.scrollEnabled = TRUE;
 }
 
@@ -212,15 +217,22 @@
 {
 	// Get view bounds
 	CGRect rect = self.view.bounds;
-	// Compute the loading view
-	ODLoadingView *errorView = [[ODLoadingView alloc]initWithFrame:rect];
-	errorView.tag = ErrorViewTag;
+	// Check if there is already one error view in place
+	ODLoadingView *errorView = (ODLoadingView *)[self.mapView viewWithTag:ErrorViewTag];
+	if (!errorView) {
+		errorView = [[ODLoadingView alloc]initWithFrame:rect];
+		errorView.tag = ErrorViewTag;
+		// Add the view to the top of the tableview
+		[self.mapView addSubview:errorView];
+		[errorView release];
+	} else {
+		errorView.frame = rect;
+	}
+	// Setup text
 	if (errorText) {
 		errorView.loadingLabel.text = errorText;
 	}
-	// Add the view to the top of the tableview
-	[self.mapView addSubview:errorView];
-	[errorView release];
+	
 	// Lock the tableview scrollview
 	self.mapView.scrollEnabled = FALSE;
 }
@@ -228,8 +240,8 @@
 - (void)hideErrorView
 {
 	// Remove loading view
-	ODLoadingView *loadingView = (ODLoadingView *)[self.mapView viewWithTag:ErrorViewTag];
-	[loadingView removeFromSuperview];
+	ODLoadingView *errorView = (ODLoadingView *)[self.mapView viewWithTag:ErrorViewTag];
+	[errorView removeFromSuperview];
 	// Unlock the tableview scrollview
 	self.mapView.scrollEnabled = TRUE;
 }
