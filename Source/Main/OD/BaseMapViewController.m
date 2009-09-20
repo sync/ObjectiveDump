@@ -50,6 +50,7 @@
 - (void)setupCustomInitialisation
 {
 	// Nothing
+	self.viewDidLoadCalled = FALSE;
 }
 
 #pragma mark -
