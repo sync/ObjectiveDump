@@ -62,7 +62,12 @@
     didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation
 {
-    if (!self.alwaysOn) {
+    // Horizontal coordinates
+	if (signbit(newLocation.horizontalAccuracy)) {
+		// Invalid coordinate
+		return;
+	}
+	if (!self.alwaysOn) {
 		// If it's a relatively recent event, turn off updates to save power
 		NSDate* eventDate = newLocation.timestamp;
 		NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
@@ -70,6 +75,14 @@
 		{
 			// Stop updating location, save battery
 			[manager stopUpdatingLocation];
+		}
+	} else {
+		NSDate* eventDate = newLocation.timestamp;
+		NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+		if (abs(howRecent) >= 86400)
+		{
+			// If it is older than one day don't care about this value
+			return;
 		}
 	}
 	
