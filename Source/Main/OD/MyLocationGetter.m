@@ -79,7 +79,7 @@
 	} else {
 		NSDate* eventDate = newLocation.timestamp;
 		NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-		if (abs(howRecent) >= 86400)
+		if (howRecent <= -(60*60*24))
 		{
 			// If it is older than one day don't care about this value
 			return;
