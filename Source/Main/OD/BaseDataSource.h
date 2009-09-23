@@ -98,6 +98,7 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 // Using this method you can
 // Easily fill a tableView
 - (void)startLoading;
+- (void)startLoadingNoExpiry;
 - (void)cancelLoading;
 - (void)goNext;
 

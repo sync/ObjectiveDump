@@ -126,6 +126,37 @@
 	}
 }
 
+- (void)startLoadingNoExpiry
+{
+	// Update the last fetched date
+	// Doing this in order to check
+	// Ir url has changed since last fetch
+	// Save the last loaded time 
+	if (self.lastLoadedDefaultskey) {
+		self.lastLoadedTime = [[NSUserDefaults standardUserDefaults]objectForKey:self.lastLoadedDefaultskey];
+	}
+	// Check expiry date for last loaded data
+	// If still valid does not start
+	if (!self.isLoading) {
+		if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceDidStartLoading:)]) {
+			// Check for network connection
+			// If not throw error
+			if ([ODNetworkManager sharedODNetworkManager].hasValidNetworkConnection) {
+				[self setupAndStartOperation];
+				[self.delegate dataSourceDidStartLoading:self];
+			} else {
+				// Inform the user that network is down
+				if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceNetworkIsDown:)]) {	
+					[self.delegate dataSourceNetworkIsDown:self];
+				}
+			}
+		}
+	} else {
+		// Data is still valid
+		[self cancelLoading];
+	}
+}
+
 #pragma mark -
 #pragma mark Cancel Loading
 
