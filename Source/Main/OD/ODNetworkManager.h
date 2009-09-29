@@ -35,6 +35,6 @@
 - (NSString *)hostName;
 
 // Inform user when netowrk connection is not available
-- (void)alertNoNetworkConnection;
+- (void)alertNoNetworkConnectionWithMessage:(NSString *)message;
 
 @end

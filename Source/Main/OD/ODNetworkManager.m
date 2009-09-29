@@ -127,12 +127,15 @@ static ODNetworkManager *sharedODNetworkManager = nil;
 #pragma mark -
 #pragma mark Alert No Netork Connection
 
-- (void)alertNoNetworkConnection
+- (void)alertNoNetworkConnectionWithMessage:(NSString *)message
 {
+	if (!message) {
+		message = @"Unable to load as you do not have an Internet connection.";
+	}
 	if (!self.noConnectionAlertShowing) {
 		// open an alert with just an OK button
 		self.noConnectionAlertShowing = TRUE;
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Unable to load as you do not have an Internet connection."
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:message
 													   delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];	
 		[alert release];
