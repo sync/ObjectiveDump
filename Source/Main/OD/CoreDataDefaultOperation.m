@@ -74,6 +74,23 @@
     return managedObjectContext;
 }
 
+- (void)saveContextAndHandleErrors 
+{
+	NSError* error = nil;
+	if(![[self managedObjectContext] save:&error]) {
+		DLog(@"Failed to save to data store: %@", [error localizedDescription]);
+		NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+		if(detailedErrors != nil && [detailedErrors count] > 0) {
+			for(NSError* detailedError in detailedErrors) {
+				DLog(@"  DetailedError: %@", [detailedError userInfo]);
+			}
+		}
+		else {
+			DLog(@"  %@", [error userInfo]);
+		}
+	}   
+}
+
 
 #pragma mark -
 #pragma mark Application's documents directory
