@@ -69,6 +69,7 @@
     if (coordinator != nil) {
         managedObjectContext = [[NSManagedObjectContext alloc] init];
         [managedObjectContext setPersistentStoreCoordinator: coordinator];
+		managedObjectContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
     }
     return managedObjectContext;
 }
