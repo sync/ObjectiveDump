@@ -29,6 +29,6 @@
 @property (nonatomic, readonly) NSString *applicationDocumentsDirectory;
 
 // Core data save
-- (void)saveContextAndHandleErrors;
+- (BOOL)saveContextAndHandleErrors;
 
 @end
