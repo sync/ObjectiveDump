@@ -37,7 +37,7 @@
 		
 		// Set a movement threshold for new events
 		if (self.alwaysOn) {
-			_locationManager.distanceFilter = kCLDistanceFilterNone;
+			_locationManager.distanceFilter = 50;
 		} else {
 			_locationManager.distanceFilter = 500;
 		}
