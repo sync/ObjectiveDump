@@ -78,4 +78,7 @@
 // Build Next Url
 - (NSURL *)buildNextUrlWithOffset:(NSInteger)offset limit:(NSInteger)limit urlString:(NSString *)urlString;
 
+// Core Data
+- (BOOL)saveContextAndHandleErrors;
+
 @end

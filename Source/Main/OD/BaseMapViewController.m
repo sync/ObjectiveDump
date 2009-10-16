@@ -331,6 +331,40 @@
 }
 
 #pragma mark -
+#pragma mark Core Data
+
+- (BOOL)saveContextAndHandleErrors 
+{
+	BOOL success = YES;
+	
+	if ([self.managedObjectContext hasChanges]) {
+		for (id object in [self.managedObjectContext updatedObjects]) {
+			if (![[object changedValues] count]) {
+				[self.managedObjectContext refreshObject: object
+											mergeChanges: NO];
+			}
+		}
+		
+		NSError* error = nil;
+		if(![self.managedObjectContext save:&error]) {
+			success = NO;
+			DLog(@"Failed to save to data store: %@", [error localizedDescription]);
+			NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+			if(detailedErrors != nil && [detailedErrors count] > 0) {
+				for(NSError* detailedError in detailedErrors) {
+					DLog(@"  DetailedError: %@", [detailedError userInfo]);
+				}
+			}
+			else {
+				DLog(@"  %@", [error userInfo]);
+			}
+		} 
+	}
+	
+	return success;  
+}
+
+#pragma mark -
 #pragma mark Restore Levels
 
 - (void)restoreLevelWithSelectionArray:(NSArray *)selectionArray

@@ -74,4 +74,7 @@
 // Annotation helper
 - (void)addAnnotationWithCoordinate:(CLLocationCoordinate2D)coordinate title:(NSString *)title subtitle:(NSString *)subtitle objectID:(NSManagedObjectID *)objectID;
 
+// Core Data
+- (BOOL)saveContextAndHandleErrors;
+
 @end
