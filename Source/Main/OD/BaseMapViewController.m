@@ -320,7 +320,7 @@
 #pragma mark -
 #pragma mark Annotation helper
 
-- (void)addAnnotationWithCoordinate:(CLLocationCoordinate2D)coordinate title:(NSString *)title subtitle:(NSString *)subtitle objectID:(NSManagedObjectID *)objectID
+- (id)addAnnotationWithCoordinate:(CLLocationCoordinate2D)coordinate title:(NSString *)title subtitle:(NSString *)subtitle objectID:(NSManagedObjectID *)objectID
 {
 	BasePinAnnotation *annotation = [[BasePinAnnotation alloc]initWithCoordinate:coordinate];
 	annotation.objectID = objectID;
@@ -328,6 +328,8 @@
 	annotation.subtitle = subtitle;
 	[self.mapView addAnnotation:annotation];
 	[annotation release];
+	
+	return annotation;
 }
 
 #pragma mark -
