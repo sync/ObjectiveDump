@@ -1,6 +1,6 @@
 
 /*
-     File: TapDetectingView.m
+     File: ODTapDetectingView.m
  Abstract: UIView subclass that responds to taps and notifies its delegate.
  
   Version: 1.1
@@ -47,19 +47,19 @@
  
  */
 
-#import "TapDetectingView.h"
+#import "ODTapDetectingView.h"
 
 #define DOUBLE_TAP_DELAY 0.35
 
-CGPoint midpointBetweenPoints(CGPoint a, CGPoint b);
+CGPoint odmidpointBetweenPoints(CGPoint a, CGPoint b);
 
-@interface TapDetectingView ()
+@interface ODTapDetectingView ()
 - (void)handleSingleTap;
 - (void)handleDoubleTap;
 - (void)handleTwoFingerTap;
 @end
 
-@implementation TapDetectingView
+@implementation ODTapDetectingView
 @synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame {
@@ -115,7 +115,7 @@ CGPoint midpointBetweenPoints(CGPoint a, CGPoint b);
                 i++;
             }
             if (tapCounts[0] == 1 && tapCounts[1] == 1) { // it's a two-finger tap if they're both single taps
-                tapLocation = midpointBetweenPoints(tapLocations[0], tapLocations[1]);
+                tapLocation = odmidpointBetweenPoints(tapLocations[0], tapLocations[1]);
                 [self handleTwoFingerTap];
             }
         }
@@ -136,7 +136,7 @@ CGPoint midpointBetweenPoints(CGPoint a, CGPoint b);
             UITouch *touch = [touches anyObject];
             if ([touch tapCount] == 1) {
                 // if the last touch up is a single tap, this was a 2-finger tap
-                tapLocation = midpointBetweenPoints(tapLocation, [touch locationInView:self]);
+                tapLocation = odmidpointBetweenPoints(tapLocation, [touch locationInView:self]);
                 [self handleTwoFingerTap];
             }
         }
@@ -173,7 +173,7 @@ CGPoint midpointBetweenPoints(CGPoint a, CGPoint b);
     
 @end
 
-CGPoint midpointBetweenPoints(CGPoint a, CGPoint b) {
+CGPoint odmidpointBetweenPoints(CGPoint a, CGPoint b) {
     CGFloat x = (a.x + b.x) / 2.0;
     CGFloat y = (a.y + b.y) / 2.0;
     return CGPointMake(x, y);

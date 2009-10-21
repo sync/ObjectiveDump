@@ -1,6 +1,6 @@
 
 /*
-     File: TapDetectingView.h
+     File: ODTapDetectingView.h
  Abstract: UIView subclass that responds to taps and notifies its delegate.
  
   Version: 1.1
@@ -47,12 +47,12 @@
  
  */
 
-@protocol TapDetectingViewDelegate;
+@protocol ODTapDetectingViewDelegate;
 
 
-@interface TapDetectingView : UIView {
+@interface ODTapDetectingView : UIView {
 	
-    id <TapDetectingViewDelegate> delegate;
+    id <ODTapDetectingViewDelegate> delegate;
     
     // Touch detection
     CGPoint tapLocation;         // Needed to record location of single tap, which will only be registered after delayed perform.
@@ -60,17 +60,17 @@
     BOOL twoFingerTapIsPossible; // Set to NO when 2-finger tap can be ruled out (e.g. 3rd finger down, fingers touch down too far apart, etc).
 }
 
-@property (nonatomic, assign) id <TapDetectingViewDelegate> delegate;
+@property (nonatomic, assign) id <ODTapDetectingViewDelegate> delegate;
 
 @end
 
 
 
-@protocol TapDetectingViewDelegate <NSObject>
+@protocol ODTapDetectingViewDelegate <NSObject>
 
 @optional
-- (void)tapDetectingView:(TapDetectingView *)view gotSingleTapAtPoint:(CGPoint)tapPoint;
-- (void)tapDetectingView:(TapDetectingView *)view gotDoubleTapAtPoint:(CGPoint)tapPoint;
-- (void)tapDetectingView:(TapDetectingView *)view gotTwoFingerTapAtPoint:(CGPoint)tapPoint;
+- (void)tapDetectingView:(ODTapDetectingView *)view gotSingleTapAtPoint:(CGPoint)tapPoint;
+- (void)tapDetectingView:(ODTapDetectingView *)view gotDoubleTapAtPoint:(CGPoint)tapPoint;
+- (void)tapDetectingView:(ODTapDetectingView *)view gotTwoFingerTapAtPoint:(CGPoint)tapPoint;
 
 @end
