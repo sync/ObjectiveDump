@@ -377,7 +377,7 @@
 
 - (ODGridItemView *)gridView:(ODGridView *)gridView itemForIndex:(NSInteger)index;
 {
-	//id object = [self.content objectAtIndex:0];
+	//id object = [self.content objectAtIndex:index];
 	
 	ODGridItemView *gridItemView = [gridView itemForIndex:index];
 	if (!gridItemView) {

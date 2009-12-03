@@ -15,6 +15,7 @@
 @synthesize numberOfColumns=_numberOfColumns;
 @synthesize horizontalOffset=_horizontalOffset;
 @synthesize verticalOffset=_verticalOffset;
+@synthesize cachedGridItems=_cachedGridItems;
 
 #pragma mark -
 #pragma mark Overwrite delegate
@@ -59,8 +60,15 @@
 	self.verticalOffset = 10.0;
 	self.gridItemSize = CGSizeMake(80.0, 80.0);
 	self.numberOfColumns = 3;
-	// Grid items cache
-	_cachedGridItems = [[NSMutableArray alloc]initWithCapacity:0];
+}
+
+- (NSMutableArray *)cachedGridItems
+{
+	if (!_cachedGridItems) {
+		_cachedGridItems = [[NSMutableArray alloc]initWithCapacity:0];
+	}
+	
+	return _cachedGridItems;
 }
 
 #pragma mark -
@@ -84,10 +92,9 @@
 			horizontalDiff = self.horizontalOffset;
 		}
 		
-		NSInteger i = 0;
 		NSInteger height = 0;
 		
-		for (i; i < nbrOfItems; i++) {
+		for (NSInteger i = 0; i < nbrOfItems; i++) {
 			// calculate the frame
 			// Get the row
 			NSInteger row = (i==0) ? 0 : i / self.numberOfColumns;
@@ -105,13 +112,11 @@
 					gridItemView.delegate = self;
 					gridItemView.index = i;
 					[self addSubview:gridItemView];
-					[_cachedGridItems addObject:gridItemView];
+					[self.cachedGridItems addObject:gridItemView];
 				}
 			}
 			
 			height = frame.origin.y + frame.size.height + self.verticalOffset;
-			
-			i++;
 		}
 		
 		self.contentSize = CGSizeMake(self.bounds.size.width, height);
@@ -123,7 +128,7 @@
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"index == %d", index];
 	
 	
-	NSArray *cached = [_cachedGridItems filteredArrayUsingPredicate:predicate];
+	NSArray *cached = [self.cachedGridItems filteredArrayUsingPredicate:predicate];
 	
 	ODGridItemView *gridItemView = nil;
 	

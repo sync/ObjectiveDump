@@ -9,8 +9,6 @@
 #import "ODGridItemView.h"
 
 #define NameLabelFontSize 14.0
-#define ImageWidth 150.0
-#define ImageHeight 150.0
 #define ImageLabelDiff 5.0
 
 @implementation ODGridItemView
@@ -86,20 +84,20 @@
 	// Get the frame where you can place your subviews
 	CGRect rect = self.bounds;
 	
-	NSInteger difference = (self.bounds.size.width - ImageWidth) / 2;
+	NSInteger difference = (self.bounds.size.width - self.image.size.width) / 2;
 	
 	// Place the image view
 	if (_imageView) {
 		self.imageView.frame = CGRectIntegral(CGRectMake(rect.origin.x + difference, 
 														 rect.origin.y + difference, 
-														 ImageWidth, 
-														 ImageHeight));
+														 self.image.size.width, 
+														 self.image.size.height));
 	}
 	
 	if (_nameLabel) {
 		self.nameLabel.frame = CGRectIntegral(CGRectMake(rect.origin.x + difference, 
-														 rect.origin.y + difference  + ImageHeight + ImageLabelDiff, 
-														 ImageWidth, 
+														 rect.origin.y + difference  + self.image.size.height + ImageLabelDiff, 
+														 self.image.size.width, 
 														 (NameLabelFontSize + 4.0) * 2.0));
 	}
 }

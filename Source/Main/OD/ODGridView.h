@@ -33,6 +33,7 @@
 @property (nonatomic) CGFloat horizontalOffset;
 @property (nonatomic) CGFloat verticalOffset;
 @property (nonatomic) NSInteger numberOfColumns;
+@property (nonatomic, readonly) NSMutableArray *cachedGridItems;
 
 - (void)setupCustomInitialisation;
 

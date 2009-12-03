@@ -67,15 +67,15 @@
 	// Color and items 
 	[self setupToolbar];
 	
-	// Set for example
-	// Background color
-	[self setupGridView];
-	
 	// If using data source
 	[self setupDataSource];
 	
 	// If using core data
 	[self setupCoreData];
+	
+	// Set for example
+	// Background color
+	[self setupGridView];
 	
 	self.viewDidLoadCalled = TRUE;
 }
@@ -111,7 +111,9 @@
 {
 	// Nothing
 	self.gridView.delegate = self;
-	self.gridView.dataSource = self;
+	if (!self.gridView.dataSource) {
+		self.gridView.dataSource = self;
+	}
 }
 
 - (void)setupDataSource
@@ -176,7 +178,7 @@
 
 - (ODGridItemView *)gridView:(ODGridView *)gridView itemForIndex:(NSInteger)index;
 {
-	//id object = [self.content objectAtIndex:0];
+	//id object = [self.content objectAtIndex:index];
 	
 	ODGridItemView *gridItemView = [gridView itemForIndex:index];
 	if (!gridItemView) {

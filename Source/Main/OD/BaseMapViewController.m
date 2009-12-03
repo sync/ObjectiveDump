@@ -67,15 +67,15 @@
 	// Color and items 
 	[self setupToolbar];
 	
-	// Set for example
-	// Background color
-	[self setupMapView];
-	
 	// If using data source
 	[self setupDataSource];
 	
 	// If using core data
 	[self setupCoreData];
+	
+	// Set for example
+	// Background color
+	[self setupMapView];
 	
 	self.viewDidLoadCalled = TRUE;
 }
@@ -97,8 +97,10 @@
 // Style and background color
 - (void)setupMapView
 {
-	//	// Become tableView delegate and datasource
-	self.mapView.delegate = self;
+	// Become tableView delegate and datasource
+	if (!self.mapView.delegate) {
+		self.mapView.delegate = self;
+	}
 }
 
 // Set for example

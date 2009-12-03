@@ -66,15 +66,15 @@
 	// Color and items 
 	[self setupToolbar];
 	
-	// Set for example
-	// Background color
-	[self setupTableView];
-	
 	// If using data source
 	[self setupDataSource];
 	
 	// If using core data
 	[self setupCoreData];
+	
+	// Set for example
+	// Background color
+	[self setupTableView];
 	
 	self.viewDidLoadCalled = TRUE;
 }
@@ -98,7 +98,9 @@
 {
 //	// Become tableView delegate and datasource
 	self.tableView.delegate = self;
-	self.tableView.dataSource = self;
+	if (!self.tableView.dataSource) {
+		self.tableView.dataSource = self;
+	}
 }
 
 // Set for example
