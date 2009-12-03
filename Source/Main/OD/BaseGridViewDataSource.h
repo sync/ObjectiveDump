@@ -107,6 +107,8 @@
 // Save wether it is possible or not to go next when chached
 - (void)savecanGoNextWhenCached:(BOOL)goNext;
 
+- (void)resetContent;
+
 //#warning - (void)addObject:(id)object;
 //#warning - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath;
 

@@ -96,6 +96,16 @@
 }
 
 #pragma mark -
+#pragma mark Reset Content
+
+- (void)resetContent
+{
+	// refresh content
+	[_content release];
+	_content = nil;
+}
+
+#pragma mark -
 #pragma mark Start Loading
 
 - (void)startLoading

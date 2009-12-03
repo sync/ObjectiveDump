@@ -129,13 +129,6 @@
 }
 
 #pragma mark -
-#pragma mark fetchedResultsController Delegate
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-	[self.gridView reloadData];
-}
-
-#pragma mark -
 #pragma mark Subclassing
 
 - (NSMutableArray *)content
