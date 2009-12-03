@@ -17,7 +17,7 @@
 	UIImage *_selectedImage;
 	UIImage *_image;
 	
-	NSInteger index;
+	NSInteger _index;
 }
 
 @property (nonatomic, readonly) UIImageView *imageView;

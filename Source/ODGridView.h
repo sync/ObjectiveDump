@@ -17,7 +17,7 @@
 	
 	CGSize _gridItemSize;
 	CGFloat _horizontalOffset;
-	CGFloat verticalOffset;
+	CGFloat _verticalOffset;
 	NSInteger _numberOfColumns;
 	
 	id <ODGridViewDataSource>  _dataSource;
