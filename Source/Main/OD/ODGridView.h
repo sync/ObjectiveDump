@@ -29,10 +29,10 @@
 @property (readwrite, nonatomic, assign) id <ODGridViewDelegate, UIScrollViewDelegate> delegate;
 @property (readwrite, nonatomic, assign) id <ODGridViewDataSource> dataSource;
 
-@property (nonatomic, readonly) CGSize gridItemSize;
-@property (nonatomic, readonly) CGFloat horizontalOffset;
-@property (nonatomic, readonly) CGFloat verticalOffset;
-@property (nonatomic, readonly) NSInteger numberOfColumns;
+@property (nonatomic) CGSize gridItemSize;
+@property (nonatomic) CGFloat horizontalOffset;
+@property (nonatomic) CGFloat verticalOffset;
+@property (nonatomic) NSInteger numberOfColumns;
 
 - (void)setupCustomInitialisation;
 

@@ -8,15 +8,6 @@
 
 #import "ODGridView.h"
 
-@interface ODGridView (private)
-
-@property (nonatomic, readwrite) CGSize gridItemSize;
-@property (nonatomic, readwrite) CGFloat horizontalOffset;
-@property (nonatomic, readwrite) CGFloat verticalOffset;
-@property (nonatomic, readwrite) NSInteger numberOfColumns;
-
-@end
-
 @implementation ODGridView
 
 @synthesize dataSource=_dataSource;
@@ -103,7 +94,7 @@
 			// Get the columng
 			NSInteger column = (i==0) ? 0 : i % self.numberOfColumns;
 			// Bild the frame
-			CGRect frame = CGRectMake(self.horizontalOffset * (column + 1) + column * self.gridItemSize.width, 
+			CGRect frame = CGRectMake(horizontalDiff * (column + 1) + column * self.gridItemSize.width, 
 									  self.verticalOffset * (row + 1)  + row * self.gridItemSize.height, 
 									  self.gridItemSize.width, 
 									  self.gridItemSize.height);

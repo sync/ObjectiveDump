@@ -53,7 +53,7 @@
 	BOOL _viewDidLoadCalled;
 }
 
-@property (nonatomic, retain) ODGridView *gridView;
+@property (nonatomic, retain) IBOutlet ODGridView *gridView;
 @property (nonatomic, copy) NSString *dumpedFilePath;
 @property (nonatomic, retain) BaseGridViewDataSource *dataSource;
 @property (nonatomic, retain) id object;
