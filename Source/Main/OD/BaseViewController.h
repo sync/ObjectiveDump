@@ -17,6 +17,7 @@
 - (void)setupCustomInitialisation;
 - (void)setupTableView;
 - (void)setupMapView;
+- (void)setupGridView;
 - (void)setupNavigationBar;
 - (void)setupToolbar;
 

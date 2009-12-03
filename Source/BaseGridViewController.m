@@ -1,22 +1,22 @@
 //
-//  BaseMapViewController.m
+//  BaseGridViewController.m
 //  ObjectiveDump
 //
-//  Created by Anthony Mittaz on 25/08/09.
+//  Created by Anthony Mittaz on 3/12/09.
 //  Copyright 2009 Anthony Mittaz. All rights reserved.
 //
 
-#import "BaseMapViewController.h"
+#import "BaseGridViewController.h"
 #import "GloballyUniquePathStringAdditions.h"
 #import "ODLoadingView.h"
-#import "BasePinAnnotation.h"
 
 #define LoadingViewTag 1034343
 #define ErrorViewTag 1034354
 
-@implementation BaseMapViewController
+@implementation BaseGridViewController
 
-@synthesize mapView=_mapView;
+
+@synthesize gridView=_gridView;
 @synthesize dumpedFilePath=_dumpedFilePath;
 @synthesize dataSource=_dataSource;
 @synthesize managedObjectContext=_managedObjectContext;
@@ -69,7 +69,7 @@
 	
 	// Set for example
 	// Background color
-	[self setupMapView];
+	[self setupGridView];
 	
 	// If using data source
 	[self setupDataSource];
@@ -94,14 +94,6 @@
 #pragma mark Setup
 
 // Set for example
-// Style and background color
-- (void)setupMapView
-{
-	//	// Become tableView delegate and datasource
-	self.mapView.delegate = self;
-}
-
-// Set for example
 // Color and items
 - (void)setupNavigationBar
 {
@@ -115,16 +107,30 @@
 	// Nothing
 }
 
+- (void)setupGridView
+{
+	// Nothing
+	self.gridView.delegate = self;
+	self.gridView.dataSource = self;
+}
+
 - (void)setupDataSource
 {
 	// Nothing
 }
 
 // Perform first fetch
-// Reload tableview when context save
+// Reload gridView when context save
 - (void)setupCoreData
 {
 	// Nothing
+}
+
+#pragma mark -
+#pragma mark fetchedResultsController Delegate
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+	[self.gridView reloadData];
 }
 
 #pragma mark -
@@ -148,6 +154,43 @@
 	return _content;
 }
 
+- (void)gridView:(ODGridView *)gridView didSelectItemAtIndex:(NSInteger)index {
+    
+	// Use your object
+}
+
+
+#pragma mark -
+#pragma mark  Grid View methods
+
+- (NSInteger)numberOfItemsInGridView:(ODGridView *)gridView;
+{
+	// Check if content first element return array or not
+	// If yes, gridView has more than one section
+	if (self.content && self.content.count > 0
+		&& [[self.content objectAtIndex:0]respondsToSelector:@selector(objectAtIndex:)]) {
+		return self.content.count;
+	}
+	return 0;
+}
+
+- (ODGridItemView *)gridView:(ODGridView *)gridView itemForIndex:(NSInteger)index;
+{
+	//id object = [self.content objectAtIndex:0];
+	
+	ODGridItemView *gridItemView = [gridView itemForIndex:index];
+	if (!gridItemView) {
+		gridItemView = [ODGridItemView gridItem];
+	}
+	
+	gridItemView.image = nil;
+	gridItemView.selectedImage = nil;
+	gridItemView.nameLabel.text = nil;
+	gridItemView.imageView.image = nil;
+	gridItemView.imageView.image = nil;
+	
+	return gridItemView;
+}
 
 - (NSString *)entityName
 {
@@ -169,13 +212,13 @@
 	// Get view bounds
 	CGRect rect = self.view.bounds;
 	// Check if there is already one loading view in place
-	ODLoadingView *loadingView = (ODLoadingView *)[self.mapView viewWithTag:LoadingViewTag];
+	ODLoadingView *loadingView = (ODLoadingView *)[self.gridView viewWithTag:LoadingViewTag];
 	if (!loadingView) {
 		// Compute the loading view
 		loadingView = [[ODLoadingView alloc]initWithFrame:rect];
 		loadingView.tag = LoadingViewTag;
-		// Add the view to the top of the tableview
-		[self.mapView addSubview:loadingView];
+		// Add the view to the top of the gridView
+		[self.gridView addSubview:loadingView];
 		[loadingView release];
 	} else {
 		loadingView.frame = rect;
@@ -186,16 +229,19 @@
 	}
 	// Animate the activity indicator
 	[loadingView.activityIndicatorView startAnimating];
-	self.mapView.scrollEnabled = FALSE;
+	
+	// Lock the gridView scrollview
+	self.gridView.scrollEnabled = FALSE;
 }
 
 - (void)hideLoadingView
 {
 	// Remove loading view
-	ODLoadingView *loadingView = (ODLoadingView *)[self.mapView viewWithTag:LoadingViewTag];
+	ODLoadingView *loadingView = (ODLoadingView *)[self.gridView viewWithTag:LoadingViewTag];
 	[loadingView.activityIndicatorView stopAnimating];
 	[loadingView removeFromSuperview];
-	self.mapView.scrollEnabled = TRUE;
+	// Unlock the gridView scrollview
+	self.gridView.scrollEnabled = TRUE;
 }
 
 #pragma mark -
@@ -218,12 +264,12 @@
 	// Get view bounds
 	CGRect rect = self.view.bounds;
 	// Check if there is already one error view in place
-	ODLoadingView *errorView = (ODLoadingView *)[self.mapView viewWithTag:ErrorViewTag];
+	ODLoadingView *errorView = (ODLoadingView *)[self.gridView viewWithTag:ErrorViewTag];
 	if (!errorView) {
 		errorView = [[ODLoadingView alloc]initWithFrame:rect];
 		errorView.tag = ErrorViewTag;
-		// Add the view to the top of the tableview
-		[self.mapView addSubview:errorView];
+		// Add the view to the top of the gridView
+		[self.gridView addSubview:errorView];
 		[errorView release];
 	} else {
 		errorView.frame = rect;
@@ -233,17 +279,17 @@
 		errorView.loadingLabel.text = errorText;
 	}
 	
-	// Lock the tableview scrollview
-	self.mapView.scrollEnabled = FALSE;
+	// Lock the gridView scrollview
+	self.gridView.scrollEnabled = FALSE;
 }
 
 - (void)hideErrorView
 {
 	// Remove loading view
-	ODLoadingView *errorView = (ODLoadingView *)[self.mapView viewWithTag:ErrorViewTag];
+	ODLoadingView *errorView = (ODLoadingView *)[self.gridView viewWithTag:ErrorViewTag];
 	[errorView removeFromSuperview];
-	// Unlock the tableview scrollview
-	self.mapView.scrollEnabled = TRUE;
+	// Unlock the gridView scrollview
+	self.gridView.scrollEnabled = TRUE;
 }
 
 #pragma mark -
@@ -259,76 +305,6 @@
 	alert.delegate = self;
 	[alert show];	
 	[alert release];
-}
-
-#pragma mark -
-#pragma mark MapKit delegate
-
-- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView
-{
-	[[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:TRUE];
-}
-
-- (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView
-{
-	[[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:FALSE];
-}
-
-- (void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
-{
-	[[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:FALSE];
-}
-
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
-{
-	if ([annotation respondsToSelector:@selector(objectID)]) {
-		static NSString *defaultPinID = @"DefaultPinID";
-		
-		MKPinAnnotationView *mkav = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-		if (mkav == nil) {
-			mkav = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID] autorelease];
-			mkav.canShowCallout = TRUE;
-			mkav.pinColor = MKPinAnnotationColorRed;
-			UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-			mkav.rightCalloutAccessoryView = button;
-			mkav.animatesDrop = TRUE;
-		}
-		
-		return mkav;
-	}
-	return nil;
-}
-
-- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
-{
-	// Get the annotation link to the view where user just pressed
-	BasePinAnnotation *annotation = (BasePinAnnotation *)view.annotation;
-	
-	// Check if is really a product pint annotion
-	// By checking if annotion got an objectID
-	if ([annotation respondsToSelector:@selector(objectID)] && annotation.objectID) {
-		// Get the managed object context for the controller
-		// Reuse the same managed object context as the given object
-//		NSManagedObject *givenObject = (NSManagedObject *)self.object;
-//		NSManagedObjectContext *context = givenObject.managedObjectContext;
-//		// Get the product at shop from the db using the unique objectID
-//		id object = [context objectWithID:annotation.objectID];
-	}
-}
-
-#pragma mark -
-#pragma mark Annotation helper
-
-- (id)addAnnotationWithCoordinate:(CLLocationCoordinate2D)coordinate title:(NSString *)title subtitle:(NSString *)subtitle objectID:(NSManagedObjectID *)objectID
-{
-	BasePinAnnotation *annotation = [[BasePinAnnotation alloc]initWithCoordinate:coordinate];
-	annotation.objectID = objectID;
-	annotation.title = title;
-	annotation.subtitle = subtitle;
-	[self.mapView addAnnotation:annotation];
-	[annotation release];
-	
-	return annotation;
 }
 
 #pragma mark -
@@ -396,11 +372,10 @@
 	[_dataSource release];
 	[_dumpedFilePath release];
 	[_content release];
-	[_mapView release];
+	[_gridView release];
 	
     [super dealloc];
 }
-
 
 
 @end

@@ -1,18 +1,18 @@
 //
-//  BaseMapViewController.h
+//  BaseGridViewController.h
 //  ObjectiveDump
 //
-//  Created by Anthony Mittaz on 25/08/09.
+//  Created by Anthony Mittaz on 2/12/09.
 //  Copyright 2009 Anthony Mittaz. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
 #import <CoreData/CoreData.h>
-#import "BaseMapViewDataSource.h"
 #import "BaseViewController.h"
+#import "ODGridView.h"
+#import "BaseGridViewDataSource.h"
 
-@protocol BaseMapViewControllerSubclass <NSObject>
+@protocol BaseGridViewControllerSubclass <NSObject>
 
 @optional
 
@@ -32,9 +32,9 @@
 @end
 
 
-@interface BaseMapViewController : UIViewController <UIAlertViewDelegate, BaseViewControllerSubclass, BaseMapViewControllerSubclass, MKMapViewDelegate>{
-	// MapView
-	MKMapView *_mapView;
+@interface BaseGridViewController : UIViewController <UIAlertViewDelegate, BaseViewControllerSubclass, BaseGridViewControllerSubclass, ODGridViewDataSource, ODGridViewDelegate, UIScrollViewDelegate> {
+	
+	ODGridView *_gridView;
 	
 	// Non persitent content
 	NSMutableArray *_content;
@@ -46,17 +46,16 @@
 	// Get the context
 	NSManagedObjectContext *_managedObjectContext;
 	
-	BaseMapViewDataSource *_dataSource;
+	BaseGridViewDataSource *_dataSource;
 	
 	id _object;
 	
 	BOOL _viewDidLoadCalled;
 }
 
-@property (nonatomic, retain) IBOutlet MKMapView *mapView;
-
+@property (nonatomic, retain) ODGridView *gridView;
 @property (nonatomic, copy) NSString *dumpedFilePath;
-@property (nonatomic, retain) BaseMapViewDataSource *dataSource;
+@property (nonatomic, retain) BaseGridViewDataSource *dataSource;
 @property (nonatomic, retain) id object;
 @property (nonatomic) BOOL viewDidLoadCalled;
 
@@ -70,10 +69,6 @@
 
 // Build Next Url
 - (NSURL *)buildNextUrlWithOffset:(NSInteger)offset limit:(NSInteger)limit urlString:(NSString *)urlString;
-
-// Annotation helper
-- (id)addAnnotationWithCoordinate:(CLLocationCoordinate2D)coordinate title:(NSString *)title subtitle:(NSString *)subtitle objectID:(NSManagedObjectID *)objectID;
-
 // Core Data
 - (BOOL)saveContextAndHandleErrors;
 

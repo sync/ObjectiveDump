@@ -3,7 +3,7 @@
 //  ObjectiveDump
 //
 //  Created by Anthony Mittaz on 5/08/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 Anthony Mittaz. All rights reserved.
 //
 
 #import "ODStringAdditions.h"
