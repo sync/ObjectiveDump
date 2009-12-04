@@ -22,8 +22,9 @@
 	
 	id <ODGridViewDataSource>  _dataSource;
 	
-	// Chached Grid Item Views
-	NSMutableArray *_cachedGridItems;
+	// Reusable gid Item Views
+	NSMutableSet *_reusableItems;
+	NSArray *_currentItems;
 }
 
 @property (readwrite, nonatomic, assign) id <ODGridViewDelegate, UIScrollViewDelegate> delegate;
@@ -33,12 +34,14 @@
 @property (nonatomic) CGFloat horizontalOffset;
 @property (nonatomic) CGFloat verticalOffset;
 @property (nonatomic) NSInteger numberOfColumns;
-@property (nonatomic, readonly) NSMutableArray *cachedGridItems;
+@property (nonatomic, readonly) NSMutableSet *reusableItems;
+@property (nonatomic, readonly) NSArray *currentItems;
 
 - (void)setupCustomInitialisation;
 
 - (void)reloadData;
 - (ODGridItemView *)itemForIndex:(NSInteger)index;
+- (ODGridItemView *)dequeueReusableItem;
 
 @end
 									   

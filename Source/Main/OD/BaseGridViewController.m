@@ -173,7 +173,7 @@
 {
 	//id object = [self.content objectAtIndex:index];
 	
-	ODGridItemView *gridItemView = [gridView itemForIndex:index];
+	ODGridItemView *gridItemView = [gridView dequeueReusableItem];
 	if (!gridItemView) {
 		gridItemView = [ODGridItemView gridItem];
 	}
