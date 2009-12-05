@@ -25,8 +25,8 @@
 	// Reusable gid Item Views
 	NSMutableSet *_reusableItems;
 	NSArray *_currentItems;
-	NSInteger firstNeededRow;
-	NSInteger lastNeededRow;
+	NSInteger _firstNeededRow;
+	NSInteger _lastNeededRow;
 }
 
 @property (readwrite, nonatomic, assign) id <ODGridViewDelegate, UIScrollViewDelegate> delegate;
@@ -38,6 +38,8 @@
 @property (nonatomic) NSInteger numberOfColumns;
 @property (nonatomic, readonly) NSMutableSet *reusableItems;
 @property (nonatomic, readonly) NSArray *currentItems;
+@property (nonatomic) NSInteger firstNeededRow;
+@property (nonatomic) NSInteger lastNeededRow;
 
 - (void)setupCustomInitialisation;
 
