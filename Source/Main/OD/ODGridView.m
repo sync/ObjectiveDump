@@ -141,10 +141,6 @@
 	// See if they still have to be displayed
 	// If not remove them
 	CGRect visibleBounds = [self bounds];
-	DLog(@"visibleBounds %@", NSStringFromCGRect(visibleBounds));
-	// Here we can check the height of the entire scroll view
-	CGSize contentSize = self.contentSize;
-	DLog(@"contentSize %@", NSStringFromCGSize(contentSize));
 	
 	for (UIView *item in self.currentItems) {
 		// We want to see if the tiles intersect our (i.e. the scrollView's) bounds, so we need to convert their
@@ -168,8 +164,8 @@
 	if (nbrOfItems > 0) {
 		// calculate the frame
 		// Get the row
-		NSInteger row = (nbrOfItems==0) ? 0 : nbrOfItems / self.numberOfColumns;
-		CGFloat height =  self.verticalOffset * (row + nbrOfItems)  + row * self.gridItemSize.height + self.gridItemSize.height + self.verticalOffset;
+		NSInteger row = ceilf((float)nbrOfItems / (float)self.numberOfColumns);
+		CGFloat height =  row * (self.gridItemSize.height + self.verticalOffset);
 		if (height < visibleBounds.size.height) {
 			height = visibleBounds.size.height;
 		}
@@ -180,44 +176,81 @@
 	
 	// Just do the maths if at least one item
 	if (nbrOfItems > 0) {
+		CGFloat itemHeight = self.verticalOffset + [self gridItemSize].height;
+		NSInteger firstNeededRow = floorf(visibleBounds.origin.y / itemHeight);
+		NSInteger lastNeededRow  = floorf((CGRectGetMaxY(visibleBounds)) / itemHeight);
 		
+		DLog(@"firstNeededRow %d", firstNeededRow);
+		DLog(@"lastNeededRow %d", lastNeededRow);
+		
+		NSInteger firstNeededIndex = (firstNeededRow < 0) ? 0 : firstNeededRow * self.numberOfColumns;
+		if (firstNeededIndex > nbrOfItems) {
+			firstNeededIndex = nbrOfItems - 1;
+		}
+		NSInteger lastNeededIndex = lastNeededRow * self.numberOfColumns + self.numberOfColumns;
+		if (lastNeededIndex > nbrOfItems) {
+			lastNeededIndex = nbrOfItems - 1;
+		}
+		
+		NSInteger horizontalDiff = (self.bounds.size.width - self.numberOfColumns * self.gridItemSize.width) / (self.numberOfColumns + 1);
+		if (self.horizontalOffset < 0) {
+			horizontalDiff = self.horizontalOffset;
+		}
+		
+		for (NSInteger i = firstNeededIndex; i <= lastNeededIndex; i++) {
+			// calculate the frame
+			// Get the row
+			NSInteger row = (i==0) ? 0 : i / self.numberOfColumns;
+			// Get the columng
+			NSInteger column = (i==0) ? 0 : i % self.numberOfColumns;
+			// Bild the frame
+			CGRect frame = CGRectMake(horizontalDiff * (column + 1) + column * self.gridItemSize.width, 
+									  self.verticalOffset * (row + 1)  + row * self.gridItemSize.height, 
+									  self.gridItemSize.width, 
+									  self.gridItemSize.height);
+			if (self.delegate && [self.delegate respondsToSelector:@selector(gridView:itemForIndex:)]) {
+				ODGridItemView *gridItemView = [self itemForIndex:i];
+				if (gridItemView) {
+					gridItemView.frame = frame;
+					gridItemView.delegate = self;
+					gridItemView.index = i;
+					[self addSubview:gridItemView];
+				}
+			}
+		}
 	}
 	
-    CGFloat itemHeight = self.verticalOffset + [self gridItemSize].height;
-	NSInteger maxRow = floorf(self.frame.size.height / itemHeight); // this is the maximum possible row
-    NSInteger firstNeededRow = MAX(0, floorf(visibleBounds.origin.y / itemHeight));
-    NSInteger lastNeededRow  = MIN(maxRow, floorf(CGRectGetMaxY(visibleBounds) / itemHeight));
+    
 	
-	DLog(@"firstNeededRow %d", firstNeededRow);
-	DLog(@"lastNeededRow %d", lastNeededRow);
 	
-	// iterate through needed rows and columns, adding any tiles that are missing
-	NSInteger i = 0;
-    for (NSInteger row = firstNeededRow; row <= lastNeededRow; row++) {
-		if (self.delegate && [self.delegate respondsToSelector:@selector(gridView:itemForIndex:)]) {
-//			NSInteger horizontalDiff = (self.bounds.size.width - self.numberOfColumns * self.gridItemSize.width) / (self.numberOfColumns + 1);
-//			if (self.horizontalOffset < 0) {
-//				horizontalDiff = self.horizontalOffset;
-//			}
+	
+//	// iterate through needed rows and columns, adding any tiles that are missing
+//	NSInteger i = 0;
+//    for (NSInteger row = firstNeededRow; row <= lastNeededRow; row++) {
+//		if (self.delegate && [self.delegate respondsToSelector:@selector(gridView:itemForIndex:)]) {
+////			NSInteger horizontalDiff = (self.bounds.size.width - self.numberOfColumns * self.gridItemSize.width) / (self.numberOfColumns + 1);
+////			if (self.horizontalOffset < 0) {
+////				horizontalDiff = self.horizontalOffset;
+////			}
+////			
+////			
+////			CGRect frame = CGRectMake(horizontalDiff * (column + 1) + column * self.gridItemSize.width, 
+////									  self.verticalOffset * (row + 1)  + row * self.gridItemSize.height, 
+////									  self.gridItemSize.width, 
+////									  self.gridItemSize.height);
+////			
+////			
+////			ODGridItemView *gridItemView = [self itemForIndex:i];
+////			if (gridItemView) {
+////				gridItemView.frame = frame;
+////				gridItemView.delegate = self;
+////				gridItemView.index = i;
+////				[self addSubview:gridItemView];
+////			}
 //			
-//			
-//			CGRect frame = CGRectMake(horizontalDiff * (column + 1) + column * self.gridItemSize.width, 
-//									  self.verticalOffset * (row + 1)  + row * self.gridItemSize.height, 
-//									  self.gridItemSize.width, 
-//									  self.gridItemSize.height);
-//			
-//			
-//			ODGridItemView *gridItemView = [self itemForIndex:i];
-//			if (gridItemView) {
-//				gridItemView.frame = frame;
-//				gridItemView.delegate = self;
-//				gridItemView.index = i;
-//				[self addSubview:gridItemView];
-//			}
-			
-		}
-		i++;
-    }
+//		}
+//		i++;
+//    }
 	
 }
 
