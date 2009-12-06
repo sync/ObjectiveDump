@@ -10,6 +10,7 @@
 #import "DefaultOperation.h"
 #import <CoreData/CoreData.h>
 #import "ODGridView.h"
+#import "ODImageDownloader.h"
 
 @protocol BaseGridViewDataSourceSubclass <NSObject>
 
@@ -30,7 +31,7 @@
 @protocol BaseGridViewDataSource;
 @protocol BaseGridViewDataSourceDelegate;
 
-@interface BaseGridViewDataSource : NSObject <DefaultOperationDelegate, BaseGridViewDataSourceSubclass, ODGridViewDataSource>{
+@interface BaseGridViewDataSource : NSObject <DefaultOperationDelegate, BaseGridViewDataSourceSubclass, ODGridViewDataSource, ODImageDownloaderDelegate>{
 	
 	// Check if data source is still fetching
 	// Remote data
@@ -88,6 +89,8 @@
 @property (nonatomic, readonly) id additionalObject;
 @property (nonatomic, readonly) BOOL canGoNextWhenCached;
 @property (nonatomic, readonly) NSString *canGoNextKey;
+@property (nonatomic, readonly) BOOL isContainerViewMoving;
+@property (nonatomic, readonly) BOOL delegateCanDownloadImage;
 
 - (id)initWithDelegate:(id)delegate 
 			dataSource:(id)dataSource 
@@ -154,5 +157,8 @@
 - (void)dataSourceDidCancelLoading:(BaseGridViewDataSource *)dataSource;
 - (void)dataSource:(BaseGridViewDataSource *)dataSource didFailLoadingWithErrorString:(NSString *)errorString;
 - (void)dataSourceNetworkIsDown:(BaseGridViewDataSource *)dataSource;
+- (BOOL)isContainerViewMoving:(BaseGridViewDataSource *)dataSource;
+- (void)imageDownloaderShouldLoadImageAtUrl:(NSString *)imageUrl forIndex:(NSNumber *)index dataSource:(BaseGridViewDataSource *)dataSource;
+- (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index dataSource:(BaseGridViewDataSource *)dataSource;
 
 @end

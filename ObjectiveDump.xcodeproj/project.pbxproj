@@ -62,6 +62,8 @@
 		3A9DD6B71033B0DE00FCF47C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9DD6B61033B0DE00FCF47C /* libz.dylib */; };
 		3ABE4F6B10C63BE500560536 /* ODGridItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ABE4F6910C63BE500560536 /* ODGridItemView.h */; };
 		3ABE4F6C10C63BE500560536 /* ODGridItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABE4F6A10C63BE500560536 /* ODGridItemView.m */; };
+		3ABF12E010CBD3000097D106 /* ODImageDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ABF12DE10CBD3000097D106 /* ODImageDownloader.h */; };
+		3ABF12E110CBD3000097D106 /* ODImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABF12DF10CBD3000097D106 /* ODImageDownloader.m */; };
 		3AD97CE61009B1490037DEC4 /* ODDateAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AD97CE41009B1490037DEC4 /* ODDateAdditions.h */; };
 		3AD97CE71009B1490037DEC4 /* ODDateAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */; };
 		3AD97DB41009C0610037DEC4 /* ODDateAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */; };
@@ -135,6 +137,8 @@
 		3A9DD6B61033B0DE00FCF47C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		3ABE4F6910C63BE500560536 /* ODGridItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODGridItemView.h; path = Main/OD/ODGridItemView.h; sourceTree = "<group>"; };
 		3ABE4F6A10C63BE500560536 /* ODGridItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODGridItemView.m; path = Main/OD/ODGridItemView.m; sourceTree = "<group>"; };
+		3ABF12DE10CBD3000097D106 /* ODImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODImageDownloader.h; path = Main/OD/ODImageDownloader.h; sourceTree = "<group>"; };
+		3ABF12DF10CBD3000097D106 /* ODImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODImageDownloader.m; path = Main/OD/ODImageDownloader.m; sourceTree = "<group>"; };
 		3AD97CE41009B1490037DEC4 /* ODDateAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODDateAdditions.h; sourceTree = "<group>"; };
 		3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODDateAdditions.m; sourceTree = "<group>"; };
 		3AD97CFD1009B3BE0037DEC4 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,6 +252,7 @@
 				3A1E9BB20FFE30C500312CBC /* NSHTTPCookieAdditions.m */,
 				3A1E9B9B0FFE30C500312CBC /* Base64.h */,
 				3A1E9B9C0FFE30C500312CBC /* Base64.m */,
+				3ABF12DB10CBD26D0097D106 /* Image */,
 			);
 			name = Network;
 			path = ../..;
@@ -419,6 +424,15 @@
 			path = ../..;
 			sourceTree = "<group>";
 		};
+		3ABF12DB10CBD26D0097D106 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				3ABF12DE10CBD3000097D106 /* ODImageDownloader.h */,
+				3ABF12DF10CBD3000097D106 /* ODImageDownloader.m */,
+			);
+			name = Image;
+			sourceTree = "<group>";
+		};
 		3AD97CE31009B1190037DEC4 /* Date */ = {
 			isa = PBXGroup;
 			children = (
@@ -483,6 +497,7 @@
 				3A9C43BA10C745820048A0AB /* BaseGridViewDataSource.h in Headers */,
 				3A9C43D710C74A210048A0AB /* ODGridView.h in Headers */,
 				3A9C443010C768F90048A0AB /* BaseGridViewController.h in Headers */,
+				3ABF12E010CBD3000097D106 /* ODImageDownloader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,6 +629,7 @@
 				3A9C43BB10C745820048A0AB /* BaseGridViewDataSource.m in Sources */,
 				3A9C43D810C74A210048A0AB /* ODGridView.m in Sources */,
 				3A9C443110C768F90048A0AB /* BaseGridViewController.m in Sources */,
+				3ABF12E110CBD3000097D106 /* ODImageDownloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

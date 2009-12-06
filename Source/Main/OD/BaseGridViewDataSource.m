@@ -400,7 +400,49 @@
 	gridItemView.imageView.image = nil;
 	gridItemView.imageView.image = nil;
 	
+	if (self.delegateCanDownloadImage && !self.isContainerViewMoving) {
+		// Tell delegate to start download image
+		[self.delegate imageDownloaderShouldLoadImageAtUrl:nil 
+												  forIndex:[NSNumber numberWithInteger:index] 
+												dataSource:self];
+	}
+	
 	return gridItemView;
+}
+
+// called by our ImageDownloader when an icon is ready to be displayed
+- (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index;
+{
+	[image retain];
+	if (self.delegateCanDownloadImage) {
+		[self.delegate imageDownloaderDidLoadImage:image 
+												  forIndex:index 
+												dataSource:self];
+	}
+	// Refresh the item
+	// Save the image
+}
+
+- (BOOL)isContainerViewMoving
+{
+	BOOL isContainerViewMoving = TRUE;
+	if (self.delegate && [self.delegate respondsToSelector:@selector(isContainerViewMoving:)]) {
+		isContainerViewMoving = [self.delegate isContainerViewMoving:self];
+	}
+	return isContainerViewMoving;
+}
+
+- (BOOL)delegateCanDownloadImage
+{
+	BOOL delegateCanDownloadImage = FALSE;
+	
+	if (self.delegate 
+		&& [self.delegate respondsToSelector:@selector(imageDownloaderShouldLoadImageAtUrl:forIndex:dataSource:)] 
+		&& [self.delegate respondsToSelector:@selector(imageDownloaderDidLoadImage:forIndex:dataSource:)]) {
+		delegateCanDownloadImage = TRUE;
+	}
+	
+	return delegateCanDownloadImage;
 }
 
 #pragma mark -

@@ -22,6 +22,7 @@
 @synthesize managedObjectContext=_managedObjectContext;
 @synthesize object=_object;
 @synthesize viewDidLoadCalled=_viewDidLoadCalled;
+@synthesize imageDownloadsInProgress=_imageDownloadsInProgress;
 
 #pragma mark -
 #pragma mark Initialisation
@@ -50,6 +51,8 @@
 {
 	// Nothing
 	self.viewDidLoadCalled = FALSE;
+	// Images download
+	self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
 }
 
 #pragma mark -
@@ -183,6 +186,10 @@
 	gridItemView.nameLabel.text = nil;
 	gridItemView.imageView.image = nil;
 	gridItemView.imageView.image = nil;
+	
+	if (self.gridView.dragging == NO && self.gridView.decelerating == NO) {
+		//[self startImageDownload:nil forIndex:[NSNumber numberWithInteger:index] resizeSize:CGSizeMake(50.0, 50.0)];
+	}
 	
 	return gridItemView;
 }
@@ -339,6 +346,98 @@
 }
 
 #pragma mark -
+#pragma mark Image downloading
+
+- (BOOL)isContainerViewMoving:(BaseGridViewDataSource *)dataSource
+{
+	return (self.gridView.dragging == YES && self.gridView.decelerating == YES);
+}
+
+- (void)imageDownloaderShouldLoadImageAtUrl:(NSString *)imageUrl forIndex:(NSNumber *)index dataSource:(BaseGridViewDataSource *)dataSource
+{
+//	id object = [self.dataSource.content objectAtIndex:[index integerValue]];		
+//	if (object.urlString) // avoid the download if url not there
+//	{
+//		[self startImageDownload:object.urlString forIndex:index resizeSize:CGSizeMake(50.0, 50.0)];
+//	}
+}
+
+- (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index dataSource:(BaseGridViewDataSource *)dataSource
+{
+	[self.imageDownloadsInProgress removeObjectForKey:index];
+}
+
+- (void)startImageDownload:(NSString *)url forIndex:(NSNumber *)index resizeSize:(CGSize)resizeSize;
+{
+    ODImageDownloader *imageDownloader = [self.imageDownloadsInProgress objectForKey:index];
+    if (imageDownloader == nil) 
+    {
+        imageDownloader = [[ODImageDownloader alloc] init];
+        imageDownloader.URL = [NSURL URLWithString:url];
+        imageDownloader.index = index;
+		imageDownloader.resizeSize = resizeSize;
+		if (self.dataSource) {
+			imageDownloader.delegate = self.dataSource;
+		} else {
+			imageDownloader.delegate = self;
+		}
+        [self.imageDownloadsInProgress setObject:imageDownloader forKey:index];
+        [imageDownloader startDownload];
+        [imageDownloader release];   
+    }
+}
+
+// this method is used in case the user scrolled into a set of cells that don't have their app icons yet
+- (void)loadImagesForOnscreenRows
+{
+//    for (ODGridItemView *item in self.gridView.currentItems) {
+//		//id object = [self.content objectAtIndex:item.index];
+//		
+//		if (object.thumbnailURLString) // avoid the download if url not there
+//		{
+//			[self startImageDownload:object.thumbnailURLString forIndex:object.index];
+//		}
+//	}
+}
+
+// called by our ImageDownloader when an icon is ready to be displayed
+- (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index;
+{
+	[image retain];
+	// Remove downloaded item 
+	[self.imageDownloadsInProgress removeObjectForKey:index];
+	// Refresh the item
+	// Save the image
+}
+
+
+#pragma mark -
+#pragma mark Deferred image loading (UIScrollViewDelegate)
+
+// Load images for all onscreen rows when scrolling is finished
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate)
+	{
+        [self loadImagesForOnscreenRows];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self loadImagesForOnscreenRows];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+    // terminate all pending download connections
+    NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
+    [allDownloads performSelector:@selector(cancelDownload)];
+}
+
+#pragma mark -
 #pragma mark Restore Levels
 
 - (void)restoreLevelWithSelectionArray:(NSArray *)selectionArray
@@ -363,6 +462,7 @@
 
 - (void)dealloc {
 	
+	[_imageDownloadsInProgress release];
 	[_object release];
 	[_managedObjectContext release];
 	[_entityName release];

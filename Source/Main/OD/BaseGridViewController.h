@@ -11,6 +11,7 @@
 #import "BaseViewController.h"
 #import "ODGridView.h"
 #import "BaseGridViewDataSource.h"
+#import "ODImageDownloader.h"
 
 @protocol BaseGridViewControllerSubclass <NSObject>
 
@@ -29,10 +30,13 @@
 - (void)setupDataSource;
 - (void)setupCoreData;
 
+// Image loading
+- (void)loadImagesForOnscreenRows;
+
 @end
 
 
-@interface BaseGridViewController : UIViewController <UIAlertViewDelegate, BaseViewControllerSubclass, BaseGridViewControllerSubclass, ODGridViewDataSource, ODGridViewDelegate, UIScrollViewDelegate> {
+@interface BaseGridViewController : UIViewController <UIAlertViewDelegate, BaseViewControllerSubclass, BaseGridViewControllerSubclass, ODGridViewDataSource, ODGridViewDelegate, UIScrollViewDelegate, ODImageDownloaderDelegate> {
 	
 	ODGridView *_gridView;
 	
@@ -51,6 +55,8 @@
 	id _object;
 	
 	BOOL _viewDidLoadCalled;
+	
+	NSMutableDictionary *_imageDownloadsInProgress;
 }
 
 @property (nonatomic, retain) IBOutlet ODGridView *gridView;
@@ -71,5 +77,9 @@
 - (NSURL *)buildNextUrlWithOffset:(NSInteger)offset limit:(NSInteger)limit urlString:(NSString *)urlString;
 // Core Data
 - (BOOL)saveContextAndHandleErrors;
+
+// Images loading
+@property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
+- (void)startImageDownload:(NSString *)url forIndex:(NSNumber *)index resizeSize:(CGSize)resizeSize;
 
 @end
