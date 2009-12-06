@@ -92,6 +92,9 @@
         [view removeFromSuperview];
     }
 	
+	self.firstNeededRow = -1;
+	self.lastNeededRow = -1;
+	
 	[self setNeedsLayout];
 }
 

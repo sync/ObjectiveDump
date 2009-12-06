@@ -211,8 +211,12 @@
 		}
 		
 		CFNumberRef cfSize = CFReadStreamCopyProperty(_readStream, kCFStreamPropertyHTTPRequestBytesWrittenCount);
-		CFNumberGetValue(cfSize, kCFNumberLongType, &bytesWritten);
-		CFRelease(cfSize);
+		if (cfSize) {
+			CFNumberGetValue(cfSize, kCFNumberLongType, &bytesWritten);
+			CFRelease(cfSize);
+		} else {
+			doneUploading = YES;
+		}
 		cfSize = NULL;
 		
 		if (bytesWritten > previousBytesWritten) {
