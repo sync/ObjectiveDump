@@ -185,7 +185,6 @@
 									  self.gridItemSize.height);
 			if (self.delegate && [self.delegate respondsToSelector:@selector(gridView:itemForIndex:)]) {
 				ODGridItemView *gridItemView = [self itemForIndex:i];
-				DLog(@"itemForIndex:%d", i);
 				if (gridItemView) {
 					gridItemView.frame = frame;
 					gridItemView.delegate = self;
