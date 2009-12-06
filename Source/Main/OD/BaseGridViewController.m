@@ -207,13 +207,14 @@
 	// Get view bounds
 	CGRect rect = self.view.bounds;
 	// Check if there is already one loading view in place
-	ODLoadingView *loadingView = (ODLoadingView *)[self.gridView viewWithTag:LoadingViewTag];
+	ODLoadingView *loadingView = (ODLoadingView *)[self.view viewWithTag:LoadingViewTag];
 	if (!loadingView) {
 		// Compute the loading view
 		loadingView = [[ODLoadingView alloc]initWithFrame:rect];
+		loadingView.frame = self.gridView.frame;
 		loadingView.tag = LoadingViewTag;
 		// Add the view to the top of the gridView
-		[self.gridView addSubview:loadingView];
+		[self.view addSubview:loadingView];
 		[loadingView release];
 	} else {
 		loadingView.frame = rect;
@@ -232,7 +233,7 @@
 - (void)hideLoadingView
 {
 	// Remove loading view
-	ODLoadingView *loadingView = (ODLoadingView *)[self.gridView viewWithTag:LoadingViewTag];
+	ODLoadingView *loadingView = (ODLoadingView *)[self.view viewWithTag:LoadingViewTag];
 	[loadingView.activityIndicatorView stopAnimating];
 	[loadingView removeFromSuperview];
 	// Unlock the gridView scrollview
@@ -259,12 +260,13 @@
 	// Get view bounds
 	CGRect rect = self.view.bounds;
 	// Check if there is already one error view in place
-	ODLoadingView *errorView = (ODLoadingView *)[self.gridView viewWithTag:ErrorViewTag];
+	ODLoadingView *errorView = (ODLoadingView *)[self.view viewWithTag:ErrorViewTag];
 	if (!errorView) {
 		errorView = [[ODLoadingView alloc]initWithFrame:rect];
 		errorView.tag = ErrorViewTag;
+		errorView.frame = self.gridView.frame;
 		// Add the view to the top of the gridView
-		[self.gridView addSubview:errorView];
+		[self.view addSubview:errorView];
 		[errorView release];
 	} else {
 		errorView.frame = rect;
@@ -281,7 +283,7 @@
 - (void)hideErrorView
 {
 	// Remove loading view
-	ODLoadingView *errorView = (ODLoadingView *)[self.gridView viewWithTag:ErrorViewTag];
+	ODLoadingView *errorView = (ODLoadingView *)[self.view viewWithTag:ErrorViewTag];
 	[errorView removeFromSuperview];
 	// Unlock the gridView scrollview
 	self.gridView.scrollEnabled = TRUE;
