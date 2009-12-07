@@ -54,88 +54,116 @@
 
 @implementation ODImageDownloader
 
-@synthesize URL;
-@synthesize resizeSize;
-@synthesize index;
-@synthesize delegate;
-@synthesize activeDownload;
-@synthesize imageConnection;
+@synthesize resizeSize=_resizeSize;
+@synthesize index=_index;
+@synthesize imageDelegate=_imageDelegate;
 
-#pragma mark
-
-- (void)dealloc
+- (void)main
 {
-    [URL release];
-	[index release];
-    
-    [activeDownload release];
-    
-    [imageConnection cancel];
-    [imageConnection release];
-    
-    [super dealloc];
+	
+	if ([self isCancelled])
+	{
+		return;  // user cancelled this operation
+	}
+	
+	NSData *responseData = [self downloadUrl];
+	
+	if ([responseData length] != 0)  {
+        
+		if (![self isCancelled])
+		{
+			// Set appIcon and clear temporary data/image
+			UIImage *image = [UIImage imageWithData:responseData];
+			
+			if (image.size.width != self.resizeSize.width && image.size.height != self.resizeSize.height)
+			{
+				image = [self createImage:image.CGImage width:self.resizeSize.width height:self.resizeSize.height];
+			}
+			
+			// call our delegate and tell it that our image is ready for display
+			if (self.imageDelegate && [self.imageDelegate respondsToSelector:@selector(imageDownloaderDidLoadImage:forIndex:)]) {
+				[self.imageDelegate imageDownloaderDidLoadImage:image forIndex:self.index];
+			}
+		}
+	}
 }
 
-- (void)startDownload
-{
-    self.activeDownload = [NSMutableData data];
-    // alloc+init and start an NSURLConnection; release on completion/failure
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:
-                             [NSURLRequest requestWithURL:
-                              self.URL] delegate:self];
-    self.imageConnection = conn;
-    [conn release];
-}
+// Coming from http://stackoverflow.mobi/question1043937_Multiple-Image-Operations-Crash-iPhone-App.aspx
+// Draw the image into a pixelsWide x pixelsHigh bitmap and use that bitmap to 
+// create a new UIImage 
+- (UIImage *)createImage:(CGImageRef)image width:(CGFloat)pixelWidth height:(CGFloat)pixelHeight
+{ 
+    // Set the size of the output image 
+    CGRect aRect = CGRectMake(0.0f, 0.0f, pixelWidth, pixelHeight); 
+    // Create a bitmap context to store the new thumbnail 
+    CGContextRef context = MyCreateBitmapContext(pixelWidth, pixelHeight); 
+    // Clear the context and draw the image into the rectangle 
+    CGContextClearRect(context, aRect); 
+    CGContextDrawImage(context, aRect, image); 
+    // Return a UIImage populated with the new resized image 
+    CGImageRef myRef = CGBitmapContextCreateImage (context); 
+	
+    UIImage *img = [UIImage imageWithCGImage:myRef];
+	
+    free(CGBitmapContextGetData(context)); 
+    CGContextRelease(context);
+    CGImageRelease(myRef);
+	
+    return img; 
+} 
 
-- (void)cancelDownload
+
+// MyCreateBitmapContext: Source based on Apple Sample Code
+CGContextRef MyCreateBitmapContext (CGFloat pixelsWide,
+									CGFloat pixelsHigh)
 {
-    [self.imageConnection cancel];
-    self.imageConnection = nil;
-    self.activeDownload = nil;
+    CGContextRef    context = NULL;
+    CGColorSpaceRef colorSpace;
+    void *          bitmapData;
+    int             bitmapByteCount;
+    int             bitmapBytesPerRow;
+	
+    bitmapBytesPerRow   = (pixelsWide * 4);
+    bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
+	
+    colorSpace = CGColorSpaceCreateDeviceRGB();
+    bitmapData = malloc( bitmapByteCount );
+    if (bitmapData == NULL)
+    {
+        fprintf (stderr, "Memory not allocated!");
+		CGColorSpaceRelease( colorSpace );
+        return NULL;
+    }
+    context = CGBitmapContextCreate (bitmapData,
+									 pixelsWide,
+									 pixelsHigh,
+									 8,
+									 bitmapBytesPerRow,
+									 colorSpace,
+									 kCGImageAlphaPremultipliedLast);
+    if (context== NULL)
+    {
+        free (bitmapData);
+		CGColorSpaceRelease( colorSpace );
+        fprintf (stderr, "Context not created!");
+        return NULL;
+    }
+    CGColorSpaceRelease( colorSpace );
+	
+    return context;
 }
 
 
 #pragma mark -
-#pragma mark Download support (NSURLConnectionDelegate)
+#pragma mark Memory management
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [self.activeDownload appendData:data];
+- (void)dealloc {
+	
+	[_index release];
+	
+	[super dealloc];
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-	// Clear the activeDownload property to allow later attempts
-    self.activeDownload = nil;
-    
-    // Release the connection now that it's finished
-    self.imageConnection = nil;
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    // Set appIcon and clear temporary data/image
-    UIImage *image = [UIImage imageWithData:self.activeDownload];
-    
-    if (image.size.width != resizeSize.width && image.size.height != resizeSize.height)
-	{
-        UIGraphicsBeginImageContext(resizeSize);
-		CGRect imageRect = CGRectMake(0.0, 0.0, resizeSize.width, resizeSize.height);
-		[image drawInRect:imageRect];
-		image = UIGraphicsGetImageFromCurrentImageContext();
-		UIGraphicsEndImageContext();
-    }
-    
-    self.activeDownload = nil;
-    
-    // Release the connection now that it's finished
-    self.imageConnection = nil;
-        
-    // call our delegate and tell it that our image is ready for display
-	if (self.delegate && [self.delegate respondsToSelector:@selector(imageDownloaderDidLoadImage:forIndex:)]) {
-		[self.delegate imageDownloaderDidLoadImage:image forIndex:self.index];
-	}
-}
 
 @end
 

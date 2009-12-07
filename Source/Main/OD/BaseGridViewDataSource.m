@@ -395,10 +395,7 @@
 		gridItemView = [ODGridItemView gridItem];
 	}
 	
-	gridItemView.image = nil;
-	gridItemView.selectedImage = nil;
 	gridItemView.nameLabel.text = nil;
-	gridItemView.imageView.image = nil;
 	gridItemView.imageView.image = nil;
 	
 	if (self.delegateCanDownloadImage && !self.isContainerViewMoving) {

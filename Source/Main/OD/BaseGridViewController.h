@@ -56,7 +56,7 @@
 	
 	BOOL _viewDidLoadCalled;
 	
-	NSMutableDictionary *_imageDownloadsInProgress;
+	NSOperationQueue *_imageDownloadQueue;
 }
 
 @property (nonatomic, retain) IBOutlet ODGridView *gridView;
@@ -64,6 +64,7 @@
 @property (nonatomic, retain) BaseGridViewDataSource *dataSource;
 @property (nonatomic, retain) id object;
 @property (nonatomic) BOOL viewDidLoadCalled;
+@property (nonatomic, readonly) NSOperationQueue *imageDownloadQueue;
 
 // Loading View
 - (void)showLoadingViewForText:(NSString *)loadingText;
@@ -79,7 +80,6 @@
 - (BOOL)saveContextAndHandleErrors;
 
 // Images loading
-@property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 - (void)startImageDownload:(NSString *)url forIndex:(NSNumber *)index resizeSize:(CGSize)resizeSize;
 
 @end

@@ -14,16 +14,11 @@
 	UIImageView *_imageView;
 	UILabel *_nameLabel;
 	
-	UIImage *_selectedImage;
-	UIImage *_image;
-	
 	NSInteger _index;
 }
 
 @property (nonatomic, readonly) UIImageView *imageView;
 @property (nonatomic, readonly) UILabel *nameLabel;
-@property (nonatomic, retain) UIImage *selectedImage;
-@property (nonatomic, retain) UIImage *image;
 @property (nonatomic) NSInteger index;
 
 - (void)setupCustomInitialisation;

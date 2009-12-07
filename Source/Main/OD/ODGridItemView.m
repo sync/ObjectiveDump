@@ -13,8 +13,6 @@
 
 @implementation ODGridItemView
 
-@synthesize selectedImage=_selectedImage;
-@synthesize image=_image;
 @synthesize index=_index;
 
 // The designated initializer. Override to perform setup that is required before the view is loaded.
@@ -84,20 +82,22 @@
 	// Get the frame where you can place your subviews
 	CGRect rect = self.bounds;
 	
-	NSInteger difference = (self.bounds.size.width - self.image.size.width) / 2;
+	UIImage *image = self.imageView.image;
+	
+	NSInteger difference = (self.bounds.size.width - image.size.width) / 2;
 	
 	// Place the image view
 	if (_imageView) {
 		self.imageView.frame = CGRectIntegral(CGRectMake(rect.origin.x + difference, 
 														 rect.origin.y + difference, 
-														 self.image.size.width, 
-														 self.image.size.height));
+														 image.size.width, 
+														 image.size.height));
 	}
 	
 	if (_nameLabel) {
 		self.nameLabel.frame = CGRectIntegral(CGRectMake(rect.origin.x + difference, 
-														 rect.origin.y + difference  + self.image.size.height + ImageLabelDiff, 
-														 self.image.size.width, 
+														 rect.origin.y + difference  + image.size.height + ImageLabelDiff, 
+														 image.size.width, 
 														 (NameLabelFontSize + 4.0) * 2.0));
 	}
 }
@@ -105,9 +105,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
-	if (self.selectedImage) {
-		self.imageView.image = self.selectedImage;
-	}
+	// is selected
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -117,9 +115,7 @@
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
 	[super touchesCancelled:touches withEvent:event];
-	if (self.image) {
-		self.imageView.image = self.image;
-	}
+	// selection canceled
 }
 
 
@@ -131,8 +127,6 @@
 
 
 - (void)dealloc {
-	[_image release];
-	[_selectedImage release];
 	[_imageView release];
 	[_nameLabel release];
 	

@@ -50,29 +50,24 @@
   
  */
 
+#import "DefaultOperation.h"
+
 @protocol ODImageDownloaderDelegate;
 
-@interface ODImageDownloader : NSObject
+@interface ODImageDownloader : DefaultOperation
 {
-    NSURL *URL;
-	CGSize resizeSize;
-	id index;
-    id <ODImageDownloaderDelegate> delegate;
-    
-    NSMutableData *activeDownload;
-    NSURLConnection *imageConnection;
+	CGSize _resizeSize;
+	id _index;
+    id <ODImageDownloaderDelegate> _imageDelegate;
 }
 
-@property (nonatomic, retain) NSURL *URL;
 @property (nonatomic) CGSize resizeSize;
 @property (nonatomic, retain) id index;
-@property (nonatomic, assign) id <ODImageDownloaderDelegate> delegate;
+@property (nonatomic, assign) id <ODImageDownloaderDelegate> imageDelegate;
 
-@property (nonatomic, retain) NSMutableData *activeDownload;
-@property (nonatomic, retain) NSURLConnection *imageConnection;
-
-- (void)startDownload;
-- (void)cancelDownload;
+// Coming from http://stackoverflow.mobi/question1043937_Multiple-Image-Operations-Crash-iPhone-App.aspx
+- (UIImage *)createImage:(CGImageRef)image width:(CGFloat)pixelWidth height:(CGFloat)pixelHeight;
+CGContextRef MyCreateBitmapContext (CGFloat pixelsWide, CGFloat pixelsHigh);
 
 @end
 

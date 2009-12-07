@@ -22,7 +22,6 @@
 @synthesize managedObjectContext=_managedObjectContext;
 @synthesize object=_object;
 @synthesize viewDidLoadCalled=_viewDidLoadCalled;
-@synthesize imageDownloadsInProgress=_imageDownloadsInProgress;
 
 #pragma mark -
 #pragma mark Initialisation
@@ -51,8 +50,15 @@
 {
 	// Nothing
 	self.viewDidLoadCalled = FALSE;
-	// Images download
-	self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+}
+
+- (NSOperationQueue *)imageDownloadQueue
+{
+	if (!_imageDownloadQueue) {
+		_imageDownloadQueue = [[NSOperationQueue alloc]init];
+	}
+	
+	return _imageDownloadQueue;
 }
 
 #pragma mark -
@@ -181,10 +187,7 @@
 		gridItemView = [ODGridItemView gridItem];
 	}
 	
-	gridItemView.image = nil;
-	gridItemView.selectedImage = nil;
 	gridItemView.nameLabel.text = nil;
-	gridItemView.imageView.image = nil;
 	gridItemView.imageView.image = nil;
 	
 	if (self.gridView.dragging == NO && self.gridView.decelerating == NO) {
@@ -364,26 +367,29 @@
 
 - (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index dataSource:(BaseGridViewDataSource *)dataSource
 {
-	[self.imageDownloadsInProgress removeObjectForKey:index];
+	
 }
 
 - (void)startImageDownload:(NSString *)url forIndex:(NSNumber *)index resizeSize:(CGSize)resizeSize;
 {
-    ODImageDownloader *imageDownloader = [self.imageDownloadsInProgress objectForKey:index];
-    if (imageDownloader == nil) 
+    // Search on operation queue list if not found create new one
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"url = %@ AND index = %d"];
+	NSArray *operations = nil;
+	if (self.imageDownloadQueue.operations.count > 0) {
+		operations = [self.imageDownloadQueue.operations filteredArrayUsingPredicate:predicate];
+	}
+    if (!operations || operations.count == 0) 
     {
-        imageDownloader = [[ODImageDownloader alloc] init];
-        imageDownloader.URL = [NSURL URLWithString:url];
-        imageDownloader.index = index;
-		imageDownloader.resizeSize = resizeSize;
+		ODImageDownloader *operation = [[ODImageDownloader alloc]initWithURL:[NSURL URLWithString:url]infoDictionary:nil];
+		operation.index = index;
+		operation.resizeSize = resizeSize;
 		if (self.dataSource) {
-			imageDownloader.delegate = self.dataSource;
+			operation.imageDelegate = self.dataSource;
 		} else {
-			imageDownloader.delegate = self;
+			operation.imageDelegate = self;
 		}
-        [self.imageDownloadsInProgress setObject:imageDownloader forKey:index];
-        [imageDownloader startDownload];
-        [imageDownloader release];   
+        [self.imageDownloadQueue addOperation:operation];
+        [operation release];   
     }
 }
 
@@ -403,9 +409,6 @@
 // called by our ImageDownloader when an icon is ready to be displayed
 - (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index;
 {
-	[image retain];
-	// Remove downloaded item 
-	[self.imageDownloadsInProgress removeObjectForKey:index];
 	// Refresh the item
 	// Save the image
 }
@@ -433,8 +436,7 @@
     [super didReceiveMemoryWarning];
     
     // terminate all pending download connections
-    NSArray *allDownloads = [self.imageDownloadsInProgress allValues];
-    [allDownloads performSelector:@selector(cancelDownload)];
+	[self.imageDownloadQueue cancelAllOperations];
 }
 
 #pragma mark -
@@ -462,7 +464,6 @@
 
 - (void)dealloc {
 	
-	[_imageDownloadsInProgress release];
 	[_object release];
 	[_managedObjectContext release];
 	[_entityName release];
