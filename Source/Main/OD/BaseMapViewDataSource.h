@@ -62,6 +62,8 @@
 	
 	// Core Data
 	NSString *_entityName;
+	
+	NSOperation *_operation;
 }
 
 @property (nonatomic) BOOL isLoading;
@@ -82,6 +84,7 @@
 @property (nonatomic, readonly) id additionalObject;
 @property (nonatomic, readonly) BOOL canGoNextWhenCached;
 @property (nonatomic, readonly) NSString *canGoNextKey;
+@property (nonatomic, retain) NSOperation *operation;
 
 - (id)initWithDelegate:(id)delegate 
 			dataSource:(id)dataSource 

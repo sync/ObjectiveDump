@@ -28,6 +28,7 @@
 @synthesize dumpedFilePath=_dumpedFilePath;
 @synthesize entityName=_entityName;
 @synthesize fetchedResultsController=_fetchedResultsController;
+@synthesize operation=_operation;
 
 #pragma mark -
 #pragma mark Init
@@ -478,6 +479,7 @@
 
 - (void)dealloc
 {
+	[_operation release];
 	[_fetchedResultsController release];
 	[_entityName release];
 	[_dumpedFilePath release];

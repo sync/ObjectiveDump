@@ -68,6 +68,8 @@
 	
 	// Core Data
 	NSString *_entityName;
+	
+	NSOperation *_operation;
 }
 
 @property (nonatomic) BOOL isLoading;
@@ -91,6 +93,7 @@
 @property (nonatomic, readonly) NSString *canGoNextKey;
 @property (nonatomic, readonly) BOOL isContainerViewMoving;
 @property (nonatomic, readonly) BOOL delegateCanDownloadImage;
+@property (nonatomic, retain) NSOperation *operation;
 
 - (id)initWithDelegate:(id)delegate 
 			dataSource:(id)dataSource 

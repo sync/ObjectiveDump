@@ -26,6 +26,7 @@
 @synthesize operationQueue=_operationQueue;
 @synthesize dumpedFilePath=_dumpedFilePath;
 @synthesize entityName=_entityName;
+@synthesize operation=_operation;
 
 #pragma mark -
 #pragma mark Init
@@ -367,6 +368,7 @@
 
 - (void)dealloc
 {
+	[_operation release];
 	[_entityName release];
 	[_dumpedFilePath release];
 	[_content release];
