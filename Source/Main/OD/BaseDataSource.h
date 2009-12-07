@@ -67,7 +67,7 @@
 	NSString *_entityName;
 	NSFetchedResultsController *_fetchedResultsController;
 	
-	NSOperation *_operation;
+	DefaultOperation *_operation;
 }
 
 @property (nonatomic) BOOL isLoading;
@@ -90,7 +90,7 @@
 @property (nonatomic, readonly) id additionalObject;
 @property (nonatomic, readonly) BOOL canGoNextWhenCached;
 @property (nonatomic, readonly) NSString *canGoNextKey;
-@property (nonatomic, retain) NSOperation *operation;
+@property (nonatomic, retain) DefaultOperation *operation;
 
 - (id)initWithDelegate:(id)delegate 
 			dataSource:(id)dataSource 
