@@ -215,13 +215,12 @@
 - (void)showLoadingViewForText:(NSString *)loadingText
 {
 	// Get view bounds
-	CGRect rect = self.view.bounds;
+	CGRect rect = self.gridView.frame;
 	// Check if there is already one loading view in place
 	ODLoadingView *loadingView = (ODLoadingView *)[self.view viewWithTag:LoadingViewTag];
 	if (!loadingView) {
 		// Compute the loading view
 		loadingView = [[ODLoadingView alloc]initWithFrame:rect];
-		loadingView.frame = self.gridView.frame;
 		loadingView.tag = LoadingViewTag;
 		// Add the view to the top of the gridView
 		[self.view addSubview:loadingView];
@@ -268,13 +267,12 @@
 - (void)showErrorViewForText:(NSString *)errorText
 {
 	// Get view bounds
-	CGRect rect = self.view.bounds;
+	CGRect rect = self.gridView.frame;
 	// Check if there is already one error view in place
 	ODLoadingView *errorView = (ODLoadingView *)[self.view viewWithTag:ErrorViewTag];
 	if (!errorView) {
 		errorView = [[ODLoadingView alloc]initWithFrame:rect];
 		errorView.tag = ErrorViewTag;
-		errorView.frame = self.gridView.frame;
 		// Add the view to the top of the gridView
 		[self.view addSubview:errorView];
 		[errorView release];

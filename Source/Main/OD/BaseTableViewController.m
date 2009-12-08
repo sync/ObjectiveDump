@@ -299,15 +299,15 @@
 - (void)showLoadingViewForText:(NSString *)loadingText
 {
 	// Get view bounds
-	CGRect rect = self.view.bounds;
+	CGRect rect = self.tableView.frame;
 	// Check if there is already one loading view in place
-	ODLoadingView *loadingView = (ODLoadingView *)[self.tableView viewWithTag:LoadingViewTag];
+	ODLoadingView *loadingView = (ODLoadingView *)[self.view viewWithTag:LoadingViewTag];
 	if (!loadingView) {
 		// Compute the loading view
 		loadingView = [[ODLoadingView alloc]initWithFrame:rect];
 		loadingView.tag = LoadingViewTag;
-		// Add the view to the top of the tableview
-		[self.tableView addSubview:loadingView];
+		// Add the view to the top of the gridView
+		[self.view addSubview:loadingView];
 		[loadingView release];
 	} else {
 		loadingView.frame = rect;
@@ -319,14 +319,14 @@
 	// Animate the activity indicator
 	[loadingView.activityIndicatorView startAnimating];
 	
-	// Lock the tableview scrollview
+	// Lock the gridView scrollview
 	self.tableView.scrollEnabled = FALSE;
 }
 
 - (void)hideLoadingView
 {
 	// Remove loading view
-	ODLoadingView *loadingView = (ODLoadingView *)[self.tableView viewWithTag:LoadingViewTag];
+	ODLoadingView *loadingView = (ODLoadingView *)[self.view viewWithTag:LoadingViewTag];
 	[loadingView.activityIndicatorView stopAnimating];
 	[loadingView removeFromSuperview];
 	// Unlock the tableview scrollview
@@ -351,14 +351,14 @@
 - (void)showErrorViewForText:(NSString *)errorText
 {
 	// Get view bounds
-	CGRect rect = self.view.bounds;
+	CGRect rect = self.tableView.frame;
 	// Check if there is already one error view in place
-	ODLoadingView *errorView = (ODLoadingView *)[self.tableView viewWithTag:ErrorViewTag];
+	ODLoadingView *errorView = (ODLoadingView *)[self.view viewWithTag:ErrorViewTag];
 	if (!errorView) {
 		errorView = [[ODLoadingView alloc]initWithFrame:rect];
 		errorView.tag = ErrorViewTag;
-		// Add the view to the top of the tableview
-		[self.tableView addSubview:errorView];
+		// Add the view to the top of the gridView
+		[self.view addSubview:errorView];
 		[errorView release];
 	} else {
 		errorView.frame = rect;
@@ -368,14 +368,14 @@
 		errorView.loadingLabel.text = errorText;
 	}
 	
-	// Lock the tableview scrollview
+	// Lock the gridView scrollview
 	self.tableView.scrollEnabled = FALSE;
 }
 
 - (void)hideErrorView
 {
 	// Remove loading view
-	ODLoadingView *errorView = (ODLoadingView *)[self.tableView viewWithTag:ErrorViewTag];
+	ODLoadingView *errorView = (ODLoadingView *)[self.view viewWithTag:ErrorViewTag];
 	[errorView removeFromSuperview];
 	// Unlock the tableview scrollview
 	self.tableView.scrollEnabled = TRUE;

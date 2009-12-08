@@ -100,7 +100,7 @@
 - (void)showLoadingViewForText:(NSString *)loadingText
 {
 	// Get view bounds
-	CGRect rect = self.view.bounds;
+	CGRect rect = self.view.frame;
 	// Check if there is already one loading view in place
 	ODLoadingView *loadingView = (ODLoadingView *)[self.view viewWithTag:LoadingViewTag];
 	if (!loadingView) {
