@@ -207,7 +207,7 @@
 
 - (NSInteger)numberOfSectionsForTableView:(UITableView *)tableView
 {
-	if (self.fetchedResultsController) {
+	if (self.fetchedResultsController && tableView == self.tableView) {
 		return [[self.fetchedResultsController sections] count];
 	}
 	
@@ -222,7 +222,7 @@
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section forTableView:(UITableView *)tableView
 {
-	if (self.fetchedResultsController) {
+	if (self.fetchedResultsController && tableView == self.tableView) {
 		id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
 		return [sectionInfo numberOfObjects];
 	}
@@ -260,11 +260,11 @@
 
 - (id)objectForIndexPath:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView;
 {
-	if (self.dataSource) {
+	if (self.dataSource && tableView == self.tableView) {
 		return [self.dataSource objectForIndexPath:indexPath forTableView:tableView];
 	}
 	
-	if (self.fetchedResultsController) {
+	if (self.fetchedResultsController && tableView == self.tableView) {
 		return [self.fetchedResultsController objectAtIndexPath:indexPath];
 	}
 	
