@@ -12,9 +12,6 @@ static ODNetworkManager *sharedODNetworkManager = nil;
 
 @implementation ODNetworkManager
 
-@synthesize remoteHostStatus;
-@synthesize internetConnectionStatus;
-@synthesize localWiFiConnectionStatus;
 @synthesize hasValidNetworkConnection=_hasValidNetworkConnection;
 @synthesize noConnectionAlertShowing=_noConnectionAlertShowing;
 
@@ -39,14 +36,10 @@ static ODNetworkManager *sharedODNetworkManager = nil;
 		 You can use the Reachability class to check the reachability of a remote host
 		 by specifying either the host's DNS name (www.apple.com) or by IP address.
 		 */
-		self.hasValidNetworkConnection = FALSE;
 		self.noConnectionAlertShowing = FALSE;
+		self.hasValidNetworkConnection = FALSE;
 		
-		[[ODReachability sharedReachability] setHostName:[self hostName]];
-		[[ODReachability sharedReachability] setNetworkStatusNotificationsEnabled:YES];
-		[self updateStatus];
-		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kNetworkReachabilityChangedNotification object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 	}
 	return self;
 }
@@ -91,37 +84,43 @@ static ODNetworkManager *sharedODNetworkManager = nil;
 #pragma mark -
 #pragma mark Reachability
 
-- (void)reachabilityChanged:(NSNotification *)note
+//Called by Reachability whenever status changes.
+- (void) reachabilityChanged: (NSNotification* )note
 {
-    [self updateStatus];
+	Reachability* curReach = [note object];
+	NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
+	[self updateInterfaceWithReachability: curReach];
+}
+
+- (void) updateInterfaceWithReachability: (Reachability*) curReach
+{
+    if(curReach == hostReach)
+	{
+		NetworkStatus netStatus = [curReach currentReachabilityStatus];
+		switch (netStatus)
+		{
+			case NotReachable:
+			{
+				self.hasValidNetworkConnection = FALSE;
+			}
+				
+			case ReachableViaWWAN:
+			{
+				self.hasValidNetworkConnection = TRUE;
+			}
+			case ReachableViaWiFi:
+			{
+				self.hasValidNetworkConnection = TRUE;
+			}
+		}		
+    }
+	
 }
 
 - (void)updateStatus
 {
-	// Query the SystemConfiguration framework for the state of the device's network connections.
-	self.remoteHostStatus           = [[ODReachability sharedReachability] remoteHostStatus];
-	self.internetConnectionStatus	= [[ODReachability sharedReachability] internetConnectionStatus];
-	self.localWiFiConnectionStatus	= [[ODReachability sharedReachability] localWiFiConnectionStatus];
-	
-	if ((self.remoteHostStatus == ODReachableViaWiFiNetwork) || (self.remoteHostStatus == ODReachableViaCarrierDataNetwork))  {
-		self.hasValidNetworkConnection = TRUE;
-	} else {
-		self.hasValidNetworkConnection = FALSE;
-	}
-	
-	
-}
-
-- (BOOL)isCarrierDataNetworkActive
-{
-	return (self.remoteHostStatus == ODReachableViaCarrierDataNetwork);
-}
-
-- (NSString *)hostName
-{
-	// Don't include a scheme. 'http://' will break the reachability checking.
-	// Change this value to test the reachability of a different host.
-	return @"www.google.com";
+	hostReach = [[Reachability reachabilityWithHostName: @"www.google.com"] retain];
+	[hostReach startNotifer];
 }
 
 #pragma mark -

@@ -35,8 +35,6 @@
 		3A1E9BCA0FFE30C500312CBC /* MyLocationGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9BB00FFE30C500312CBC /* MyLocationGetter.m */; };
 		3A1E9BCB0FFE30C500312CBC /* NSHTTPCookieAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1E9BB10FFE30C500312CBC /* NSHTTPCookieAdditions.h */; };
 		3A1E9BCC0FFE30C500312CBC /* NSHTTPCookieAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9BB20FFE30C500312CBC /* NSHTTPCookieAdditions.m */; };
-		3A1E9BCD0FFE30C500312CBC /* ODReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1E9BB30FFE30C500312CBC /* ODReachability.h */; };
-		3A1E9BCE0FFE30C500312CBC /* ODReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9BB40FFE30C500312CBC /* ODReachability.m */; };
 		3A1E9C7D0FFE37D000312CBC /* BaseDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1E9C7B0FFE37D000312CBC /* BaseDataSource.h */; };
 		3A1E9C7E0FFE37D000312CBC /* BaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E9C7C0FFE37D000312CBC /* BaseDataSource.m */; };
 		3A1EAAEB1002C7A100312CBC /* ODHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A1EAAE91002C7A100312CBC /* ODHeaderView.h */; };
@@ -68,6 +66,8 @@
 		3ABF12E110CBD3000097D106 /* ODImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABF12DF10CBD3000097D106 /* ODImageDownloader.m */; };
 		3ABF19C010CCD8370097D106 /* ODImageAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ABF19BE10CCD8370097D106 /* ODImageAdditions.h */; };
 		3ABF19C110CCD8370097D106 /* ODImageAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABF19BF10CCD8370097D106 /* ODImageAdditions.m */; };
+		3ACCFBA310CFB1CF00B16DB7 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ACCFBA110CFB1CF00B16DB7 /* Reachability.h */; };
+		3ACCFBA410CFB1CF00B16DB7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACCFBA210CFB1CF00B16DB7 /* Reachability.m */; };
 		3AD97CE61009B1490037DEC4 /* ODDateAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AD97CE41009B1490037DEC4 /* ODDateAdditions.h */; };
 		3AD97CE71009B1490037DEC4 /* ODDateAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */; };
 		3AD97DB41009C0610037DEC4 /* ODDateAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */; };
@@ -114,8 +114,6 @@
 		3A1E9BB00FFE30C500312CBC /* MyLocationGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyLocationGetter.m; path = Main/OD/MyLocationGetter.m; sourceTree = "<group>"; };
 		3A1E9BB10FFE30C500312CBC /* NSHTTPCookieAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSHTTPCookieAdditions.h; path = Main/OD/NSHTTPCookieAdditions.h; sourceTree = "<group>"; };
 		3A1E9BB20FFE30C500312CBC /* NSHTTPCookieAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSHTTPCookieAdditions.m; path = Main/OD/NSHTTPCookieAdditions.m; sourceTree = "<group>"; };
-		3A1E9BB30FFE30C500312CBC /* ODReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODReachability.h; path = Main/OD/ODReachability.h; sourceTree = "<group>"; };
-		3A1E9BB40FFE30C500312CBC /* ODReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODReachability.m; path = Main/OD/ODReachability.m; sourceTree = "<group>"; };
 		3A1E9C7B0FFE37D000312CBC /* BaseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseDataSource.h; path = Main/OD/BaseDataSource.h; sourceTree = "<group>"; };
 		3A1E9C7C0FFE37D000312CBC /* BaseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseDataSource.m; path = Main/OD/BaseDataSource.m; sourceTree = "<group>"; };
 		3A1EAAE91002C7A100312CBC /* ODHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODHeaderView.h; sourceTree = "<group>"; };
@@ -147,6 +145,8 @@
 		3ABF12DF10CBD3000097D106 /* ODImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODImageDownloader.m; path = Main/OD/ODImageDownloader.m; sourceTree = "<group>"; };
 		3ABF19BE10CCD8370097D106 /* ODImageAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODImageAdditions.h; sourceTree = "<group>"; };
 		3ABF19BF10CCD8370097D106 /* ODImageAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODImageAdditions.m; sourceTree = "<group>"; };
+		3ACCFBA110CFB1CF00B16DB7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Main/OD/Reachability.h; sourceTree = "<group>"; };
+		3ACCFBA210CFB1CF00B16DB7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Main/OD/Reachability.m; sourceTree = "<group>"; };
 		3AD97CE41009B1490037DEC4 /* ODDateAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODDateAdditions.h; sourceTree = "<group>"; };
 		3AD97CE51009B1490037DEC4 /* ODDateAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODDateAdditions.m; sourceTree = "<group>"; };
 		3AD97CFD1009B3BE0037DEC4 /* LogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -330,8 +330,8 @@
 			children = (
 				3A4062C7102069DD004CCA4C /* ODNetworkManager.h */,
 				3A4062C8102069DD004CCA4C /* ODNetworkManager.m */,
-				3A1E9BB30FFE30C500312CBC /* ODReachability.h */,
-				3A1E9BB40FFE30C500312CBC /* ODReachability.m */,
+				3ACCFBA110CFB1CF00B16DB7 /* Reachability.h */,
+				3ACCFBA210CFB1CF00B16DB7 /* Reachability.m */,
 			);
 			name = Reachability;
 			path = ../..;
@@ -500,7 +500,6 @@
 				3A1E9BC70FFE30C500312CBC /* mk.h in Headers */,
 				3A1E9BC90FFE30C500312CBC /* MyLocationGetter.h in Headers */,
 				3A1E9BCB0FFE30C500312CBC /* NSHTTPCookieAdditions.h in Headers */,
-				3A1E9BCD0FFE30C500312CBC /* ODReachability.h in Headers */,
 				3A1E9C7D0FFE37D000312CBC /* BaseDataSource.h in Headers */,
 				3A1EAAEB1002C7A100312CBC /* ODHeaderView.h in Headers */,
 				3AD97CE61009B1490037DEC4 /* ODDateAdditions.h in Headers */,
@@ -520,6 +519,7 @@
 				3ABF12E010CBD3000097D106 /* ODImageDownloader.h in Headers */,
 				3ABF19C010CCD8370097D106 /* ODImageAdditions.h in Headers */,
 				3AB5204310CF4640005B95ED /* BaseViewDataSource.h in Headers */,
+				3ACCFBA310CFB1CF00B16DB7 /* Reachability.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,7 +634,6 @@
 				3A1E9BC80FFE30C500312CBC /* mk.m in Sources */,
 				3A1E9BCA0FFE30C500312CBC /* MyLocationGetter.m in Sources */,
 				3A1E9BCC0FFE30C500312CBC /* NSHTTPCookieAdditions.m in Sources */,
-				3A1E9BCE0FFE30C500312CBC /* ODReachability.m in Sources */,
 				3A1E9C7E0FFE37D000312CBC /* BaseDataSource.m in Sources */,
 				3A1EAAEC1002C7A100312CBC /* ODHeaderView.m in Sources */,
 				3AD97CE71009B1490037DEC4 /* ODDateAdditions.m in Sources */,
@@ -654,6 +653,7 @@
 				3ABF12E110CBD3000097D106 /* ODImageDownloader.m in Sources */,
 				3ABF19C110CCD8370097D106 /* ODImageAdditions.m in Sources */,
 				3AB5204410CF4640005B95ED /* BaseViewDataSource.m in Sources */,
+				3ACCFBA410CFB1CF00B16DB7 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

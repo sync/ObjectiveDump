@@ -7,32 +7,31 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ODReachability.h"
+#import "Reachability.h"
+
+
+@class Reachability;
 
 @interface ODNetworkManager : NSObject <UIAlertViewDelegate>{
-	ODNetworkStatus remoteHostStatus;
-	ODNetworkStatus internetConnectionStatus;
-	ODNetworkStatus localWiFiConnectionStatus;
-	
 	BOOL _hasValidNetworkConnection;
 	BOOL _noConnectionAlertShowing;
+	
+	Reachability* hostReach;
 }
 
 // Access shared singleton
 + (ODNetworkManager *)sharedODNetworkManager;
 
 // Network Connection Status
-@property BOOL noConnectionAlertShowing;
-@property BOOL hasValidNetworkConnection;
+@property (nonatomic) BOOL hasValidNetworkConnection;
 
-@property ODNetworkStatus remoteHostStatus;
-@property ODNetworkStatus internetConnectionStatus;
-@property ODNetworkStatus localWiFiConnectionStatus;
+@property BOOL noConnectionAlertShowing;
 
 // Network Connection
 - (void)updateStatus;
-- (BOOL)isCarrierDataNetworkActive;
-- (NSString *)hostName;
+
+- (void) reachabilityChanged: (NSNotification* )note;
+- (void) updateInterfaceWithReachability: (Reachability*) curReach;
 
 // Inform user when netowrk connection is not available
 - (void)alertNoNetworkConnectionWithMessage:(NSString *)message;
