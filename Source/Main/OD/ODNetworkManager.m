@@ -102,15 +102,18 @@ static ODNetworkManager *sharedODNetworkManager = nil;
 			case NotReachable:
 			{
 				self.hasValidNetworkConnection = FALSE;
+				break;
 			}
 				
 			case ReachableViaWWAN:
 			{
 				self.hasValidNetworkConnection = TRUE;
+				break;
 			}
 			case ReachableViaWiFi:
 			{
 				self.hasValidNetworkConnection = TRUE;
+				break;
 			}
 		}		
     }
