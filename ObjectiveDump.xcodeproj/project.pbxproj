@@ -60,6 +60,8 @@
 		3A9DD6B21033B05D00FCF47C /* ODDataAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A9DD6B01033B05D00FCF47C /* ODDataAdditions.h */; };
 		3A9DD6B31033B05D00FCF47C /* ODDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A9DD6B11033B05D00FCF47C /* ODDataAdditions.m */; };
 		3A9DD6B71033B0DE00FCF47C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9DD6B61033B0DE00FCF47C /* libz.dylib */; };
+		3AB5204310CF4640005B95ED /* BaseViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB5204110CF4640005B95ED /* BaseViewDataSource.h */; };
+		3AB5204410CF4640005B95ED /* BaseViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB5204210CF4640005B95ED /* BaseViewDataSource.m */; };
 		3ABE4F6B10C63BE500560536 /* ODGridItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ABE4F6910C63BE500560536 /* ODGridItemView.h */; };
 		3ABE4F6C10C63BE500560536 /* ODGridItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABE4F6A10C63BE500560536 /* ODGridItemView.m */; };
 		3ABF12E010CBD3000097D106 /* ODImageDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ABF12DE10CBD3000097D106 /* ODImageDownloader.h */; };
@@ -137,6 +139,8 @@
 		3A9DD6B01033B05D00FCF47C /* ODDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODDataAdditions.h; sourceTree = "<group>"; };
 		3A9DD6B11033B05D00FCF47C /* ODDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODDataAdditions.m; sourceTree = "<group>"; };
 		3A9DD6B61033B0DE00FCF47C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		3AB5204110CF4640005B95ED /* BaseViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewDataSource.h; path = Main/OD/BaseViewDataSource.h; sourceTree = "<group>"; };
+		3AB5204210CF4640005B95ED /* BaseViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewDataSource.m; path = Main/OD/BaseViewDataSource.m; sourceTree = "<group>"; };
 		3ABE4F6910C63BE500560536 /* ODGridItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODGridItemView.h; path = Main/OD/ODGridItemView.h; sourceTree = "<group>"; };
 		3ABE4F6A10C63BE500560536 /* ODGridItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ODGridItemView.m; path = Main/OD/ODGridItemView.m; sourceTree = "<group>"; };
 		3ABF12DE10CBD3000097D106 /* ODImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ODImageDownloader.h; path = Main/OD/ODImageDownloader.h; sourceTree = "<group>"; };
@@ -366,6 +370,8 @@
 			children = (
 				3A1E9C7B0FFE37D000312CBC /* BaseDataSource.h */,
 				3A1E9C7C0FFE37D000312CBC /* BaseDataSource.m */,
+				3AB5204110CF4640005B95ED /* BaseViewDataSource.h */,
+				3AB5204210CF4640005B95ED /* BaseViewDataSource.m */,
 				3A94656A10437C1A008175DF /* BaseMapViewDataSource.h */,
 				3A94656B10437C1A008175DF /* BaseMapViewDataSource.m */,
 				3A9C43B810C745820048A0AB /* BaseGridViewDataSource.h */,
@@ -513,6 +519,7 @@
 				3A9C443010C768F90048A0AB /* BaseGridViewController.h in Headers */,
 				3ABF12E010CBD3000097D106 /* ODImageDownloader.h in Headers */,
 				3ABF19C010CCD8370097D106 /* ODImageAdditions.h in Headers */,
+				3AB5204310CF4640005B95ED /* BaseViewDataSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,6 +653,7 @@
 				3A9C443110C768F90048A0AB /* BaseGridViewController.m in Sources */,
 				3ABF12E110CBD3000097D106 /* ODImageDownloader.m in Sources */,
 				3ABF19C110CCD8370097D106 /* ODImageAdditions.m in Sources */,
+				3AB5204410CF4640005B95ED /* BaseViewDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

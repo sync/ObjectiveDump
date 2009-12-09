@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "BaseViewDataSource.h"
 
 @protocol BaseViewControllerSubclass <NSObject>
 
@@ -20,6 +21,8 @@
 - (void)setupGridView;
 - (void)setupNavigationBar;
 - (void)setupToolbar;
+- (void)setupDataSource;
+- (void)setupCoreData;
 
 // Restore levels
 - (void)restoreLevelWithSelectionArray:(NSArray *)selectionArray;
@@ -31,6 +34,9 @@
 // Get the context
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
+// Persistent content
+@property (nonatomic, readonly) NSString *entityName;
+
 @end
 
 
@@ -41,14 +47,21 @@
 	BOOL _viewDidLoadCalled;
 	
 	NSManagedObjectContext *_managedObjectContext;
+	
+	BaseViewDataSource *_dataSource;
 }
 
 @property (nonatomic, retain) id object;
 @property (nonatomic) BOOL viewDidLoadCalled;
+@property (nonatomic, retain) BaseViewDataSource *dataSource;
 
 // Loading View
 - (void)showLoadingViewForText:(NSString *)loadingText;
 - (void)hideLoadingView;
+
+// Error View
+- (void)showErrorViewForText:(NSString *)errorText;
+- (void)hideErrorView;
 
 // Core Data
 - (BOOL)saveContextAndHandleErrors;

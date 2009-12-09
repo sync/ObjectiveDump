@@ -19,16 +19,6 @@
 // Non persistent content
 @property (nonatomic, readonly) NSMutableArray *content;
 
-// Persistent content
-@property (nonatomic, readonly) NSString *entityName;
-
-// Get the context
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-
-// Setting up 
-- (void)setupDataSource;
-- (void)setupCoreData;
-
 @end
 
 

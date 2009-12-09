@@ -9,13 +9,15 @@
 #import "BaseViewController.h"
 #import "ODLoadingView.h"
 
-#define LoadingViewTag 1035343
+#define LoadingViewTag 1034343
+#define ErrorViewTag 1034354
 
 @implementation BaseViewController
 
 @synthesize object=_object;
 @synthesize viewDidLoadCalled=_viewDidLoadCalled;
 @synthesize managedObjectContext=_managedObjectContext;
+@synthesize dataSource=_dataSource;
 
 #pragma mark -
 #pragma mark Initialisation
@@ -62,6 +64,9 @@
 	// Color and items 
 	[self setupToolbar];
 	
+	[self setupDataSource];
+	[self setupCoreData];
+	
 	self.viewDidLoadCalled = TRUE;
 }
 
@@ -91,6 +96,18 @@
 // Color and items 
 - (void)setupToolbar
 {	
+	// Nothing
+}
+
+- (void)setupDataSource
+{
+	// Nothing
+}
+
+// Perform first fetch
+// Reload tableview when context save
+- (void)setupCoreData
+{
 	// Nothing
 }
 
@@ -127,6 +144,37 @@
 	ODLoadingView *loadingView = (ODLoadingView *)[self.view viewWithTag:LoadingViewTag];
 	[loadingView.activityIndicatorView stopAnimating];
 	[loadingView removeFromSuperview];
+}
+
+#pragma mark -
+#pragma mark Error View
+
+- (void)showErrorViewForText:(NSString *)errorText
+{
+	// Get view bounds
+	CGRect rect = self.view.frame;
+	// Check if there is already one error view in place
+	ODLoadingView *errorView = (ODLoadingView *)[self.view viewWithTag:ErrorViewTag];
+	if (!errorView) {
+		errorView = [[ODLoadingView alloc]initWithFrame:rect];
+		errorView.tag = ErrorViewTag;
+		// Add the view to the top of the gridView
+		[self.view addSubview:errorView];
+		[errorView release];
+	} else {
+		errorView.frame = rect;
+	}
+	// Setup text
+	if (errorText) {
+		errorView.loadingLabel.text = errorText;
+	}
+}
+
+- (void)hideErrorView
+{
+	// Remove loading view
+	ODLoadingView *errorView = (ODLoadingView *)[self.view viewWithTag:ErrorViewTag];
+	[errorView removeFromSuperview];
 }
 
 #pragma mark -
@@ -203,6 +251,7 @@
 
 - (void)dealloc {
 	
+	[_dataSource release];
 	[_managedObjectContext release];
     [_object release];
 	[super dealloc];
