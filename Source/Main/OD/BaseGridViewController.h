@@ -67,7 +67,7 @@
 - (void)hideErrorView;
 
 // Build Next Url
-- (NSURL *)buildNextUrlWithOffset:(NSInteger)offset limit:(NSInteger)limit urlString:(NSString *)urlString;
+- (NSURL *)buildNextUrlWithOffset:(NSInteger)offset limit:(NSInteger)limit offsetName:(NSString *)offsetName limitName:(NSString *)limitName urlString:(NSString *)urlString;
 // Core Data
 - (BOOL)saveContextAndHandleErrors;
 

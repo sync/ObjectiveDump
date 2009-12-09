@@ -336,11 +336,11 @@
 #pragma mark -
 #pragma mark Build Next Url
 
-- (NSURL *)buildNextUrlWithOffset:(NSInteger)offset limit:(NSInteger)limit urlString:(NSString *)urlString
+- (NSURL *)buildNextUrlWithOffset:(NSInteger)offset limit:(NSInteger)limit offsetName:(NSString *)offsetName limitName:(NSString *)limitName urlString:(NSString *)urlString
 {
 	// Add the limit and offset
 	// &start=10&limit=5
-	NSString *newUrlString = [NSString stringWithFormat:@"%@&start=%d&limit=%d",urlString, offset, limit]; 
+	NSString *newUrlString = [NSString stringWithFormat:@"%@&%@=%d&%@=%d",urlString, offsetName, offset, limitName, limit]; 
 	// Construct the url
 	return [NSURL URLWithString:newUrlString];
 }
