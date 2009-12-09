@@ -235,7 +235,8 @@
 - (void)tapDetectingView:(ODTapDetectingView *)view gotSingleTapAtPoint:(CGPoint)tapPoint
 {
 	if (self.delegate && [self.delegate respondsToSelector:@selector(gridView:didSelectItemAtIndex:)]) {
-		[self.delegate gridView:self didSelectItemAtIndex:view.tag];
+		ODGridItemView *item = (ODGridItemView *)view;
+		[self.delegate gridView:self didSelectItemAtIndex:item.index];
 	}
 }
 
