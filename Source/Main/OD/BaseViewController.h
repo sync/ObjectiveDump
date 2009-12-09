@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "BaseViewDataSource.h"
+#import "ODImageDownloader.h"
 
 @protocol BaseViewControllerSubclass <NSObject>
 
@@ -41,7 +42,7 @@
 
 
 
-@interface BaseViewController : UIViewController <BaseViewControllerSubclass>{
+@interface BaseViewController : UIViewController <BaseViewControllerSubclass, ODImageDownloaderDelegate>{
 	id _object;
 	
 	BOOL _viewDidLoadCalled;
@@ -49,11 +50,16 @@
 	NSManagedObjectContext *_managedObjectContext;
 	
 	BaseViewDataSource *_dataSource;
+	
+	NSOperationQueue *_imageDownloadQueue;
+	NSMutableDictionary *_imageDownloaders;
 }
 
 @property (nonatomic, retain) id object;
 @property (nonatomic) BOOL viewDidLoadCalled;
 @property (nonatomic, retain) BaseViewDataSource *dataSource;
+@property (nonatomic, readonly) NSOperationQueue *imageDownloadQueue;
+@property (nonatomic, readonly) NSMutableDictionary *imageDownloaders;
 
 // Loading View
 - (void)showLoadingViewForText:(NSString *)loadingText;
@@ -65,5 +71,8 @@
 
 // Core Data
 - (BOOL)saveContextAndHandleErrors;
+
+// Images loading
+- (void)startImageDownload:(NSString *)url forIndex:(NSNumber *)index resizeSize:(CGSize)resizeSize;
 
 @end

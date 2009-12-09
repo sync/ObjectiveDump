@@ -48,6 +48,23 @@
 	self.viewDidLoadCalled = FALSE;
 }
 
+- (NSOperationQueue *)imageDownloadQueue
+{
+	if (!_imageDownloadQueue) {
+		_imageDownloadQueue = [[NSOperationQueue alloc]init];
+	}
+	
+	return _imageDownloadQueue;
+}
+
+- (NSMutableDictionary *)imageDownloaders
+{
+	if (!_imageDownloaders) {
+		_imageDownloaders = [[NSMutableDictionary alloc]initWithCapacity:0];
+	}
+	
+	return _imageDownloaders;
+}
 
 #pragma mark -
 #pragma mark View Events
@@ -112,6 +129,32 @@
 - (void)setupCoreData
 {
 	// Nothing
+}
+
+#pragma mark -
+#pragma mark Image downloading
+
+- (void)startImageDownload:(NSString *)url forIndex:(NSNumber *)index resizeSize:(CGSize)resizeSize;
+{
+    // Search on operation queue list if not found create new one
+	if (![self.imageDownloaders objectForKey:index]) 
+    {
+		ODImageDownloader *operation = [[ODImageDownloader alloc]initWithURL:[NSURL URLWithString:url]infoDictionary:nil];
+		operation.index = index;
+		operation.resizeSize = resizeSize;
+		operation.imageDelegate = self;
+        [self.imageDownloadQueue addOperation:operation];
+		[self.imageDownloaders setObject:operation forKey:index];
+        [operation release];   
+    }
+}
+
+// called by our ImageDownloader when an icon is ready to be displayed
+- (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index;
+{
+	// Refresh the item
+	// Save the image
+	[self.imageDownloaders removeObjectForKey:index];
 }
 
 #pragma mark -
@@ -254,6 +297,8 @@
 
 - (void)dealloc {
 	
+	[_imageDownloadQueue release];
+	[_imageDownloaders release];
 	[_dataSource release];
 	[_managedObjectContext release];
     [_object release];

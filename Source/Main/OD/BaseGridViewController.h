@@ -47,6 +47,7 @@
 	BOOL _viewDidLoadCalled;
 	
 	NSOperationQueue *_imageDownloadQueue;
+	NSMutableDictionary *_imageDownloaders;
 }
 
 @property (nonatomic, retain) IBOutlet ODGridView *gridView;
@@ -55,6 +56,7 @@
 @property (nonatomic, retain) id object;
 @property (nonatomic) BOOL viewDidLoadCalled;
 @property (nonatomic, readonly) NSOperationQueue *imageDownloadQueue;
+@property (nonatomic, readonly) NSMutableDictionary *imageDownloaders;
 
 // Loading View
 - (void)showLoadingViewForText:(NSString *)loadingText;

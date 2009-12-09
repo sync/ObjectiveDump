@@ -61,6 +61,15 @@
 	return _imageDownloadQueue;
 }
 
+- (NSMutableDictionary *)imageDownloaders
+{
+	if (!_imageDownloaders) {
+		_imageDownloaders = [[NSMutableDictionary alloc]initWithCapacity:0];
+	}
+	
+	return _imageDownloaders;
+}
+
 #pragma mark -
 #pragma mark View Events
 
@@ -370,13 +379,7 @@
 
 - (void)startImageDownload:(NSString *)url forIndex:(NSNumber *)index resizeSize:(CGSize)resizeSize;
 {
-    // Search on operation queue list if not found create new one
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"url = %@ AND index = %d"];
-	NSArray *operations = nil;
-	if (self.imageDownloadQueue.operations.count > 0) {
-		operations = [self.imageDownloadQueue.operations filteredArrayUsingPredicate:predicate];
-	}
-    if (!operations || operations.count == 0) 
+   if (![self.imageDownloaders objectForKey:index]) 
     {
 		ODImageDownloader *operation = [[ODImageDownloader alloc]initWithURL:[NSURL URLWithString:url]infoDictionary:nil];
 		operation.index = index;
@@ -387,6 +390,7 @@
 			operation.imageDelegate = self;
 		}
         [self.imageDownloadQueue addOperation:operation];
+		[self.imageDownloaders setObject:operation forKey:index];
         [operation release];   
     }
 }
@@ -409,6 +413,7 @@
 {
 	// Refresh the item
 	// Save the image
+	[self.imageDownloaders removeObjectForKey:index];
 }
 
 
@@ -462,6 +467,8 @@
 
 - (void)dealloc {
 	
+	[_imageDownloaders release];
+	[_imageDownloadQueue release];
 	[_object release];
 	[_managedObjectContext release];
 	[_entityName release];

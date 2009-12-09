@@ -411,7 +411,6 @@
 // called by our ImageDownloader when an icon is ready to be displayed
 - (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index;
 {
-	[image retain];
 	if (self.delegateCanDownloadImage) {
 		[self.delegate imageDownloaderDidLoadImage:image 
 												  forIndex:index 
