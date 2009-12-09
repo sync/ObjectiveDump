@@ -64,7 +64,10 @@
 	// Color and items 
 	[self setupToolbar];
 	
+	// If using data source
 	[self setupDataSource];
+	
+	// If using core data
 	[self setupCoreData];
 	
 	self.viewDidLoadCalled = TRUE;

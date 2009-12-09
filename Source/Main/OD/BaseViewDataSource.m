@@ -148,7 +148,7 @@
 - (NSURL *)nextURL
 {
 	NSURL *nextURL = nil;
-	if (self.dataSource && [self.dataSource respondsToSelector:@selector(ddataSourceNextURL:)]) {
+	if (self.dataSource && [self.dataSource respondsToSelector:@selector(dataSourceNextURL:)]) {
 		nextURL = [self.dataSource dataSourceNextURL:self];
 	}
 	return nextURL;
