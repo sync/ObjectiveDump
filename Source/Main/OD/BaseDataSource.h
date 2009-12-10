@@ -124,6 +124,8 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 // Find out when given indexPath corresponds to the last row
 - (BOOL)isIndexPathLastRow:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView;
 
+- (void)resetContent;
+
 //#warning - (void)addObject:(id)object;
 //#warning - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath;
 

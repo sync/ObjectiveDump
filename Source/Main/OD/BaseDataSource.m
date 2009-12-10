@@ -104,6 +104,16 @@
 }
 
 #pragma mark -
+#pragma mark Reset Content
+
+- (void)resetContent
+{
+	// refresh content
+	[_content release];
+	_content = nil;
+}
+
+#pragma mark -
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
