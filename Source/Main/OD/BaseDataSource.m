@@ -122,7 +122,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	
-	static NSString *MyCellIdentifier = @"MyCellIdentifier";
+
+#define MyCellIdentifier @"MyCellIdentifier"
 	
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyCellIdentifier];
     if (cell == nil) {
@@ -157,9 +158,14 @@
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section forTableView:(UITableView *)tableView
 {
+	NSInteger moreRowToAdd = 0;
+	if ((self.canGoNext || self.canGoNextWhenCached) && self.canShowMore) {
+		moreRowToAdd = 1;
+	}
+	
 	if (self.fetchedResultsController) {
 		id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-		return [sectionInfo numberOfObjects];
+		return [sectionInfo numberOfObjects] + moreRowToAdd;
 	}
 	
 	// Check if content first elemetn return array or not
@@ -168,7 +174,7 @@
 		&& [[self.content objectAtIndex:section]respondsToSelector:@selector(objectAtIndex:)]) {
 		return [[self.content objectAtIndex:section]count];
 	}
-	return self.content.count;
+	return self.content.count + moreRowToAdd;
 }
 
 - (id)objectForIndexPath:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView;
@@ -358,6 +364,12 @@
 														  self.canGoNextKey, 
 														  CanGoNextKeyLastDisplayedItemIndex]];
 	}
+}
+
+- (BOOL)canShowMore
+{
+	return (self.dataSource 
+			&& [self.dataSource respondsToSelector:@selector(dataSourceShowMoreCell:forTableView:)]);
 }
 
 #pragma mark -

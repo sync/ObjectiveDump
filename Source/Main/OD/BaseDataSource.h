@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DefaultOperation.h"
 #import <CoreData/CoreData.h>
+#import "ODShowMoreCell.h"
 
 @protocol BaseDataSourceSubclass <NSObject>
 
@@ -91,6 +92,7 @@
 @property (nonatomic, readonly) BOOL canGoNextWhenCached;
 @property (nonatomic, readonly) NSString *canGoNextKey;
 @property (nonatomic, retain) DefaultOperation *operation;
+@property (nonatomic, readonly) BOOL canShowMore;
 
 - (id)initWithDelegate:(id)delegate 
 			dataSource:(id)dataSource 
@@ -150,7 +152,8 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 // Help determine if the data source can go next when data
 // Was previously cached
 - (NSString *)dataSourceCanGoNextDefaultskey:(BaseDataSource *)dataSource;
-
+// Show more cell
+- (ODShowMoreCell *)dataSourceShowMoreCell:(BaseDataSource *)dataSource forTableView:(UITableView *)tableView;
 
 @end
 
