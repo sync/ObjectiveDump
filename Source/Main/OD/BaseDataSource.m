@@ -249,6 +249,10 @@
 	// If still valid does not start
 	if (!self.isLoading) {
 		if (self.delegate && [self.delegate respondsToSelector:@selector(dataSourceDidStartLoading:)]) {
+			// Reset load more
+			self.lastDisplayedItemIndex = 0;
+			self.itemsCount = 0;
+			
 			// Check for network connection
 			// If not throw error
 			if ([ODNetworkManager sharedODNetworkManager].hasValidNetworkConnection) {
@@ -266,7 +270,6 @@
 		[self cancelLoading];
 	}
 }
-
 
 #pragma mark -
 #pragma mark Cancel Loading
