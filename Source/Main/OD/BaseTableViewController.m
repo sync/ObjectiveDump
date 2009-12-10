@@ -391,45 +391,6 @@
 		return self.dataSource.fetchedResultsController;
 	}
 	
-//	if (fetchedResultsController != nil) {
-//        return fetchedResultsController;
-//    }
-//    
-//    /*
-//	 Set up the fetched results controller.
-//	 */
-//	// Create the fetch request for the entity.
-//	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//	// Edit the entity name as appropriate.
-//	NSEntityDescription *entity = [NSEntityDescription entityForName:@"GPProduct" inManagedObjectContext:self.managedObjectContext];
-//	[fetchRequest setEntity:entity];
-//	
-//	// Edit the sort key as appropriate.
-//	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"Event" ascending:YES];
-//	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-//	
-//	[fetchRequest setSortDescriptors:sortDescriptors];
-//	
-//	// Edit the section name key path and cache name if appropriate.
-//    // nil for section name key path means "no sections".
-//	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
-//    aFetchedResultsController.delegate = self;
-//	
-//	// Fetch once
-//	NSError *error;
-//	BOOL success = [fetchedResultsController performFetch:&error];
-//	if (!success) {
-//		DLog(@"Fetched Controller unable to fetch with error: %@", error);
-//	}
-//	
-//	self.fetchedResultsController = aFetchedResultsController;
-//	
-//	[aFetchedResultsController release];
-//	[fetchRequest release];
-//	[sortDescriptor release];
-//	[sortDescriptors release];
-//	
-//	return fetchedResultsController;
 	return nil;
 }
 
