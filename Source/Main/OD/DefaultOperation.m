@@ -82,10 +82,9 @@
 #pragma mark -
 #pragma mark This Is Where The Download And Processing Append:
 
-- (void)main
-{
-	if ([self isCancelled])
-	{
+- (void)main {
+	if ([self isCancelled]) {
+		[self failOperationWithErrorString:OperationCanceledError];
 		return;  // user cancelled this operation
 	}
 	
@@ -94,15 +93,25 @@
 	NSData *responseData = [self downloadUrl];
 	
 	if (self.timedOut) {
-		[self failOperationWithErrorString:@"TIMEOUT"];
+		[self failOperationWithErrorString:TimeoutContentParserError];
 	} else if ([responseData length] != 0)  {
-        
-		if (![self isCancelled])
-		{
+		if (![self isCancelled]) {
+            [self handleResponse:responseData];
 			
-			[self finishOperationWithObject:responseData];
+			if (self.hadFoundAtLeastOneItem) {
+				[self finishOperationWithObject:nil];
+			} else {
+				[self failOperationWithErrorString:EmptyContentParserError];
+			}
 		}
+	} else {
+		[self failOperationWithErrorString:EmptyContentParserError];
 	}
+}
+
+- (void)handleResponse:(NSData *)responseData 
+{
+	
 }
 
 - (NSData *)downloadUrl

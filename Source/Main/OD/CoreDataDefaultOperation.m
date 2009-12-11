@@ -14,11 +14,9 @@
 @synthesize persistentStoreCoordinator;
 @synthesize managedObjectID=_managedObjectID;
 
-- (void)main
-{
-	
-	if ([self isCancelled])
-	{
+- (void)main {
+	if ([self isCancelled]) {
+		[self failOperationWithErrorString:OperationCanceledError];
 		return;  // user cancelled this operation
 	}
 	
@@ -27,16 +25,25 @@
 	NSData *responseData = [self downloadUrl];
 	
 	if (self.timedOut) {
-		[self failOperationWithErrorString:@"TIMEOUT"];
+		[self failOperationWithErrorString:TimeoutContentParserError];
 	} else if ([responseData length] != 0)  {
-        
-		if (![self isCancelled])
-		{
+		if (![self isCancelled]) {
+            [self handleResponse:responseData];
 			
-			[self finishOperationWithObject:responseData];
+			if (self.hadFoundAtLeastOneItem) {
+				[self finishOperationWithObject:nil];
+			} else {
+				[self failOperationWithErrorString:EmptyContentParserError];
+			}
+			
+			[self saveContextAndHandleErrors];
 		}
+	} else {
+		[self failOperationWithErrorString:EmptyContentParserError];
 	}
 }
+
+
 
 #pragma mark -
 #pragma mark Core Data Helper

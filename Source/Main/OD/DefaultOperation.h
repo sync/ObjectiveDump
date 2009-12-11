@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreFoundation/CoreFoundation.h>
 
+// Parsing error
+// (aka 403, permission denied, aka 404 file not found, aka Unable to download the page when behind a proxy that redirect content, etc...)
+#define EmptyContentParserError @"EMPTY CONTENT" 
+// (if the user is still unable to download the requested file after 30 second)
+#define TimeoutContentParserError @"TIME OUT"
+// Operation is canceled
+#define OperationCanceledError @"OPERATION CANCELED"
+
 @protocol DefaultOperationDelegate;
 
 @interface DefaultOperation : NSOperation {
@@ -73,6 +81,7 @@
 - (id)initWithURL:(NSURL *)anUrl infoDictionary:(NSDictionary *)anInfoDictionary;
 
 - (NSData *)downloadUrl;
+- (void)handleResponse:(NSData *)responseData;
 
 - (NSString *)bundlePathForRessource:(NSString *)aRessource ofType:(NSString *)aType;
 
