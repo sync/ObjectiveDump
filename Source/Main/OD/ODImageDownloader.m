@@ -82,6 +82,7 @@
 			
 			// call our delegate and tell it that our image is ready for display
 			if (self.imageDelegate && [self.imageDelegate respondsToSelector:@selector(imageDownloaderDidLoadImage:forIndex:)]) {
+				//[self.delegate performSelectorOnMainThread:@selector(defaultOperationDidFailWithInfo:) withObject:dict waitUntilDone:TRUE];
 				[self.imageDelegate imageDownloaderDidLoadImage:image forIndex:self.index];
 			}
 		}
