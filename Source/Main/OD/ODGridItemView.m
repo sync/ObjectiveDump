@@ -9,11 +9,11 @@
 #import "ODGridItemView.h"
 
 #define NameLabelFontSize 14.0
-#define ImageLabelDiff 5.0
 
 @implementation ODGridItemView
 
 @synthesize index=_index;
+@synthesize style=_style;
 
 // The designated initializer. Override to perform setup that is required before the view is loaded.
 // Only when xibless (interface buildder)
@@ -41,9 +41,18 @@
 	self.backgroundColor = [UIColor clearColor];
 }
 
-+ (id)gridItem
++ (id)gridItemWithStyle:(ODGridItemViewStyle)style
 {
 	ODGridItemView *item = [[[ODGridItemView alloc]initWithFrame:CGRectZero]autorelease];
+	item.style = style;
+	
+	if (style == ODGridItemViewStyleBordered ) {
+		CALayer *layer = [item layer];
+		[layer setBorderWidth:1.0];
+		[layer setBorderColor:[[UIColor colorWithRed:103.0/255.0 green:101.0/255.0 blue:102.0/255.0 alpha:1.0] CGColor]];
+	}
+	
+	
 	return item;
 }
 
@@ -79,6 +88,8 @@
 {
 	[super layoutSubviews];
 	
+#define ImageLabelDiff 5.0
+	
 	// Get the frame where you can place your subviews
 	CGRect rect = self.bounds;
 	
@@ -94,7 +105,7 @@
 														 image.size.height));
 	}
 	
-	if (_nameLabel) {
+	if (_nameLabel && self.style == ODGridItemViewStyleTitle) {
 		self.nameLabel.frame = CGRectIntegral(CGRectMake(rect.origin.x + difference, 
 														 rect.origin.y + difference  + image.size.height + ImageLabelDiff, 
 														 image.size.width, 

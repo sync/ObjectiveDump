@@ -81,6 +81,26 @@
 }
 
 #pragma mark -
+#pragma mark Item Size Height
+
+- (CGFloat)itemSizeHeight
+{	
+	if (self.delegate && [self.delegate respondsToSelector:@selector(gridView:itemForIndex:)]) {
+		ODGridItemView *gridItemView = [self itemForIndex:0];
+		if (gridItemView) {
+			return (gridItemView.style == ODGridItemViewStyleTitle) ? self.gridItemSize.height + 40.0 : self.gridItemSize.height;
+		}
+	}
+	
+	if (self.currentItems.count > 0) {
+		ODGridItemView *item = [self.currentItems objectAtIndex:0];
+		return (item.style == ODGridItemViewStyleTitle) ? self.gridItemSize.height + 40.0 : self.gridItemSize.height;
+	}
+	
+	return 0.0;
+}
+
+#pragma mark -
 #pragma mark Reloading
 
 - (void)reloadData
@@ -130,7 +150,7 @@
 		// calculate the frame
 		// Get the row
 		NSInteger row = ceilf((float)nbrOfItems / (float)self.numberOfColumns);
-		CGFloat height =  row * (self.gridItemSize.height + self.verticalOffset);
+		CGFloat height =  row * (self.itemSizeHeight + self.verticalOffset);
 		if (height < visibleBounds.size.height) {
 			height = visibleBounds.size.height;
 		}
@@ -141,7 +161,7 @@
 	
 	// Just do the maths if at least one item
 	if (nbrOfItems > 0) {
-		CGFloat itemHeight = self.verticalOffset + [self gridItemSize].height;
+		CGFloat itemHeight = self.verticalOffset + self.itemSizeHeight;
 		NSInteger firstNeededRow = floorf(visibleBounds.origin.y / itemHeight);
 		NSInteger lastNeededRow  = floorf((CGRectGetMaxY(visibleBounds)) / itemHeight);
 		
@@ -180,9 +200,9 @@
 			NSInteger column = (i==0) ? 0 : i % self.numberOfColumns;
 			// Bild the frame
 			CGRect frame = CGRectMake(horizontalDiff * (column + 1) + column * self.gridItemSize.width, 
-									  self.verticalOffset * (row + 1)  + row * self.gridItemSize.height, 
+									  self.verticalOffset * (row + 1)  + row * self.itemSizeHeight, 
 									  self.gridItemSize.width, 
-									  self.gridItemSize.height);
+									  self.itemSizeHeight);
 			if (self.delegate && [self.delegate respondsToSelector:@selector(gridView:itemForIndex:)]) {
 				ODGridItemView *gridItemView = [self itemForIndex:i];
 				if (gridItemView) {

@@ -5,6 +5,7 @@
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
 	#import <UIKit/UIKit.h>
+	#import <QuartzCore/QuartzCore.h>
 #endif
 
 //Right-click on your target and click Get Info. Select the Build tab. Make sure Configuration is set to Debug. Add -DDEBUG to the Other C Flags of your target.

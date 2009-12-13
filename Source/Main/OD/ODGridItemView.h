@@ -9,21 +9,29 @@
 #import <UIKit/UIKit.h>
 #import "ODTapDetectingView.h"
 
+typedef enum {
+	ODGridItemViewStyleDefault,
+	ODGridItemViewStyleBordered,
+	ODGridItemViewStyleTitle
+} ODGridItemViewStyle;
+
 @interface ODGridItemView : ODTapDetectingView {
 	
 	UIImageView *_imageView;
 	UILabel *_nameLabel;
 	
 	NSInteger _index;
+	ODGridItemViewStyle _style;
 }
 
 @property (nonatomic, readonly) UIImageView *imageView;
 @property (nonatomic, readonly) UILabel *nameLabel;
 @property (nonatomic) NSInteger index;
+@property (nonatomic) ODGridItemViewStyle style;
 
 - (void)setupCustomInitialisation;
 
-+ (id)gridItem;
++ (id)gridItemWithStyle:(ODGridItemViewStyle)style;
 
 
 @end

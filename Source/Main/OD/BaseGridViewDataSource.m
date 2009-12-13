@@ -396,10 +396,10 @@
 	
 	ODGridItemView *gridItemView = [gridView dequeueReusableItem];
 	if (!gridItemView) {
-		gridItemView = [ODGridItemView gridItem];
+		gridItemView = [ODGridItemView gridItemWithStyle:ODGridItemViewStyleDefault];
 	}
 	
-	gridItemView.nameLabel.text = nil;
+	//gridItemView.nameLabel.text = nil;
 	gridItemView.imageView.image = nil;
 	
 	if (self.delegateCanDownloadImage && !self.isContainerViewMoving) {

@@ -40,6 +40,7 @@
 @property (nonatomic, readonly) NSArray *currentItems;
 @property (nonatomic) NSInteger firstNeededRow;
 @property (nonatomic) NSInteger lastNeededRow;
+@property (nonatomic, readonly) CGFloat itemSizeHeight;
 
 - (void)setupCustomInitialisation;
 

@@ -135,6 +135,16 @@
 }
 
 #pragma mark -
+#pragma mark Editing Support
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+	[super setEditing:editing animated:animated];
+	
+	[self.tableView setEditing:editing animated:animated];
+}
+
+#pragma mark -
 #pragma mark fetchedResultsController Delegate
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
