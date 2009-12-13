@@ -51,6 +51,24 @@
 	self.viewDidLoadCalled = FALSE;
 }
 
+- (NSOperationQueue *)imageDownloadQueue
+{
+	if (!_imageDownloadQueue) {
+		_imageDownloadQueue = [[NSOperationQueue alloc]init];
+	}
+	
+	return _imageDownloadQueue;
+}
+
+- (NSMutableDictionary *)imageDownloaders
+{
+	if (!_imageDownloaders) {
+		_imageDownloaders = [[NSMutableDictionary alloc]initWithCapacity:0];
+	}
+	
+	return _imageDownloaders;
+}
+
 #pragma mark -
 #pragma mark View Events
 
@@ -451,6 +469,93 @@
 	}
 	
 	return success;  
+}
+
+#pragma mark -
+#pragma mark Image downloading
+
+- (BOOL)isContainerViewMoving:(BaseDataSource *)dataSource
+{
+	return (self.tableView.dragging == YES && self.tableView.decelerating == YES);
+}
+
+- (void)imageDownloaderShouldLoadImageAtUrl:(NSString *)imageUrl forIndex:(NSNumber *)index dataSource:(BaseDataSource *)dataSource
+{
+	//	id object = [self.dataSource.content objectAtIndex:[index integerValue]];		
+	//	if (object.urlString) // avoid the download if url not there
+	//	{
+	//		[self startImageDownload:object.urlString forIndex:index resizeSize:CGSizeMake(50.0, 50.0)];
+	//	}
+}
+
+- (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index dataSource:(BaseDataSource *)dataSource
+{
+	
+}
+
+- (void)startImageDownload:(NSString *)url forIndex:(NSNumber *)index resizeSize:(CGSize)resizeSize;
+{
+	if (![self.imageDownloaders objectForKey:index]) 
+    {
+		ODImageDownloader *operation = [[ODImageDownloader alloc]initWithURL:[NSURL URLWithString:url]infoDictionary:nil];
+		operation.index = index;
+		operation.resizeSize = resizeSize;
+		if (self.dataSource) {
+			operation.imageDelegate = self.dataSource;
+		} else {
+			operation.imageDelegate = self;
+		}
+        [self.imageDownloadQueue addOperation:operation];
+		[self.imageDownloaders setObject:operation forKey:index];
+        [operation release];   
+    }
+}
+
+// this method is used in case the user scrolled into a set of cells that don't have their app icons yet
+- (void)loadImagesForOnscreenRows
+{
+	//    for (ODGridItemView *item in self.gridView.currentItems) {
+	//		//id object = [self.content objectAtIndex:item.index];
+	//		
+	//		if (object.thumbnailURLString) // avoid the download if url not there
+	//		{
+	//			[self startImageDownload:object.thumbnailURLString forIndex:object.index];
+	//		}
+	//	}
+}
+
+// called by our ImageDownloader when an icon is ready to be displayed
+- (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index;
+{
+	// Refresh the item
+	// Save the image
+	[self.imageDownloaders removeObjectForKey:index];
+}
+
+
+#pragma mark -
+#pragma mark Deferred image loading (UIScrollViewDelegate)
+
+// Load images for all onscreen rows when scrolling is finished
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate)
+	{
+        [self loadImagesForOnscreenRows];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self loadImagesForOnscreenRows];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+    // terminate all pending download connections
+	[self.imageDownloadQueue cancelAllOperations];
 }
 
 #pragma mark -

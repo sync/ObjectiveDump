@@ -10,6 +10,7 @@
 #import "BaseViewController.h"
 #import <CoreData/CoreData.h>
 #import "BaseDataSource.h"
+#import "ODImageDownloader.h"
 
 @protocol BaseTableViewControllerSubclass <NSObject>
 
@@ -21,10 +22,13 @@
 // Persistent content
 @property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
 
+// Image loading
+- (void)loadImagesForOnscreenRows;
+
 @end
 
 
-@interface BaseTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, BaseViewControllerSubclass, BaseTableViewControllerSubclass, NSFetchedResultsControllerDelegate>{	
+@interface BaseTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, BaseViewControllerSubclass, BaseTableViewControllerSubclass, NSFetchedResultsControllerDelegate, ODImageDownloaderDelegate>{	
 	// TableView
 	UITableView *_tableView;
 	
@@ -43,6 +47,9 @@
 	
 	id _object;
 	BOOL _viewDidLoadCalled;
+	
+	NSOperationQueue *_imageDownloadQueue;
+	NSMutableDictionary *_imageDownloaders;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
@@ -51,6 +58,8 @@
 @property (nonatomic, retain) BaseDataSource *dataSource;
 @property (nonatomic, retain) id object;
 @property (nonatomic) BOOL viewDidLoadCalled;
+@property (nonatomic, readonly) NSOperationQueue *imageDownloadQueue;
+@property (nonatomic, readonly) NSMutableDictionary *imageDownloaders;
 
 // Loading View
 - (void)showLoadingViewForText:(NSString *)loadingText;
@@ -72,5 +81,8 @@
 
 // Core Data
 - (BOOL)saveContextAndHandleErrors;
+
+// Images loading
+- (void)startImageDownload:(NSString *)url forIndex:(NSNumber *)index resizeSize:(CGSize)resizeSize;
 
 @end

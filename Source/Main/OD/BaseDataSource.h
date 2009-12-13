@@ -10,6 +10,7 @@
 #import "DefaultOperation.h"
 #import <CoreData/CoreData.h>
 #import "ODShowMoreCell.h"
+#import "ODImageDownloader.h"
 
 @protocol BaseDataSourceSubclass <NSObject>
 
@@ -30,7 +31,7 @@
 @protocol BaseDataSource;
 @protocol BaseDataSourceDelegate;
 
-@interface BaseDataSource : NSObject <DefaultOperationDelegate, BaseDataSourceSubclass, UITableViewDataSource>{
+@interface BaseDataSource : NSObject <DefaultOperationDelegate, BaseDataSourceSubclass, UITableViewDataSource, ODImageDownloaderDelegate>{
 	// Check if data source is still fetching
 	// Remote data
 	BOOL _isLoading;
@@ -91,6 +92,8 @@
 @property (nonatomic, readonly) id additionalObject;
 @property (nonatomic, readonly) BOOL canGoNextWhenCached;
 @property (nonatomic, readonly) NSString *canGoNextKey;
+@property (nonatomic, readonly) BOOL isContainerViewMoving;
+@property (nonatomic, readonly) BOOL delegateCanDownloadImage;
 @property (nonatomic, retain) DefaultOperation *operation;
 @property (nonatomic, readonly) BOOL canShowMore;
 
@@ -172,5 +175,8 @@ fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 - (void)dataSourceDidCancelLoading:(BaseDataSource *)dataSource;
 - (void)dataSource:(BaseDataSource *)dataSource didFailLoadingWithErrorString:(NSString *)errorString;
 - (void)dataSourceNetworkIsDown:(BaseDataSource *)dataSource;
+- (BOOL)isContainerViewMoving:(BaseDataSource *)dataSource;
+- (void)imageDownloaderShouldLoadImageAtUrl:(NSString *)imageUrl forIndex:(NSNumber *)index dataSource:(BaseDataSource *)dataSource;
+- (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index dataSource:(BaseDataSource *)dataSource;
 
 @end
