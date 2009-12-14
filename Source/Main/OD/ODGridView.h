@@ -27,6 +27,8 @@
 	NSArray *_currentItems;
 	NSInteger _firstNeededRow;
 	NSInteger _lastNeededRow;
+	
+	NSInteger _selectedItemIndex;
 }
 
 @property (readwrite, nonatomic, assign) id <ODGridViewDelegate, UIScrollViewDelegate> delegate;
@@ -41,12 +43,14 @@
 @property (nonatomic) NSInteger firstNeededRow;
 @property (nonatomic) NSInteger lastNeededRow;
 @property (nonatomic, readonly) CGFloat itemSizeHeight;
+@property (nonatomic) NSInteger selectedItemIndex;
 
 - (void)setupCustomInitialisation;
 
 - (void)reloadData;
 - (ODGridItemView *)itemForIndex:(NSInteger)index;
 - (ODGridItemView *)dequeueReusableItem;
+- (void)deselectItemAtIndex:(NSInteger)index;
 
 @end
 									   

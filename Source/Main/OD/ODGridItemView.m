@@ -9,11 +9,14 @@
 #import "ODGridItemView.h"
 
 #define NameLabelFontSize 14.0
+#define DOUBLE_TAP_DELAY 0.35
 
 @implementation ODGridItemView
 
 @synthesize index=_index;
 @synthesize style=_style;
+@synthesize selected=_selected;
+@synthesize selectedView=_selectedView;
 
 // The designated initializer. Override to perform setup that is required before the view is loaded.
 // Only when xibless (interface buildder)
@@ -39,6 +42,11 @@
 {
 	// Initialization code
 	self.backgroundColor = [UIColor clearColor];
+	// Selected view
+	UIView *selectedView = [[UIView alloc]initWithFrame:CGRectZero];
+	selectedView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+	self.selectedView = selectedView;
+	[selectedView release];
 }
 
 + (id)gridItemWithStyle:(ODGridItemViewStyle)style
@@ -117,23 +125,35 @@
 {
     [super touchesBegan:touches withEvent:event];
 	// is selected
+	self.selectedView.frame = self.bounds;
+	[self insertSubview:self.selectedView aboveSubview:self.imageView];
+	
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	[super touchesEnded:touches withEvent:event];
+	UITouch *touch = [touches anyObject];
+	tapLocation = [touch locationInView:self];
+	
+	[self performSelector:@selector(handleSingleTap) withObject:nil afterDelay:DOUBLE_TAP_DELAY];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
 	[super touchesCancelled:touches withEvent:event];
 	// selection canceled
+	[self.selectedView removeFromSuperview];
 }
 
 
-
-
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)setSelected:(BOOL)selected
+{
+	if (_selected != selected) {
+		_selected = selected;
+	}
+	
+	if (!selected) {
+		[self.selectedView removeFromSuperview];
+	}
 }
 
 

@@ -17,6 +17,7 @@
 @synthesize verticalOffset=_verticalOffset;
 @synthesize firstNeededRow=_firstNeededRow;
 @synthesize lastNeededRow=_lastNeededRow;
+@synthesize selectedItemIndex=_selectedItemIndex;
 
 #pragma mark -
 #pragma mark Overwrite delegate
@@ -61,6 +62,7 @@
 	self.verticalOffset = 10.0;
 	self.gridItemSize = CGSizeMake(80.0, 80.0);
 	self.numberOfColumns = 3;
+	self.selectedItemIndex = -1;
 }
 
 - (NSMutableSet *)reusableItems
@@ -209,6 +211,7 @@
 					gridItemView.frame = frame;
 					gridItemView.delegate = self;
 					gridItemView.index = i;
+					gridItemView.selected = FALSE;
 					[self addSubview:gridItemView];
 				}
 			}
@@ -255,8 +258,27 @@
 - (void)tapDetectingView:(ODTapDetectingView *)view gotSingleTapAtPoint:(CGPoint)tapPoint
 {
 	if (self.delegate && [self.delegate respondsToSelector:@selector(gridView:didSelectItemAtIndex:)]) {
+		
+		// Previous
+		if (self.selectedItemIndex > 0) {
+			[self deselectItemAtIndex:self.selectedItemIndex];
+		}
+		
+		
+		// Current
 		ODGridItemView *item = (ODGridItemView *)view;
+		item.selected = TRUE;
+		self.selectedItemIndex = item.index;
+		
 		[self.delegate gridView:self didSelectItemAtIndex:item.index];
+	}
+}
+
+- (void)deselectItemAtIndex:(NSInteger)index
+{
+	if (self.delegate && [self.delegate respondsToSelector:@selector(gridView:itemForIndex:)]) {
+		ODGridItemView *gridItemView = [self itemForIndex:index];
+		gridItemView.selected = FALSE;
 	}
 }
 
