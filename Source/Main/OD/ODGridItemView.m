@@ -17,6 +17,7 @@
 @synthesize style=_style;
 @synthesize selected=_selected;
 @synthesize selectedView=_selectedView;
+@synthesize image=_image;
 
 // The designated initializer. Override to perform setup that is required before the view is loaded.
 // Only when xibless (interface buildder)
@@ -54,11 +55,11 @@
 	ODGridItemView *item = [[[ODGridItemView alloc]initWithFrame:CGRectZero]autorelease];
 	item.style = style;
 	
-	if (style == ODGridItemViewStyleBordered ) {
-		CALayer *layer = [item layer];
-		[layer setBorderWidth:1.0];
-		[layer setBorderColor:[[UIColor colorWithRed:103.0/255.0 green:101.0/255.0 blue:102.0/255.0 alpha:1.0] CGColor]];
-	}
+//	if (style == ODGridItemViewStyleBordered ) {
+//		CALayer *layer = [item layer];
+//		[layer setBorderWidth:1.0];
+//		[layer setBorderColor:[[UIColor colorWithRed:103.0/255.0 green:101.0/255.0 blue:102.0/255.0 alpha:1.0] CGColor]];
+//	}
 	
 	
 	return item;
@@ -87,6 +88,31 @@
 		[self addSubview:_imageView];
 	}
 	return _imageView;
+}
+
+- (void)setImage:(UIImage *)image
+{
+	if (_image != image) {
+		[_image release];
+		_image = [image retain];
+		[self setNeedsDisplay];
+	}
+}
+
+- (CGRect)imageRect
+{
+	if (CGRectEqualToRect(_imageRect, CGRectZero)) {
+		// Get the frame where you can place your subviews
+		CGRect rect = self.bounds;
+		NSInteger difference = (self.bounds.size.width - self.image.size.width) / 2;
+		
+		_imageRect = CGRectIntegral(CGRectMake(rect.origin.x + difference, 
+											   rect.origin.y + difference, 
+											   self.image.size.width, 
+											   self.image.size.height));
+	}
+	
+	return _imageRect;
 }
 
 #pragma mark -
@@ -156,8 +182,38 @@
 	}
 }
 
+- (void)drawRect:(CGRect)rect
+{
+	
+	// Draw image
+	if (self.image) {
+		[self.image drawInRect:self.imageRect];
+	}
+	
+	if (self.selected) {
+		CGContextRef context = UIGraphicsGetCurrentContext();
+		CGContextSetLineWidth(context, 1.0f);
+		CGFloat gray[4] = {103.0f/255.0f, 101.0f/255.0f, 102.0f/255.0f, 0.5f};
+		CGContextSetFillColor(context, gray);
+		
+		CGContextAddRect(context, CGRectIntegral(rect));
+		CGContextFillPath(context);
+	}
+	
+	if (self.style == ODGridItemViewStyleBordered) {
+		CGContextRef context = UIGraphicsGetCurrentContext();
+		CGContextSetLineWidth(context, 1.0f);
+		CGFloat gray[4] = {103.0f/255.0f, 101.0f/255.0f, 102.0f/255.0f, 1.0f};
+		CGContextSetStrokeColor(context, gray);
+		
+		CGContextAddRect(context, CGRectIntegral(rect));
+		CGContextStrokePath(context);
+	}
+}
+
 
 - (void)dealloc {
+	[_image release];
 	[_imageView release];
 	[_nameLabel release];
 	

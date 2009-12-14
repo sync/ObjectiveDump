@@ -20,6 +20,8 @@ typedef enum {
 	UIImageView *_imageView;
 	UILabel *_nameLabel;
 	UIView *_selectedView;
+	UIImage *_image;
+	CGRect _imageRect;
 	
 	NSInteger _index;
 	ODGridItemViewStyle _style;
@@ -32,6 +34,8 @@ typedef enum {
 @property (nonatomic) NSInteger index;
 @property (nonatomic) ODGridItemViewStyle style;
 @property (nonatomic) BOOL selected;
+@property (nonatomic, retain) UIImage *image;
+@property (nonatomic, readonly) CGRect imageRect;
 
 - (void)setupCustomInitialisation;
 
