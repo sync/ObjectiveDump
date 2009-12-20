@@ -193,6 +193,28 @@
 	return self.content.count + moreRowToAdd;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section { 
+    if (self.fetchedResultsController) {
+		id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+		return [sectionInfo name];
+	}
+	return nil;
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+	if (self.fetchedResultsController) {
+		return [self.fetchedResultsController sectionIndexTitles];
+	}
+	return nil;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    if (self.fetchedResultsController) {
+		return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
+	}
+	return 0;
+}
+
 - (id)objectForIndexPath:(NSIndexPath *)indexPath forTableView:(UITableView *)tableView;
 {
 	
