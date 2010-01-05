@@ -142,10 +142,7 @@
 	}
 	
 	// Asks delegate for number of items
-	NSInteger nbrOfItems = 0;
-	if (self.dataSource && [self.dataSource respondsToSelector:@selector(numberOfItemsInGridView:)]) {
-		nbrOfItems = [self.dataSource numberOfItemsInGridView:self];
-	}
+	NSInteger nbrOfItems = self.itemsCount;
 	
 	// Calculate the content size
 	if (nbrOfItems > 0) {
@@ -224,6 +221,12 @@
 
 - (ODGridItemView *)itemForIndex:(NSInteger)index
 {
+	
+	
+	if (index >= self.itemsCount) {
+		return nil;
+	}
+	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"index == %d", index];
 	NSArray *cached = [self.currentItems filteredArrayUsingPredicate:predicate];
 	
@@ -238,7 +241,14 @@
 	return gridItemView;
 }
 
-
+- (NSInteger)itemsCount
+{
+	NSInteger itemsCount = 0;
+	if (self.dataSource && [self.dataSource respondsToSelector:@selector(numberOfItemsInGridView:)]) {
+		itemsCount = [self.dataSource numberOfItemsInGridView:self];
+	}
+	return itemsCount;
+}
 
 - (ODGridItemView *)dequeueReusableItem 
 {

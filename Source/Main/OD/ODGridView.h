@@ -44,6 +44,7 @@
 @property (nonatomic) NSInteger lastNeededRow;
 @property (nonatomic, readonly) CGFloat itemSizeHeight;
 @property (nonatomic) NSInteger selectedItemIndex;
+@property (nonatomic, readonly) NSInteger itemsCount;
 
 - (void)setupCustomInitialisation;
 
