@@ -409,11 +409,12 @@
 }
 
 // called by our ImageDownloader when an icon is ready to be displayed
-- (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index;
+- (void)imageDownloaderDidLoadImageWithInfo:(NSDictionary *)info
 {
 	// Refresh the item
+	// UIImage *image = [UIImage imageWithData:image];
 	// Save the image
-	[self.imageDownloaders removeObjectForKey:index];
+	[self.imageDownloaders removeObjectForKey:[info valueForKey:@"index"]];
 }
 
 

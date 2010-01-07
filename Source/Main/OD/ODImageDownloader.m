@@ -81,9 +81,14 @@
 			}
 			
 			// call our delegate and tell it that our image is ready for display
-			if (self.imageDelegate && [self.imageDelegate respondsToSelector:@selector(imageDownloaderDidLoadImage:forIndex:)]) {
-				//[self.delegate performSelectorOnMainThread:@selector(defaultOperationDidFailWithInfo:) withObject:dict waitUntilDone:TRUE];
-				[self.imageDelegate imageDownloaderDidLoadImage:image forIndex:self.index];
+			if (self.imageDelegate && [self.imageDelegate respondsToSelector:@selector(imageDownloaderDidLoadImageWithInfo:)]) {
+				NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
+				[dict addEntriesFromDictionary:self.infoDictionary];
+				[dict setObject:self.index forKey:@"index"];
+				if (image) {
+					[dict setObject:image forKey:@"image"];
+				}
+				[self.imageDelegate performSelectorOnMainThread:@selector(imageDownloaderDidLoadImageWithInfo:) withObject:dict waitUntilDone:FALSE];
 			}
 		}
 	}
@@ -108,7 +113,8 @@
 	
     free(CGBitmapContextGetData(context)); 
     CGContextRelease(context);
-    CGImageRelease(myRef);
+	// http://stackoverflow.com/questions/1402148/imagewithcgimage-and-memory ???
+    //CGImageRelease(myRef);
 	
     return img; 
 } 

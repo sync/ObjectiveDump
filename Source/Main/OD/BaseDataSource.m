@@ -528,11 +528,11 @@
 }
 
 // called by our ImageDownloader when an icon is ready to be displayed
-- (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index;
+- (void)imageDownloaderDidLoadImageWithInfo:(NSDictionary *)info
 {
 	if (self.delegateCanDownloadImage) {
-		[self.delegate imageDownloaderDidLoadImage:image 
-										  forIndex:index 
+		[self.delegate imageDownloaderDidLoadImage:[info valueForKey:@"image"] 
+										  forIndex:[info valueForKey:@"index"] 
 										dataSource:self];
 	}
 	// Refresh the item

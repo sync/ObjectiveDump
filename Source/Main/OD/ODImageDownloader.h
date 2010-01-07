@@ -58,12 +58,12 @@
 {
 	CGSize _resizeSize;
 	id _index;
-    id <ODImageDownloaderDelegate> _imageDelegate;
+    id<ODImageDownloaderDelegate> _imageDelegate;
 }
 
 @property (nonatomic) CGSize resizeSize;
 @property (nonatomic, retain) id index;
-@property (nonatomic, assign) id <ODImageDownloaderDelegate> imageDelegate;
+@property (assign) id imageDelegate;
 
 // Coming from http://stackoverflow.mobi/question1043937_Multiple-Image-Operations-Crash-iPhone-App.aspx
 - (UIImage *)createImage:(CGImageRef)image width:(CGFloat)pixelWidth height:(CGFloat)pixelHeight;
@@ -73,6 +73,6 @@ CGContextRef MyCreateBitmapContext (CGFloat pixelsWide, CGFloat pixelsHigh);
 
 @protocol ODImageDownloaderDelegate <NSObject>
 
-- (void)imageDownloaderDidLoadImage:(UIImage *)image forIndex:(NSNumber *)index;
+- (void)imageDownloaderDidLoadImageWithInfo:(NSDictionary *)info;
 
 @end
