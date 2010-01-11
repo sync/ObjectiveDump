@@ -29,6 +29,7 @@
 	NSInteger _lastNeededRow;
 	
 	NSInteger _selectedItemIndex;
+	CGFloat _itemSizeHeight;
 }
 
 @property (readwrite, nonatomic, assign) id <ODGridViewDelegate, UIScrollViewDelegate> delegate;
@@ -47,6 +48,8 @@
 @property (nonatomic, readonly) NSInteger itemsCount;
 
 - (void)setupCustomInitialisation;
+
+- (void)recycleViews;
 
 - (void)reloadData;
 - (ODGridItemView *)itemForIndex:(NSInteger)index;

@@ -87,19 +87,20 @@
 
 - (CGFloat)itemSizeHeight
 {	
-	if (self.delegate && [self.delegate respondsToSelector:@selector(gridView:itemForIndex:)]) {
+	if (_itemSizeHeight <= 0.0) {
 		ODGridItemView *gridItemView = [self itemForIndex:0];
 		if (gridItemView) {
-			return (gridItemView.style == ODGridItemViewStyleTitle) ? self.gridItemSize.height + 40.0 : self.gridItemSize.height;
+			_itemSizeHeight = (gridItemView.style == ODGridItemViewStyleTitle) ? self.gridItemSize.height + 40.0 : self.gridItemSize.height;
+		} else if (self.currentItems.count > 0) {
+			ODGridItemView *item = [self.currentItems objectAtIndex:0];
+			_itemSizeHeight = (item.style == ODGridItemViewStyleTitle) ? self.gridItemSize.height + 40.0 : self.gridItemSize.height;
+		} else {
+			_itemSizeHeight = 0.0;
 		}
 	}
 	
-	if (self.currentItems.count > 0) {
-		ODGridItemView *item = [self.currentItems objectAtIndex:0];
-		return (item.style == ODGridItemViewStyleTitle) ? self.gridItemSize.height + 40.0 : self.gridItemSize.height;
-	}
 	
-	return 0.0;
+	return _itemSizeHeight;
 }
 
 #pragma mark -
@@ -117,12 +118,13 @@
 	self.firstNeededRow = -1;
 	self.lastNeededRow = -1;
 	
+	_itemSizeHeight = -1.0;
+	
 	[self setNeedsLayout];
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-	
+- (void)recycleViews
+{
 	// Get all current subviews
 	// See if they still have to be displayed
 	// If not remove them
@@ -140,6 +142,17 @@
             [item removeFromSuperview];
         }
 	}
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+	
+	// Get all current subviews
+	// See if they still have to be displayed
+	// If not remove them
+	CGRect visibleBounds = [self bounds];
+	
+	[self recycleViews];
 	
 	// Asks delegate for number of items
 	NSInteger nbrOfItems = self.itemsCount;
@@ -202,15 +215,14 @@
 									  self.verticalOffset * (row + 1)  + row * self.itemSizeHeight, 
 									  self.gridItemSize.width, 
 									  self.itemSizeHeight);
-			if (self.delegate && [self.delegate respondsToSelector:@selector(gridView:itemForIndex:)]) {
-				ODGridItemView *gridItemView = [self itemForIndex:i];
-				if (gridItemView) {
-					gridItemView.frame = frame;
-					gridItemView.delegate = self;
-					gridItemView.index = i;
-					gridItemView.selected = FALSE;
-					[self addSubview:gridItemView];
-				}
+			
+			ODGridItemView *gridItemView = [self itemForIndex:i];
+			if (gridItemView) {
+				gridItemView.frame = frame;
+				gridItemView.delegate = self;
+				gridItemView.index = i;
+				gridItemView.selected = FALSE;
+				[self addSubview:gridItemView];
 			}
 		}
 		self.firstNeededRow = firstNeededRow;
@@ -221,17 +233,21 @@
 
 - (ODGridItemView *)itemForIndex:(NSInteger)index
 {
+	//DLog(@"GridView itemForIndex: %d", index);
 	
+	ODGridItemView *gridItemView = nil;
+	
+	if (!self.delegate || ![self.delegate respondsToSelector:@selector(gridView:itemForIndex:)]) {
+		return gridItemView;
+	}
 	
 	if (index >= self.itemsCount) {
-		return nil;
+		return gridItemView;
 	}
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"index == %d", index];
 	NSArray *cached = [self.currentItems filteredArrayUsingPredicate:predicate];
-	
-	ODGridItemView *gridItemView = nil;
-	
+		
 	if (cached.count == 1) {
 		gridItemView = [cached objectAtIndex:0];
 	} else {
@@ -286,10 +302,8 @@
 
 - (void)deselectItemAtIndex:(NSInteger)index
 {
-	if (self.delegate && [self.delegate respondsToSelector:@selector(gridView:itemForIndex:)]) {
-		ODGridItemView *gridItemView = [self itemForIndex:index];
-		gridItemView.selected = FALSE;
-	}
+	ODGridItemView *gridItemView = [self itemForIndex:index];
+	gridItemView.selected = FALSE;
 }
 
 
