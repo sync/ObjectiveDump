@@ -572,7 +572,6 @@
 	[_dumpedFilePath release];
 	[_content release];
 	[_operationQueue release];
-	[_delegate release];
 	[_dataSource release];
 	[_lastLoadedTime release];
 	

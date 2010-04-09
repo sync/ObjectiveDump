@@ -78,7 +78,7 @@
 @property (nonatomic) BOOL hasFailedLoading;
 @property (nonatomic) NSInteger itemsCount;
 @property (nonatomic) NSInteger lastDisplayedItemIndex;
-@property (nonatomic, retain) id delegate;
+@property (nonatomic, assign) id delegate;
 @property (nonatomic, retain) id dataSource;
 @property (nonatomic, retain) NSOperationQueue *operationQueue;
 @property (nonatomic, readonly) NSURL *nextURL;
