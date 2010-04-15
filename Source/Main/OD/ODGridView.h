@@ -61,6 +61,7 @@
 @protocol ODGridViewDelegate <NSObject>
 
 - (void)gridView:(ODGridView *)gridView didSelectItemAtIndex:(NSInteger)index;
+- (void)gridViewDidFinishLoading:(ODGridView *)gridView;
 
 @end
 
