@@ -206,6 +206,11 @@
 	return gridItemView;
 }
 
+- (void)gridViewDidFinishLoading:(ODGridView *)gridView
+{
+	// do nothing
+}
+
 - (NSString *)entityName
 {
 	if (self.dataSource) {

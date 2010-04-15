@@ -121,6 +121,10 @@
 	_itemSizeHeight = -1.0;
 	
 	[self setNeedsLayout];
+	
+	if (self.delegate && [self.delegate respondsToSelector:@selector(gridViewDidFinishLoading:)]) {
+		[self.delegate gridViewDidFinishLoading:self];
+	}
 }
 
 - (void)recycleViews
